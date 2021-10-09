@@ -1,0 +1,62 @@
+@keyframes blur {
+    0% {
+        filter: blur(0px);
+    }
+    100% {
+        filter: blur(7px);
+    }
+}
+@keyframes opacity {
+    0% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+.animation-opacity {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-name: opacity;
+}
+.animation-blur {
+    animation-duration: 7s;
+    animation-fill-mode: forwards;
+    animation-name: blur;
+    filter: blur(7px);
+}
+.main-menu-button {
+    background-color: rgba(0, 192, 255, 0.5);
+    border-radius: 15px;
+    border-style: none;
+    cursor: pointer;
+    flex-grow: 1;
+}
+#main-menu {
+    background-color: rgba(0, 192, 255, 0.2);
+    border-color: rgba(0, 192, 255, 1);
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    font-family: "Comic Sans MS", sans-serif;
+    position: absolute;
+    visibility: hidden;
+}
+#main-menu-title {
+    flex-grow: 3;
+    font-weight: bolder;
+}
+.main-menu-button, #main-menu-title {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+#background-image {
+    position:absolute;
+    top:-240px;
+}
