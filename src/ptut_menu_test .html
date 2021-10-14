@@ -4,20 +4,27 @@
 		<meta charset="UTF-8">
 		<link href="css/styles.css" rel="stylesheet">
 		<script src="js/menu.js"></script>
-		<title> Test </title>
+		<title> Heroe's path V0.1 </title>
 
 	</head>
 	<body>
 		<div id="background-image">
 			<img src="./images/ncs_gif_mario.gif"/>
 		</div>
+		<canvas id="canvas"></canvas>
 		<div id="main-menu">
 			<div id="main-menu-title"> MENU </div>
-			<div class="main-menu-button" onclick="hideMainMenu()"> Continue </div>
+			<div class="main-menu-button" onclick="hideMainMenu();"> Continue </div>
 			<div class="main-menu-button"> Options </div>
 			<div class="main-menu-button"> Support </div>
 			<div class="main-menu-button"> Credits </div>
 			<div class="main-menu-button"> Quit </div>
 		</div>
+
+		<!-- FAIRE ATTENTION A L'ORDRE !-->
+		<script src="js/player.js"></script>
+		<script src="js/main.js"></script>
+
+
 	</body>
 </html>
