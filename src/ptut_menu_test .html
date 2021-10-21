@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link href="css/styles.css" rel="stylesheet">
-		<script type="text/javascript" src="MenuClass.js"></script>
+		<script type="text/javascript" src="js/MenuClass.js"></script>
 		<title> Hero's path v0.1 </title>
 	</head>
 	<body>
@@ -31,7 +31,6 @@
 			mainMenu.setButtonFont("Comic Sans MS");
 			mainMenu.setButtonTextColor(0, 0, 0);
 			mainMenu.setButtonTextSize(3, "percent");
-			mainMenu.setListenedKey("Escape");
 			mainMenu.setTitle("TITRE");
 			mainMenu.setTitleColor(64, 64, 64);
 			mainMenu.setTitleFont("Comic Sans MS");
@@ -41,14 +40,19 @@
 			
 			for (var i = 0; i < 3; i++) {
 				mainMenu.addButton();
+				mainMenu.setButtonAction(i, function() { console.log("click !"); })
 				mainMenu.setButtonText(i, "Click !");
 				mainMenu.setButtonTextPosition(i, "right");
 				mainMenu.setButtonType(i, "switch");
 				mainMenu.setButtonValueVisibility(i, true);
 			}
+		
+			// Ajoute le keyListener
+			document.addEventListener("keyup", key => {
+				if (key.code === "Escape") mainMenu.visibility();
+			});
 			
 			mainMenu.load();
-			mainMenu.show();
 		</script>
 
 		<!-- FAIRE ATTENTION A L'ORDRE ! -->

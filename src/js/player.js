@@ -5,21 +5,25 @@ class Player{
         this.vx=0;
         this.vy=0;
         this.weight = 1; // graviter ( Rq : A mettre dans une autre classe ? Ex: world ? )
-        this.velocity =1; // déplacement
+        this.velocity = 0.3; // déplacement
         this.width = 15;
         this.height = 15;
+		this.goRight = false;
+		this.goLeft = false;
     }
 
     /**
      * Met a jours les attributs du joueur a chaques secondes.
      */
      update_player() {
+		if (this.goRight) this.right();
+		if (this.goLeft) this.left();
         player.vy += player.weight;
         this.x += this.vx;
         this.y += this.vy;
-        console.log("Cordo y : " + this.y
+        /*console.log("Cordo y : " + this.y
             + " vecteur y " + this.vy
-            + " vecteur x " + this.vx);
+            + " vecteur x " + this.vx);*/
         // collision avec le sol du niveau
 
         // Résistance au mouvement qui se produit entre le joueur et le sol . => cool : ajoute du réalisme
@@ -41,16 +45,16 @@ class Player{
         ctx.fillRect(this.x,this.y,this.width,this.height);
     }
 
-    jump(){if (this.vy === 0 && this.onGround()) this.vy = -20;}
+    jump(){if (this.vy === 0) this.vy = -20;}
 
     onGround() {return this.y===(canvas.heigth/6);}
 
     right() {
-        this.vx +=0.5 ;
+        this.vx += 0.5 * this.velocity ;
     }
 
     left() {
-        this.vx -=0.5 ;
+        this.vx -=0.5 * this.velocity;
     }
 }
 
