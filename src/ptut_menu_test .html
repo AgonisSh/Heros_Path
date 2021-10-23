@@ -14,46 +14,7 @@
 		<canvas id="canvas"></canvas>
 		
 		<!-- Exemple de menu, le listener et les fonctions sur les boutons ne marchent pas encore -->
-		<script>
-			mainMenu = new Menu(1.3, "relative", 720, "pixels");
-			mainMenu.setButtonSize(75, "percent", 10, "percent");
-			
-			mainMenu.setAlignment("center");
-			mainMenu.setBackground(25, 140, 255, 0.5);
-			mainMenu.setBorderColor(17, 98, 178);
-			mainMenu.setBorderRadius(7, "percentWidth");
-			mainMenu.setBorderSize(10, "pixels");
-			mainMenu.setButtonAlignment("center");
-			mainMenu.setButtonBackgroundColor(35, 207, 255);
-			mainMenu.setButtonBorderColor(24, 145, 178);
-			mainMenu.setButtonBorderRadius(100, "percentHeight");
-			mainMenu.setButtonBorderSize(1, "percentHeight");
-			mainMenu.setButtonFont("Comic Sans MS");
-			mainMenu.setButtonTextColor(0, 0, 0);
-			mainMenu.setButtonTextSize(3, "percent");
-			mainMenu.setTitle("TITRE");
-			mainMenu.setTitleColor(64, 64, 64);
-			mainMenu.setTitleFont("Comic Sans MS");
-			mainMenu.setTitleSize(10, "percent");
-			mainMenu.setTitleSpacing(5, "percent");
-			// mainMenu.setTotalSize(0.7, "relative", 720, "pixels");
-			
-			for (var i = 0; i < 3; i++) {
-				mainMenu.addButton();
-				mainMenu.setButtonAction(i, function() { console.log("click !"); })
-				mainMenu.setButtonText(i, "Click !");
-				mainMenu.setButtonTextPosition(i, "right");
-				mainMenu.setButtonType(i, "switch");
-				mainMenu.setButtonValueVisibility(i, true);
-			}
-		
-			// Ajoute le keyListener
-			document.addEventListener("keyup", key => {
-				if (key.code === "Escape") mainMenu.visibility();
-			});
-			
-			mainMenu.load();
-		</script>
+		<script src="js/createMenu"></script>
 
 		<!-- FAIRE ATTENTION A L'ORDRE ! -->
 		<script src="js/player.js"></script>
