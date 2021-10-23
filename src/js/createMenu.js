@@ -14,7 +14,7 @@ mainMenu.setTitleSize(10, "percent");
 mainMenu.setTitleSpacing(5, "percent");
 
 // Prioritaire
-mainMenu.setButtonSize(75, "percent", 10, "percent");
+mainMenu.setButtonsSize(75, "percent", 10, "percent");
 // Secondaire
 mainMenu.setButtonsAlignment("center");
 mainMenu.setButtonsBackgroundColor(35, 207, 255);

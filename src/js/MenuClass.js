@@ -882,7 +882,7 @@ class Menu
 	  * "pixels" correspond à la valeur en pixels
 	  * "percent" correspond à un pourcentage de la largeur du menu
 	 */
-	setButtonSize(width, widthMode, height, heightMode)
+	setButtonsSize(width, widthMode, height, heightMode)
 	{
 		// Vérification des valeurs
 		if (isNaN(width)) throw "\"width\" must be a number";
