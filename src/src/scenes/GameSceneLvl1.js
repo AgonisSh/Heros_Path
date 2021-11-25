@@ -5,7 +5,8 @@ let cursors;
 let player;
 let isOnAir = false;
 var score = 0;
-var scoreText;
+var scoreDiv = document.createElement("div");
+var jumpsAvaible;
 
 
 
@@ -80,14 +81,23 @@ export default class GameSceneLvl1 extends Phaser.Scene{
 
 
         // Affichage score
-        scoreText = this.add.text(100, 200, 'score: 0', { fontSize: '32px', fill: '#000', align: "top" });
-        scoreText.fixedToCamera = true;
+        document.getElementsByTagName("body")[0].appendChild(scoreDiv);
+        scoreDiv.innerHTML = "Score: " + score;
+        scoreDiv.style.align = "top";
+        scoreDiv.style.color = "white";
+        scoreDiv.style.fill = "#000";
+        scoreDiv.style.fontFamily = "fantasy";
+        scoreDiv.style.fontSize = '32px';
+        scoreDiv.style.position = "absolute";
+        scoreDiv.style.right = "100px";
+        scoreDiv.style.top = "100px";
+        scoreDiv.style.zIndex = "65532";
 
         function collectDiamonds (player, diamants)
         {
             diamants.disableBody(true, true);
             score += 10;
-            scoreText.setText('Score: ' + score);
+            scoreDiv.innerHTML = 'Score: ' + score;
             console.log(player.x);
             console.log(player.y);
         }
@@ -96,8 +106,12 @@ export default class GameSceneLvl1 extends Phaser.Scene{
     }
 
     isJumping(){
-        if(!cursors.up.isDown && !cursors.up.pressed){
-            isOnAir = false;
+        if (player.body.onFloor()) jumpsAvaible = 2;
+        if (jumpsAvaible >= 1) {
+            if (!cursors.up.isDown && !cursors.up.pressed) {
+                isOnAir = false;
+                jumpsAvaible--;
+            }
         }
     }
 
