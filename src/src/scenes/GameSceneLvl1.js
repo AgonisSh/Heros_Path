@@ -3,6 +3,7 @@ import 'phaser';
 // Les vars :
 let cursors;
 let player;
+let ogre;
 let isOnAir = false;
 var score = 0;
 var scoreDiv = document.createElement("div");
@@ -18,9 +19,9 @@ export default class GameSceneLvl1 extends Phaser.Scene{
     create ()
     {
         // Musique :
-        this.music = this.sound.add('music1');
+        this.music = this.sound.add('musicPokemon');
         this.music.play({
-            volume: 0.1,
+            volume: 0.2,
             loop: true
         });
 
@@ -44,25 +45,37 @@ export default class GameSceneLvl1 extends Phaser.Scene{
         // Charge le sprite du player et on choisi sa position
         player = this.physics.add.sprite(100,400,'player','knight_m_idle_anim_f0.png');
 
+        // Mob ogre test
+        ogre = this.physics.add.sprite(600,400,'ogre','ogre_idle_anim_f0G.png');
+
 
         player.setBounce(0.2);// Ptit rebond perso pour dynamisme
         player.body.setGravityY(800); // gravité du perso
         player.setCollideWorldBounds(true); // Les collisions perso avec le monde
 
+        // Pareil pour l'ogre
+        ogre.setBounce(0.2);// Ptit rebond perso pour dynamisme
+        ogre.body.setGravityY(800); // gravité du perso
+        ogre.setCollideWorldBounds(true); // Les collisions perso avec le monde
+
 
         player.setScale(1.3); // Pour rétrécir le sprite il faut type sprite
+
+        ogre.setScale(2); // Pour rétrécir le sprite il faut type sprite
 
         // Les touches du clavier
         cursors = this.input.keyboard.createCursorKeys()
 
         this.physics.add.collider(player, layerGround); // Collison entre layer sol et perso
+        this.physics.add.collider(ogre, layerGround); // Collison entre layer sol et perso
+        this.physics.add.collider(ogre, player); // Collison entre layer sol et perso
 
         // limite de la cam pour pas depasser les bordures
         this.cameras.main.setBounds(0, 0, map1.widthInPixels, map1.heightInPixels);
         // camera qui suivent le joueur
         this.cameras.main.startFollow(player);
         // Zoom sur la caméra
-        this.cameras.main.setZoom(1.9);
+        this.cameras.main.setZoom(1.6);
 
         // On ajoute les objets :
         var diamants = this.physics.add.group({
@@ -117,6 +130,7 @@ export default class GameSceneLvl1 extends Phaser.Scene{
 
     update(){
         this.isJumping();
+
         if (cursors.left.isDown) {
             player.setVelocityX(-400);
             player.play('runLPlayer', true);
@@ -134,6 +148,28 @@ export default class GameSceneLvl1 extends Phaser.Scene{
             player.setVelocityY(-400);
             isOnAir = true;
         }
+
+            // Les déplacements de l'ogre
+            if(player.x - ogre.x > 400){
+                ogre.play('idleROgre',true);
+                ogre.setVelocityX(0);
+            }
+            else if(ogre.x - player.x > 400){
+                ogre.play('idleLOgre',true);
+                ogre.setVelocityX(0);
+            }
+            else if(player.x < ogre.x){
+                ogre.setVelocityX(-300);
+                ogre.play('runLOgre',true);
+            }
+            else if(player.x > ogre.x){
+                ogre.setVelocityX(300);
+                ogre.play('runROgre',true);
+            }
+            if(player.y < ogre.y && ogre.body.onFloor()){
+                ogre.setVelocityY(-300);
+            }
+
     }
 
 }

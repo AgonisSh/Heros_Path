@@ -23,8 +23,10 @@ export default class BootScene extends Phaser.Scene{
             console.log(percentage);
         });
 
-        // Le sprite pour l'animation du perso
-        this.load.atlas('player', 'assets/img/animations/texture.png', 'assets/img/animations/texture.json');
+        // Le sprite pour l'animation du player
+        this.load.atlas('player', 'assets/img/animations/player.png', 'assets/img/animations/player.json');
+        // Le sprite pour l'animation de l'ogre
+        this.load.atlas('ogre', 'assets/img/animations/ogre.png', 'assets/img/animations/ogre.json');
 
         this.load.image('diamants','assets/img/diamond.png');
 
@@ -34,7 +36,7 @@ export default class BootScene extends Phaser.Scene{
         this.load.image('tilesBackground2', 'assets/tiles/FreeCuteTileset/BG3.png');
         this.load.tilemapTiledJSON('map1', 'assets/map/map1.json');
 
-        this.load.audio('music1','assets/music/music1.mp3');
+        this.load.audio('musicPokemon','assets/music/musicPokemon.mp3');
 
 
         // Prepare les animations et quand pret lance la scene game

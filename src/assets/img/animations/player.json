@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "texture",
+			"image": "player",
 			"format": "RGBA8888",
 			"size": {
 				"w": 29,

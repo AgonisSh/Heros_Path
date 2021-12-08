@@ -38,4 +38,54 @@ export default function lesAnimations(scene) {
         repeat: -1
     });
 
+
+    scene.anims.create({
+        key: 'idleROgre',
+        frames: [
+            { key: 'ogre', frame:"ogre_idle_anim_f0.png" },
+            { key: 'ogre', frame:"ogre_idle_anim_f1.png" },
+            { key: 'ogre', frame:"ogre_idle_anim_f2.png" },
+            { key: 'ogre', frame:"ogre_idle_anim_f3.png" },
+        ],
+        frameRate: 6,
+        repeat: -1
+    });
+
+
+    scene.anims.create({
+        key: 'idleLOgre',
+        frames: [
+            { key: 'ogre', frame:"ogre_idle_anim_f0G.png" },
+            { key: 'ogre', frame:"ogre_idle_anim_f1G.png" },
+            { key: 'ogre', frame:"ogre_idle_anim_f2G.png" },
+            { key: 'ogre', frame:"ogre_idle_anim_f3G.png" },
+        ],
+        frameRate: 6,
+        repeat: -1
+    });
+
+    scene.anims.create({
+        key: 'runROgre',
+        frames: [
+            { key: 'ogre', frame:"ogre_run_anim_f0.png" },
+            { key: 'ogre', frame:"ogre_run_anim_f1.png" },
+            { key: 'ogre', frame:"ogre_run_anim_f2.png" },
+            { key: 'ogre', frame:"ogre_run_anim_f3.png" },
+        ],
+        frameRate: 16,
+        repeat: -1
+    });
+
+    scene.anims.create({
+        key: 'runLOgre',
+        frames: [
+            { key: 'ogre', frame:"ogre_run_anim_f0G.png" },
+            { key: 'ogre', frame:"ogre_run_anim_f1G.png" },
+            { key: 'ogre', frame:"ogre_run_anim_f2G.png" },
+            { key: 'ogre', frame:"ogre_run_anim_f3G.png" },
+        ],
+        frameRate: 16,
+        repeat: -1
+    });
+
 }
