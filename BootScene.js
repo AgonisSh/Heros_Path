@@ -41,10 +41,11 @@ export default class BootScene extends Phaser.Scene{
 
         // Prepare les animations et quand pret lance la scene game
         this.load.on('complete', () => {
-            // prepare all animations, defined in a separate file
             lesAnimations(this);
             this.scene.start('Game');
         });
+
+
 
     }
 

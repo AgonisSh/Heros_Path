@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
-import GameSceneLvl1 from "./scenes/GameSceneLvl1";
-import BootScene from "./scenes/BootScene";
+import GameSceneLvl1 from "./GameSceneLvl1";
+import BootScene from "./BootScene";
 
 const config =  {
     type: Phaser.AUTO,
