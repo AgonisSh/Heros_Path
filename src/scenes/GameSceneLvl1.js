@@ -9,7 +9,10 @@ var score = 0;
 var scoreDiv = document.createElement("div");
 var jumpsAvaible;
 
-
+// TEMP
+var ogreXSpeed = 0;
+const OGRE_SPEED_INCREASE = 1;
+const OGRE_MAX_SPEED = 200;
 
 export default class GameSceneLvl1 extends Phaser.Scene{
     constructor() {
@@ -123,6 +126,7 @@ export default class GameSceneLvl1 extends Phaser.Scene{
 
             ogre.x = 600;
             ogre.y = 400;
+            ogreXSpeed = 0;
         }
     }
 
@@ -157,37 +161,47 @@ export default class GameSceneLvl1 extends Phaser.Scene{
             isOnAir = true;
         }
 
-            // Les déplacements de l'ogre
+        /* Les déplacements de l'ogre */
+        // stop if out of aggro range
+        if(player.x - ogre.x > 600){
+            ogre.play('idleROgre',true);
+            if (ogreXSpeed < 0) ogreXSpeed += OGRE_SPEED_INCREASE;
+            if (ogreXSpeed > 0) ogreXSpeed -= OGRE_SPEED_INCREASE;
+            ogre.setVelocityX(ogreXSpeed);
 
-            // stop if out of aggro range
-            if(player.x - ogre.x > 600){
-                ogre.play('idleROgre',true);
-                ogre.setVelocityX(0);
-            }
-            else if(ogre.x - player.x > 600){
-                ogre.play('idleLOgre',true);
-                ogre.setVelocityX(0);
-            }
-            // stop when too close of player on x axis
-            else if (player.x - ogre.x < 10 && player.x - ogre.x > 0){
-                ogre.play('idleROgre',true);
-                ogre.setVelocityX(0);
-            } else if (ogre.x - player.x < 10 && ogre.x - player.x > 0) {
-                ogre.play('idleLOgre', true);
-                ogre.setVelocityX(0);
-            }
-            // move
-            else if(player.x < ogre.x){
-                ogre.setVelocityX(-100);
-                ogre.play('runLOgre',true);
-                // jump if blocked
-                if (ogre.body.blocked.left && ogre.body.onFloor()) ogre.setVelocityY(-300);
-            }
-            else if(player.x > ogre.x){
-                ogre.setVelocityX(100);
-                ogre.play('runROgre',true);
-                // jump if blocked
-                if (ogre.body.blocked.right && ogre.body.onFloor()) ogre.setVelocityY(-300);
-            }
+        }
+        else if(ogre.x - player.x > 600){
+            ogre.play('idleLOgre',true);
+            if (ogreXSpeed < 0) ogreXSpeed += OGRE_SPEED_INCREASE;
+            if (ogreXSpeed > 0) ogreXSpeed -= OGRE_SPEED_INCREASE;
+            ogre.setVelocityX(ogreXSpeed);
+        }
+        // stop when too close of player on x axis
+        else if (player.x - ogre.x < 10 && player.x - ogre.x > 0){
+            ogre.play('idleROgre',true);
+            if (ogreXSpeed < 0) ogreXSpeed += OGRE_SPEED_INCREASE;
+            if (ogreXSpeed > 0) ogreXSpeed -= OGRE_SPEED_INCREASE;
+            ogre.setVelocityX(ogreXSpeed);
+        } else if (ogre.x - player.x < 10 && ogre.x - player.x > 0) {
+            ogre.play('idleLOgre', true);
+            if (ogreXSpeed < 0) ogreXSpeed += OGRE_SPEED_INCREASE;
+            if (ogreXSpeed > 0) ogreXSpeed -= OGRE_SPEED_INCREASE;
+            ogre.setVelocityX(ogreXSpeed);
+        }
+        // move
+        else if(player.x < ogre.x){
+            if (ogreXSpeed > -OGRE_MAX_SPEED) ogreXSpeed -= OGRE_SPEED_INCREASE;
+            ogre.setVelocityX(ogreXSpeed);
+            ogre.play('runLOgre',true);
+            // jump if blocked
+            if (ogre.body.blocked.left && ogre.body.onFloor()) ogre.setVelocityY(-300);
+        }
+        else if(player.x > ogre.x){
+            if (ogreXSpeed < OGRE_MAX_SPEED) ogreXSpeed += OGRE_SPEED_INCREASE;
+            ogre.setVelocityX(ogreXSpeed);
+            ogre.play('runROgre',true);
+            // jump if blocked
+            if (ogre.body.blocked.right && ogre.body.onFloor()) ogre.setVelocityY(-300);
+        }
     }
 }
