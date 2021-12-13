@@ -68,7 +68,7 @@ export default class GameSceneLvl1 extends Phaser.Scene{
 
         this.physics.add.collider(player, layerGround); // Collison entre layer sol et perso
         this.physics.add.collider(ogre, layerGround); // Collison entre layer sol et perso
-        this.physics.add.collider(ogre, player); // Collison entre layer sol et perso
+        this.physics.add.overlap(player, ogre, killPlayer, null, this); // kill player if on ogre
 
         // limite de la cam pour pas depasser les bordures
         this.cameras.main.setBounds(0, 0, map1.widthInPixels, map1.heightInPixels);
@@ -115,7 +115,15 @@ export default class GameSceneLvl1 extends Phaser.Scene{
             console.log(player.y);
         }
 
+        // TODO : kill le joueur au contact
+        function killPlayer(player, ogre)
+        {
+            player.x = 100;
+            player.y = 400;
 
+            ogre.x = 600;
+            ogre.y = 400;
+        }
     }
 
     isJumping(){
@@ -150,26 +158,36 @@ export default class GameSceneLvl1 extends Phaser.Scene{
         }
 
             // Les déplacements de l'ogre
-            if(player.x - ogre.x > 400){
+
+            // stop if out of aggro range
+            if(player.x - ogre.x > 600){
                 ogre.play('idleROgre',true);
                 ogre.setVelocityX(0);
             }
-            else if(ogre.x - player.x > 400){
+            else if(ogre.x - player.x > 600){
                 ogre.play('idleLOgre',true);
                 ogre.setVelocityX(0);
             }
+            // stop when too close of player on x axis
+            else if (player.x - ogre.x < 10 && player.x - ogre.x > 0){
+                ogre.play('idleROgre',true);
+                ogre.setVelocityX(0);
+            } else if (ogre.x - player.x < 10 && ogre.x - player.x > 0) {
+                ogre.play('idleLOgre', true);
+                ogre.setVelocityX(0);
+            }
+            // move
             else if(player.x < ogre.x){
-                ogre.setVelocityX(-300);
+                ogre.setVelocityX(-100);
                 ogre.play('runLOgre',true);
+                // jump if blocked
+                if (ogre.body.blocked.left && ogre.body.onFloor()) ogre.setVelocityY(-300);
             }
             else if(player.x > ogre.x){
-                ogre.setVelocityX(300);
+                ogre.setVelocityX(100);
                 ogre.play('runROgre',true);
+                // jump if blocked
+                if (ogre.body.blocked.right && ogre.body.onFloor()) ogre.setVelocityY(-300);
             }
-            if(player.y < ogre.y && ogre.body.onFloor()){
-                ogre.setVelocityY(-300);
-            }
-
     }
-
 }
