@@ -32,27 +32,17 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         // Boolean qui sera peut être utile pour toi redha
         // this.isChasing=false;
         // this.targer = new Phaser.Math.Vector2();
+        this.scene.physics.add.overlap(this.player, this, this.killPlayer, null, this.scene); // kill player if on ogre
+
     }
 
-    update(){ // todo corriger bug : le joueur ou le mob peut pousser l'autre a traver le mur.
-        if(this.player.x - this.x > 400){
-            this.playAnimationKey(0);
-            this.setVelocityX(0);
-        }
-        else if(this.x - this.player.x > 400){
-            this.playAnimationKey(0);
-            this.setVelocityX(0);
-        }
-        else if(this.player.x < this.x){
-            this.playAnimationKey(1);
-            this.setVelocityX(-300);
-        }
-        else if(this.player.x > this.x){
-            this.setVelocityX(300);
-            this.playAnimationKey(2);
-        }
-        if(this.player.y < this.y && this.body.onFloor()){
-            this.setVelocityY(-300);
-        }
+    // TODO : kill le joueur au contact
+    killPlayer(player, ogre)
+    {
+        this.player.x = 100;
+        this.player.y = 400;
     }
+
+    update()
+    {}
 }
