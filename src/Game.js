@@ -4,9 +4,9 @@ import Ogre from "./Ogre";
 
 
 
-export default class GameSceneLvl1 extends Phaser.Scene{
+export default class Game extends Phaser.Scene{
     constructor() {
-        super('Game'); // game is the key of the scene
+        super('Game');
         this.cursor;
         this.player;
         this.ogre;
@@ -59,7 +59,7 @@ export default class GameSceneLvl1 extends Phaser.Scene{
     create ()
     {
 
-        this.loadMap();
+        this.loadMap(map);
         this.loadMusic();
 
         // Les touches du clavier
