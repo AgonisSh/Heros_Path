@@ -32,8 +32,13 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         // Boolean qui sera peut être utile pour toi redha
         // this.isChasing=false;
         // this.targer = new Phaser.Math.Vector2();
-        this.scene.physics.add.overlap(this.player, this, this.killPlayer, null, this.scene); // kill player if on ogre
+        this.scene.physics.add.overlap(this.player, this, this.restart, null, this.scene); // kill player if on ogre
+    }
 
+    restart()
+    {
+        this.score = 0;
+        this.scene.restart();
     }
 
     // TODO : kill le joueur au contact
