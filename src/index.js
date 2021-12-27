@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import GameSceneLvl1 from "./GameSceneLvl1";
+import Game from "./Game";
 import BootScene from "./BootScene";
 
 const config =  {
@@ -19,7 +19,7 @@ const config =  {
     },
     scene: [
         BootScene,
-        GameSceneLvl1
+        Game
     ]
 };
 

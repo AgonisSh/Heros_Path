@@ -4,7 +4,7 @@ import Ogre from "./Ogre";
 
 
 
-export default class GameSceneLvl1 extends Phaser.Scene{
+export default class Game extends Phaser.Scene{
     constructor() {
         super('Game'); // game is the key of the scene
         this.cursor;
@@ -34,7 +34,6 @@ export default class GameSceneLvl1 extends Phaser.Scene{
         this.layerBackgroundDecors = this.map1.createLayer("DecorBackground",this.tilesBackgroundDecor, 0, 0);
         this.layerGround = this.map1.createLayer("Ground",this.tileset, 0, 0);
         this.layerGround.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
-
         // Le limite du monde :
         this.physics.world.bounds.width = this.layerBackground.width;
         this.physics.world.bounds.height = this.layerBackground.height;
@@ -53,6 +52,12 @@ export default class GameSceneLvl1 extends Phaser.Scene{
     {
         diamants.disableBody(true, true);
         this.score += 10;
+        /*** TEST POUVOIR ***/
+
+        this.player.collectPower('fireball',1);
+
+
+        /**** ** ** */
         this.scoreDiv.innerHTML = 'Score: ' + this.score;
     }
 
@@ -61,12 +66,11 @@ export default class GameSceneLvl1 extends Phaser.Scene{
 
         this.loadMap();
         this.loadMusic();
-
         // Les touches du clavier
         this.cursors = this.input.keyboard.createCursorKeys()
-
         this.player = new Player(this,100,400,'player','knight_m_idle_anim_f0.png',280);
         this.ogre = new Ogre(this,600,400,'ogre','ogre_idle_anim_f0G.png',300);
+
 
         this.diamants = this.physics.add.group({
             key: 'diamants',
@@ -77,6 +81,8 @@ export default class GameSceneLvl1 extends Phaser.Scene{
         this.physics.add.collider(this.player, this.layerGround); // Collison entre layer sol et perso
         this.physics.add.collider(this.ogre, this.layerGround); // Collison entre layer sol et perso
         this.physics.add.collider(this.ogre, this.player); // Collison entre layer sol et perso
+
+        this.physics.add.collider(this.ogre,this.player.power,this.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
 
         this.physics.add.collider(this.diamants, this.layerGround);
         this.physics.add.overlap(this.player, this.diamants, this.collectDiamonds, null, this);

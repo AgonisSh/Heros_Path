@@ -1,3 +1,5 @@
+import Power from "./Power"
+import Powers from "./Powers"
 export default class Player extends Phaser.Physics.Arcade.Sprite
 {
     constructor (scene, x, y,texture,animation,speed)
@@ -24,6 +26,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         this.isAlive;
         this.target = new Phaser.Math.Vector2();
         this.speed = speed;
+        this.side = "right";
+
+        this.power = new Powers(this.scene);
 
         this.start();
     }
@@ -46,16 +51,32 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         }
     }
 
+    collectPower(powerName,quantity){
+        // **** TEST **** // Le joueur obtient "FIREBALL" a partir du 3ème diamant récupérer.
+        let pow;
+
+        for(let i = 0 ; i < quantity ;i++){
+            pow = new Power(this.scene,this.x,this.y,powerName);
+            pow.setActive(false);
+            pow.setVisible(false);
+            this.updatePower(pow);
+        }
+
+        // ****
+    }
+
     update()
     {
         this.isJumping();
 
         if (this.scene.cursors.left.isDown) {
             this.setVelocityX(-400);
+            this.side="left";
             this.play('runLPlayer', true);
         }
         else if (this.scene.cursors.right.isDown) {
             this.setVelocityX(400);
+            this.side="right";
             this.play('runRPlayer', true);
         }
         else{
@@ -67,16 +88,31 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
             this.setVelocityY(-400);
             this.isOnAir = true;
         }
+
+        if(this.scene.input.keyboard.checkDown(this.scene.cursors.space, 150)){ // delay of 150ms
+            this.usePower();
+        }
+
     }
 
     kill ()
     {
         this.isAlive = false;
-
         this.body.stop();
     }
 
     sayHello(){
-        console.log("hello you, ... I know where you live.");
+        console.log("Hello I'm the legendary hero !, ...");
+    }
+
+    updatePower(pow){
+        this.power.addPower(pow);
+    }
+
+    usePower(){
+        if(!this.power){
+            return;
+        }
+        this.power.usePower(this.x,this.y,this.side);
     }
 }
