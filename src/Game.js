@@ -12,6 +12,7 @@ export default class Game extends Phaser.Scene{
         this.ogre;
         this.score=0
         this.scoreDiv = document.createElement("div");
+        this.PowerDiv = document.createElement("div");
         this.diamants;
 
         this.map1;
@@ -55,10 +56,11 @@ export default class Game extends Phaser.Scene{
         /*** TEST POUVOIR ***/
 
         this.player.collectPower('fireball',1);
-
+        this.PowerDiv.innerHTML = this.player.power.powerName+": " + this.player.power.count;
 
         /**** ** ** */
         this.scoreDiv.innerHTML = 'Score: ' + this.score;
+
     }
 
     create ()
@@ -97,6 +99,19 @@ export default class Game extends Phaser.Scene{
         // Zoom sur la caméra
         this.cameras.main.setZoom(1.6);
 
+        // Set html indicator
+        document.getElementsByTagName("body")[0].appendChild(this.PowerDiv);
+        this.PowerDiv.innerHTML = this.player.power.powerName + "  " + this.player.power.count;
+        this.PowerDiv.style.align = "top";
+        this.PowerDiv.style.color = "white";
+        this.PowerDiv.style.fill = "#000";
+        this.PowerDiv.style.fontFamily = "fantasy";
+        this.PowerDiv.style.fontSize = '32px';
+        this.PowerDiv.style.position = "absolute";
+        this.PowerDiv.style.right = "100px";
+        this.PowerDiv.style.top = "70px";
+        this.PowerDiv.style.zIndex = "65532";
+
         document.getElementsByTagName("body")[0].appendChild(this.scoreDiv);
         this.scoreDiv.innerHTML = "Score: " + this.score;
         this.scoreDiv.style.align = "top";
@@ -108,6 +123,8 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.right = "100px";
         this.scoreDiv.style.top = "100px";
         this.scoreDiv.style.zIndex = "65532";
+
+
     }
 
     update(){

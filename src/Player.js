@@ -28,8 +28,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         this.speed = speed;
         this.side = "right";
 
-        this.power = new Powers(this.scene);
-
+        this.power = new Powers(this.scene); // représente un 'group' object.
         this.start();
     }
 
@@ -54,6 +53,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
     collectPower(powerName,quantity){
         // **** TEST **** // Le joueur obtient "FIREBALL" a partir du 3ème diamant récupérer.
         let pow;
+        this.power.powerName = powerName;
 
         for(let i = 0 ; i < quantity ;i++){
             pow = new Power(this.scene,this.x,this.y,powerName);
