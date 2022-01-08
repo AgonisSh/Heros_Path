@@ -14,6 +14,7 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv = document.createElement("div");
         this.PowerDiv = document.createElement("div");
         this.diamants;
+        this.soundBackup = null;
 
         this.map1;
         this.tileset;
@@ -42,6 +43,7 @@ export default class Game extends Phaser.Scene{
 
     loadMusic(){
         // Musique :
+        if (this.music != null) return;
         this.music = this.sound.add('musicPokemon');
         this.music.play({
             volume: 0.2,
