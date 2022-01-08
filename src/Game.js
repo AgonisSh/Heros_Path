@@ -123,8 +123,6 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.right = "100px";
         this.scoreDiv.style.top = "100px";
         this.scoreDiv.style.zIndex = "65532";
-
-
     }
 
     update(){
@@ -133,6 +131,11 @@ export default class Game extends Phaser.Scene{
 
         // Les déplacements de l'ogre
         this.ogre.update();
+
+        // TODO: remove after presentation
+        if (this.player.x == 10.4) {
+            this.player.x = 5000;
+        }
 
     }
 
