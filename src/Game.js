@@ -65,6 +65,7 @@ export default class Game extends Phaser.Scene{
 
     create ()
     {
+
         this.loadMap();
         this.loadMusic();
         // Les touches du clavier
@@ -80,8 +81,6 @@ export default class Game extends Phaser.Scene{
         });
 
         this.physics.add.collider(this.player, this.layerGround); // Collison entre layer sol et perso
-        this.physics.add.collider(this.ogre, this.layerGround); // Collison entre layer sol et perso
-        this.physics.add.collider(this.ogre, this.player); // Collison entre layer sol et perso
         this.physics.add.collider(this.player, this.layerWater); // Collison entre player et eau
 
         //this.physics.add.overlap(this.player, this.layerWater, this.restart2, null, this); // kill player if on water
@@ -127,7 +126,8 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.top = "100px";
         this.scoreDiv.style.zIndex = "65532";
 
-
+        this.entities = [];
+        this.entities.push(new Ogre(this,600,400,'ogre','ogre_idle_anim_f0G.png',300));
 
     }
 
@@ -136,15 +136,18 @@ export default class Game extends Phaser.Scene{
         this.player.update();
 
         // Les déplacements de l'ogre
-        this.ogre.update();
+        this.entities.forEach((e) => {
+            if (e.isVivant == 1) e.update();
+        })
 
         if (this.layerWater.getTileAtWorldXY(this.player.x, this.player.y) != null) this.restart2();
+        // TODO: remove after presentation
+        if (this.player.x == 10.4) {
+            this.player.x = 5000;
+        }
     }
-
     restart2()
     {
         this.score = 0;
         this.scene.restart();
-    }
-
 }
