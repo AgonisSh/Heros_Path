@@ -88,4 +88,55 @@ export default function lesAnimations(scene) {
         repeat: -1
     });
 
+    //-----
+
+    scene.anims.create({
+        key: 'idleRDemon',
+        frames: [
+            { key: 'demon', frame:"demon_idle_anim_f0.png" },
+            { key: 'demon', frame:"demon_idle_anim_f1.png" },
+            { key: 'demon', frame:"demon_idle_anim_f2.png" },
+            { key: 'demon', frame:"demon_idle_anim_f3.png" },
+        ],
+        frameRate: 6,
+        repeat: -1
+    });
+
+
+    scene.anims.create({
+        key: 'idleLDemon',
+        frames: [
+            { key: 'demon', frame:"demon_idle_anim_f0G.png" },
+            { key: 'demon', frame:"demon_idle_anim_f1G.png" },
+            { key: 'demon', frame:"demon_idle_anim_f2G.png" },
+            { key: 'demon', frame:"demon_idle_anim_f3G.png" },
+        ],
+        frameRate: 6,
+        repeat: -1
+    });
+
+    scene.anims.create({
+        key: 'runRDemon',
+        frames: [
+            { key: 'demon', frame:"demon_run_anim_f0.png" },
+            { key: 'demon', frame:"demon_run_anim_f1.png" },
+            { key: 'demon', frame:"demon_run_anim_f2.png" },
+            { key: 'demon', frame:"demon_run_anim_f3.png" },
+        ],
+        frameRate: 16,
+        repeat: -1
+    });
+
+    scene.anims.create({
+        key: 'runLDemon',
+        frames: [
+            { key: 'demon', frame:"demon_run_anim_f0G.png" },
+            { key: 'demon', frame:"demon_run_anim_f1G.png" },
+            { key: 'demon', frame:"demon_run_anim_f2G.png" },
+            { key: 'demon', frame:"demon_run_anim_f3G.png" },
+        ],
+        frameRate: 16,
+        repeat: -1
+    });
+
 }
