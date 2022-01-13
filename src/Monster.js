@@ -7,7 +7,6 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
     {
         super(scene, x, y, 'assets');
         this.isVivant = 1;
-        this.id = scene.entities.size - 1;
         this.setTexture(texture);
         this.play(animation);
         this.scene = scene;

@@ -146,8 +146,8 @@ export default class Game extends Phaser.Scene{
             this.player.x = 5000;
         }
     }
-    restart2()
-    {
+    restart2() {
         this.score = 0;
         this.scene.restart();
+    }
 }
