@@ -17,7 +17,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         this.isOnAir = false;
 
         //this.setCircle(14, 3, 6);
-        this.setScale(1.3); // Pour rétrécir le sprite il faut type sprite
+        this.setScale(1.4); // Pour rétrécir le sprite il faut type sprite
         this.setCollideWorldBounds(true);
 
         this.setBounce(0.2);
@@ -35,11 +35,6 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         this.scene.physics.add.overlap(this.player, this, this.restart, null, this.scene); // kill player if on ogre
     }
 
-    restart()
-    {
-        this.score = 0;
-        this.scene.restart();
-    }
 
     // TODO : kill le joueur au contact
     killPlayer(player, ogre)
@@ -50,4 +45,10 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
 
     update()
     {}
+
+    restart()
+    {
+        this.score = 0;
+        this.scene.restart();
+    }
 }

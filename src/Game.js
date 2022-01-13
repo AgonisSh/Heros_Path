@@ -26,13 +26,13 @@ export default class Game extends Phaser.Scene{
 
     loadMap(){
         // Pour créer la map mettre tjrs la taille des tiles avec les différents layer permet de différencier un décor d'un mur par exemple
-        this.map1 = this.make.tilemap({ key: 'map1', tileWidth: 16, tileHeight: 16 });
-        this.tileset = this.map1.addTilesetImage('Tileset', 'tiles');
-        this.tilesBackground = this.map1.addTilesetImage('tiles1Background', 'tilesBackground');
-        this.tilesBackgroundDecor = this.map1.addTilesetImage('tiles1Background2', 'tilesBackground2');
+        this.map1 = this.make.tilemap({ key: 'map1', tileWidth: 32, tileHeight: 32 });
+        this.tileset = this.map1.addTilesetImage('generic_platformer_tiles', 'tiles');  // Faut mettre nom de la tile dans Tiled
+
         //layers :
-        this.layerBackground = this.map1.createLayer("Background",this.tilesBackground, 0, 0);
-        this.layerBackgroundDecors = this.map1.createLayer("DecorBackground",this.tilesBackgroundDecor, 0, 0);
+        this.layerBackground = this.map1.createLayer("Background",this.tileset, 0, 0);
+        this.layerBackgroundDecors = this.map1.createLayer("BackgroundDecor",this.tileset, 0, 0);
+        this.layerWater = this.map1.createLayer("Water",this.tileset, 0, 0);
         this.layerGround = this.map1.createLayer("Ground",this.tileset, 0, 0);
         this.layerGround.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
         // Le limite du monde :
@@ -65,11 +65,10 @@ export default class Game extends Phaser.Scene{
 
     create ()
     {
-
         this.loadMap();
         this.loadMusic();
         // Les touches du clavier
-        this.cursors = this.input.keyboard.createCursorKeys()
+        this.cursors = this.input.keyboard.createCursorKeys();
         this.player = new Player(this,100,400,'player','knight_m_idle_anim_f0.png',280);
         this.ogre = new Ogre(this,600,400,'ogre','ogre_idle_anim_f0G.png',300);
 
@@ -83,6 +82,10 @@ export default class Game extends Phaser.Scene{
         this.physics.add.collider(this.player, this.layerGround); // Collison entre layer sol et perso
         this.physics.add.collider(this.ogre, this.layerGround); // Collison entre layer sol et perso
         this.physics.add.collider(this.ogre, this.player); // Collison entre layer sol et perso
+        this.physics.add.collider(this.player, this.layerWater); // Collison entre player et eau
+
+        //this.physics.add.overlap(this.player, this.layerWater, this.restart2, null, this); // kill player if on water
+
 
         this.physics.add.collider(this.ogre,this.player.power,this.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
 
@@ -97,7 +100,7 @@ export default class Game extends Phaser.Scene{
         // camera qui suivent le joueur
         this.cameras.main.startFollow(this.player);
         // Zoom sur la caméra
-        this.cameras.main.setZoom(1.6);
+        this.cameras.main.setZoom(1.3);
 
         // Set html indicator
         document.getElementsByTagName("body")[0].appendChild(this.PowerDiv);
@@ -125,6 +128,7 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.zIndex = "65532";
 
 
+
     }
 
     update(){
@@ -134,6 +138,13 @@ export default class Game extends Phaser.Scene{
         // Les déplacements de l'ogre
         this.ogre.update();
 
+        if (this.layerWater.getTileAtWorldXY(this.player.x, this.player.y) != null) this.restart2();
+    }
+
+    restart2()
+    {
+        this.score = 0;
+        this.scene.restart();
     }
 
 }
