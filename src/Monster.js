@@ -14,7 +14,6 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         this.scene.physics.add.existing(this);
 
         //this.scene.entities.forEach((e) => {this.scene.physics.add.collider(this, e); // Collison entre mob et autres mobs});
-        this.scene.physics.add.collider(this, this.scene.player); // Collison entre mob et perso
         this.scene.physics.add.collider(this, this.scene.layerGround); // Collison entre layer sol et mob
         this.scene.physics.add.collider(this ,this.scene.player.power, this.scene.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
 

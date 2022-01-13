@@ -1,6 +1,7 @@
 import 'phaser';
 import Player from "./Player";
 import Ogre from "./Ogre";
+import Demon from "./Demon"
 
 
 
@@ -9,7 +10,6 @@ export default class Game extends Phaser.Scene{
         super('Game'); // game is the key of the scene
         this.cursor;
         this.player;
-        this.ogre;
         this.score=0
         this.scoreDiv = document.createElement("div");
         this.PowerDiv = document.createElement("div");
@@ -55,7 +55,7 @@ export default class Game extends Phaser.Scene{
         this.score += 10;
         /*** TEST POUVOIR ***/
 
-        this.player.collectPower('fireball',1);
+        this.player.collectPower('fireball',100);
         this.PowerDiv.innerHTML = this.player.power.powerName+": " + this.player.power.count;
 
         /**** ** ** */
@@ -88,7 +88,7 @@ export default class Game extends Phaser.Scene{
         this.physics.add.overlap(this.player, this.diamants, this.collectDiamonds, null, this);
 
         this.diamants.children.iterate(function (child) {
-            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+            child.setBounceY(Phaser.Math.FloatBetween(0.1, 0.3));
         });
 
         this.cameras.main.setBounds(0, 0, this.map1.widthInPixels, this.map1.heightInPixels);
@@ -123,7 +123,7 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.zIndex = "65532";
 
         this.entities = [];
-        this.entities.push(new Ogre(this,600,400,'ogre','ogre_idle_anim_f0G.png',300));
+        this.entities.push(new Demon(this,600,400,'ogre','ogre_idle_anim_f0G.png',300));
 
     }
 

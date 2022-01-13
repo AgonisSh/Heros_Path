@@ -89,7 +89,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
             this.isOnAir = true;
         }
 
-        if(this.scene.input.keyboard.checkDown(this.scene.cursors.space, 1000)){ // delay of 1s
+        if(this.scene.input.keyboard.checkDown(this.scene.cursors.space, 150)){ // delay of 150ms
             this.usePower();
         }
 
@@ -114,5 +114,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
             return;
         }
         this.power.usePower(this.x,this.y,this.side);
+    }
+    
+    win()
+    {
+        alert("Felicitation vous avez \n"+this.scene.score+" points ")
+        this.kill();
     }
 }
