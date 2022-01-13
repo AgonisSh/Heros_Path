@@ -81,7 +81,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         }
         else{
             this.setVelocityX(0);
-            this.play('idleRPlayer', true);
+            if(this.side === "left") this.play('idleLPlayer',true);
+            else this.play('idleRPlayer', true);
         }
 
         if (this.scene.cursors.up.isDown && !this.isOnAir){

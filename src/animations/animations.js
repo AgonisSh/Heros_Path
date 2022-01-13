@@ -15,6 +15,18 @@ export default function lesAnimations(scene) {
     });
 
     scene.anims.create({
+        key: 'idleLPlayer',
+        frames: [
+            { key: 'player', frame:"knight_m_idle_anim_f0L.png" },
+            { key: 'player', frame:"knight_m_idle_anim_f1L.png" },
+            { key: 'player', frame:"knight_m_idle_anim_f2L.png" },
+            { key: 'player', frame:"knight_m_idle_anim_f3L.png" },
+        ],
+        frameRate: 6,
+        repeat: -1
+    });
+
+    scene.anims.create({
         key: 'runRPlayer',
         frames: [
             { key: 'player', frame:"knight_m_run_anim_f0.png" },
