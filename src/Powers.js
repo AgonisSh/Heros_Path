@@ -35,6 +35,7 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
 
     handlePowerMonster(monster,obj){
         obj.destroy();
+        // monster.destroy();   // TODO: fix. game crashed because ogre can't be animated but still want to be animated
     }
 
 }
