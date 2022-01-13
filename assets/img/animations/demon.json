@@ -1,0 +1,355 @@
+{
+	"textures": [
+		{
+			"image": "demon",
+			"format": "RGBA8888",
+			"size": {
+				"w": 93,
+				"h": 188
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "demon_run_anim_f2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 2,
+						"w": 22,
+						"h": 34
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 22,
+						"h": 34
+					}
+				},
+				{
+					"filename": "demon_run_anim_f2G.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 2,
+						"w": 22,
+						"h": 34
+					},
+					"frame": {
+						"x": 0,
+						"y": 34,
+						"w": 22,
+						"h": 34
+					}
+				},
+				{
+					"filename": "demon_idle_anim_f1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 5,
+						"w": 23,
+						"h": 31
+					},
+					"frame": {
+						"x": 0,
+						"y": 68,
+						"w": 23,
+						"h": 31
+					}
+				},
+				{
+					"filename": "demon_idle_anim_f1G.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 5,
+						"w": 23,
+						"h": 31
+					},
+					"frame": {
+						"x": 22,
+						"y": 0,
+						"w": 23,
+						"h": 31
+					}
+				},
+				{
+					"filename": "demon_idle_anim_f2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 5,
+						"w": 22,
+						"h": 31
+					},
+					"frame": {
+						"x": 22,
+						"y": 31,
+						"w": 22,
+						"h": 31
+					}
+				},
+				{
+					"filename": "demon_idle_anim_f2G.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 5,
+						"w": 22,
+						"h": 31
+					},
+					"frame": {
+						"x": 0,
+						"y": 99,
+						"w": 22,
+						"h": 31
+					}
+				},
+				{
+					"filename": "demon_idle_anim_f0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 6,
+						"w": 23,
+						"h": 30
+					},
+					"frame": {
+						"x": 0,
+						"y": 130,
+						"w": 23,
+						"h": 30
+					}
+				},
+				{
+					"filename": "demon_idle_anim_f0G.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 6,
+						"w": 23,
+						"h": 30
+					},
+					"frame": {
+						"x": 22,
+						"y": 99,
+						"w": 23,
+						"h": 30
+					}
+				},
+				{
+					"filename": "demon_run_anim_f1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 3,
+						"w": 22,
+						"h": 29
+					},
+					"frame": {
+						"x": 23,
+						"y": 62,
+						"w": 22,
+						"h": 29
+					}
+				},
+				{
+					"filename": "demon_run_anim_f1G.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 3,
+						"w": 22,
+						"h": 29
+					},
+					"frame": {
+						"x": 44,
+						"y": 31,
+						"w": 22,
+						"h": 29
+					}
+				},
+				{
+					"filename": "demon_idle_anim_f3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 8,
+						"w": 26,
+						"h": 28
+					},
+					"frame": {
+						"x": 45,
+						"y": 0,
+						"w": 26,
+						"h": 28
+					}
+				},
+				{
+					"filename": "demon_idle_anim_f3G.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 8,
+						"w": 26,
+						"h": 28
+					},
+					"frame": {
+						"x": 0,
+						"y": 160,
+						"w": 26,
+						"h": 28
+					}
+				},
+				{
+					"filename": "demon_run_anim_f3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 8,
+						"w": 23,
+						"h": 28
+					},
+					"frame": {
+						"x": 23,
+						"y": 129,
+						"w": 23,
+						"h": 28
+					}
+				},
+				{
+					"filename": "demon_run_anim_f3G.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 8,
+						"w": 23,
+						"h": 28
+					},
+					"frame": {
+						"x": 45,
+						"y": 60,
+						"w": 23,
+						"h": 28
+					}
+				},
+				{
+					"filename": "demon_run_anim_f0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 6,
+						"w": 22,
+						"h": 28
+					},
+					"frame": {
+						"x": 66,
+						"y": 28,
+						"w": 22,
+						"h": 28
+					}
+				},
+				{
+					"filename": "demon_run_anim_f0G.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 36
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 6,
+						"w": 22,
+						"h": 28
+					},
+					"frame": {
+						"x": 71,
+						"y": 0,
+						"w": 22,
+						"h": 28
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7"
+	}
+}
