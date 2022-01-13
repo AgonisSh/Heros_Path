@@ -6,18 +6,23 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
     constructor (scene, x, y,texture,animation,speed)
     {
         super(scene, x, y, 'assets');
+        this.isVivant = 1;
         this.setTexture(texture);
         this.play(animation);
         this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
 
+        //this.scene.entities.forEach((e) => {this.scene.physics.add.collider(this, e); // Collison entre mob et autres mobs});
+        this.scene.physics.add.collider(this, this.scene.layerGround); // Collison entre layer sol et mob
+        this.scene.physics.add.collider(this ,this.scene.player.power, this.scene.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
+
         this.player = this.scene.player;
         this.jumpsAvaible;
         this.isOnAir = false;
 
         //this.setCircle(14, 3, 6);
-        this.setScale(1.3); // Pour rétrécir le sprite il faut type sprite
+        this.setScale(1.4); // Pour rétrécir le sprite il faut type sprite
         this.setCollideWorldBounds(true);
 
         this.setBounce(0.2);
@@ -50,4 +55,16 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
 
     update()
     {}
+
+    restart()
+    {
+        this.score = 0;
+        this.scene.restart();
+    }
+
+    kill()
+    {
+        this.isVivant = 0;
+        this.destroy();
+    }
 }
