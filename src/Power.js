@@ -9,9 +9,12 @@ export default class Power extends Phaser.Physics.Arcade.Sprite {
         this.damage = 0;
         this.velocity = 700;
         this.name = powerName;
+        this.lifespan = 1000 ;
 
         this.scene = scene;
         this.scene.add.existing(this);
+
+        this.counter=0; // compte le nombre de collision
     }
 
     usePower(x,y,side){
@@ -23,8 +26,7 @@ export default class Power extends Phaser.Physics.Arcade.Sprite {
         this.body.setBounce(1);
         this.setCollideWorldBounds(true);
 
-        switch (side)
-        {
+        switch (side) {
             case 'left':
                 this.setVelocityX(-this.velocity);
                 break
@@ -32,6 +34,15 @@ export default class Power extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityX(this.velocity);
                 break
         }
+    }
+
+    // Usefull : https://phasergames.com/how-to-get-delta-time-in-phaser-3/
+    update(pow,delta){
+        this.duration-=delta;
+        if(this.duration <= 0){
+            this.destroy();
+        }
+
     }
 }
 

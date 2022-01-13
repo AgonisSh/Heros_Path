@@ -6,10 +6,11 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         this.scene=scene;
         this.powerName='';
         this.count=0;
+
     }
 
-
     addPower(pow){
+
         this.add(pow);
         this.count++;
     }
@@ -19,7 +20,9 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
 
         let pow = this.getFirst();
 
+
         if(pow){
+            console.log("pow lifespan : ",pow.lifespan);
             console.log(pow.name);
             pow.usePower(x,y,side);
         }
@@ -31,6 +34,11 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
 
     handlePowerCollision(obj){
         // collision avec le sol
+        if(obj.counter==6){
+            obj.destroy();
+        }else{
+            obj.counter++;
+        }
     }
 
     handlePowerMonster(monster,obj){

@@ -89,7 +89,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
             this.isOnAir = true;
         }
 
-        if(this.scene.input.keyboard.checkDown(this.scene.cursors.space, 150)){ // delay of 150ms
+        if(this.scene.input.keyboard.checkDown(this.scene.cursors.space, 150) ){ // delay of 150ms  | && this.power.getLength()!=0
             this.usePower();
         }
 
