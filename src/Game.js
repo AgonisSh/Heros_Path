@@ -65,14 +65,11 @@ export default class Game extends Phaser.Scene{
 
     create ()
     {
-
         this.loadMap();
         this.loadMusic();
         // Les touches du clavier
         this.cursors = this.input.keyboard.createCursorKeys()
         this.player = new Player(this,100,400,'player','knight_m_idle_anim_f0.png',280);
-        this.ogre = new Ogre(this,600,400,'ogre','ogre_idle_anim_f0G.png',300);
-
 
         this.diamants = this.physics.add.group({
             key: 'diamants',
@@ -81,10 +78,6 @@ export default class Game extends Phaser.Scene{
         });
 
         this.physics.add.collider(this.player, this.layerGround); // Collison entre layer sol et perso
-        this.physics.add.collider(this.ogre, this.layerGround); // Collison entre layer sol et perso
-        this.physics.add.collider(this.ogre, this.player); // Collison entre layer sol et perso
-
-        this.physics.add.collider(this.ogre,this.player.power,this.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
 
         this.physics.add.collider(this.diamants, this.layerGround);
         this.physics.add.overlap(this.player, this.diamants, this.collectDiamonds, null, this);
@@ -123,6 +116,10 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.right = "100px";
         this.scoreDiv.style.top = "100px";
         this.scoreDiv.style.zIndex = "65532";
+
+        this.entities = [];
+        this.entities.push(new Ogre(this,600,400,'ogre','ogre_idle_anim_f0G.png',300));
+
     }
 
     update(){
@@ -130,7 +127,9 @@ export default class Game extends Phaser.Scene{
         this.player.update();
 
         // Les déplacements de l'ogre
-        this.ogre.update();
+        this.entities.forEach((e) => {
+            if (e.isVivant == 1) e.update();
+        })
 
         // TODO: remove after presentation
         if (this.player.x == 10.4) {
