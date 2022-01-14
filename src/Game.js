@@ -10,6 +10,7 @@ export default class Game extends Phaser.Scene{
         super('Game'); // game is the key of the scene
         this.cursor;
         this.player;
+        this.ogre;
         this.score=0
         this.scoreDiv = document.createElement("div");
         this.PowerDiv = document.createElement("div");
@@ -55,7 +56,7 @@ export default class Game extends Phaser.Scene{
         this.score += 10;
         /*** TEST POUVOIR ***/
 
-        this.player.collectPower('fireball',100);
+        this.player.collectPower('fireball',1);
         this.PowerDiv.innerHTML = this.player.power.powerName+": " + this.player.power.count;
 
         /**** ** ** */
@@ -69,8 +70,9 @@ export default class Game extends Phaser.Scene{
         this.loadMap();
         this.loadMusic();
         // Les touches du clavier
-        this.cursors = this.input.keyboard.createCursorKeys();
+        this.cursors = this.input.keyboard.createCursorKeys()
         this.player = new Player(this,100,400,'player','knight_m_idle_anim_f0.png',280);
+        this.ogre = new Ogre(this,600,400,'ogre','ogre_idle_anim_f0G.png',300);
 
 
         this.diamants = this.physics.add.group({

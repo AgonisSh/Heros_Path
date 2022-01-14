@@ -1,6 +1,8 @@
 /**
  * Classe ascendent des monstres.
  */
+import HealthBar from "./HealthBar";
+
 export default class Monster extends Phaser.Physics.Arcade.Sprite
 {
     constructor (scene, x, y,texture,animation,speed)
@@ -16,6 +18,9 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         //this.scene.entities.forEach((e) => {this.scene.physics.add.collider(this, e); // Collison entre mob et autres mobs});
         this.scene.physics.add.collider(this, this.scene.layerGround); // Collison entre layer sol et mob
         this.scene.physics.add.collider(this ,this.scene.player.power, this.scene.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
+
+        this.health = new HealthBar(scene,x,y);
+        // follow the monster
 
         this.player = this.scene.player;
         this.jumpsAvaible;
@@ -37,34 +42,27 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         // Boolean qui sera peut être utile pour toi redha
         // this.isChasing=false;
         // this.targer = new Phaser.Math.Vector2();
-        this.scene.physics.add.overlap(this.player, this, this.restart, null, this.scene); // kill player if on ogre
+
+        // ko modif
+        this.scene.physics.add.overlap(this.player, this, this.attack, null, this.scene); // kill player if on ogre
     }
 
     restart()
     {
         this.score = 0;
         this.scene.restart();
+
+        this.player
+
     }
 
-    // TODO : kill le joueur au contact
-    killPlayer(player, ogre)
-    {
-        this.player.x = 100;
-        this.player.y = 400;
+    attack(){
+
     }
 
     update()
-    {}
-
-    restart()
     {
-        this.score = 0;
-        this.scene.restart();
-    }
-
-    kill()
-    {
-        this.isVivant = 0;
-        this.destroy();
+        this.health.follow(this.x,this.y-10);
+        this.health.draw()
     }
 }

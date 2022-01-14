@@ -1,5 +1,7 @@
 import Power from "./Power"
 import Powers from "./Powers"
+import HealthBar from "./HealthBar";
+
 export default class Player extends Phaser.Physics.Arcade.Sprite
 {
     constructor (scene, x, y,texture,animation,speed)
@@ -8,7 +10,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         this.setTexture(texture);
         this.play(animation);
 
-        this.scene = scene; 
+        this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
 
@@ -37,6 +39,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         this.isAlive = true;
         //todo la fonction start initialise tous les attributs variable du personnage : points de vie,...
         this.jumpsAvaible = 2;
+        this.health = new HealthBar(this.scene,this.x,this.y);
 
     }
 
@@ -69,6 +72,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
     {
         this.isJumping();
 
+        // update health bar position
+        this.health.follow(this.x,this.y);
+
         if (this.scene.cursors.left.isDown) {
             this.setVelocityX(-400);
             this.side="left";
@@ -95,7 +101,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
 
     }
 
-    kill ()
+    die ()
     {
         this.isAlive = false;
         this.body.stop();
@@ -103,6 +109,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
 
     sayHello(){
         console.log("Hello I'm the legendary hero !, ...");
+    }
+
+    takeDamage(x){
+        this.health.decrease(x);
+        if(this.health<=0){
+            this.die();
+        }
     }
 
     updatePower(pow){
