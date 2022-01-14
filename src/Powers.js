@@ -34,11 +34,10 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
 
     handlePowerCollision(obj){
         // collision avec le sol
-        if(obj.counter==6){
-            obj.destroy();
-        }else{
-            obj.counter++;
-        }
+        setTimeout( () => { obj.destroy()}, 3000);
+        //else{
+          //  obj.counter++;
+        //}
     }
 
     handlePowerMonster(monster,obj){
