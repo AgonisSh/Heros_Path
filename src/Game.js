@@ -127,10 +127,10 @@ export default class Game extends Phaser.Scene{
         this.entities.push(new Ogre(this,1350,700));
         this.entities.push(new Ogre(this,3000,700));
         this.entities.push(new Demon(this,6000,800));
-        this.entities.push(new Ogre(this,11000,800));
-        this.entities.push(new Ogre(this,11500,800));
-        this.entities.push(new Ogre(this,12000,800));
-        this.entities.push(new Ogre(this,12500,800));
+        this.entities.push(new Ogre(this,11000,700));
+        this.entities.push(new Ogre(this,11500,700));
+        this.entities.push(new Ogre(this,12000,700));
+        //this.entities.push(new Ogre(this,12500,700));
         this.entities.push(new Demon(this,14500,900));
 
     }
