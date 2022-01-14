@@ -40,7 +40,7 @@ export default class BootScene extends Phaser.Scene{
         //this.load.image('tilesBackground2', 'assets/tiles/FreeCuteTileset/BG3.png');
         this.load.tilemapTiledJSON('map1', 'assets/map/map1.json');
 
-        this.load.audio('musicPokemon','assets/music/musicPokemon.mp3');
+        this.load.audio('music1','assets/music/music1.mp3');
 
 
         // Prepare les animations et quand pret lance la scene game

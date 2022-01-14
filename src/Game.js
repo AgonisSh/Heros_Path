@@ -43,7 +43,7 @@ export default class Game extends Phaser.Scene{
 
     loadMusic(){
         // Musique :
-        this.music = this.sound.add('musicPokemon');
+        this.music = this.sound.add('music1');
         this.music.play({
             volume: 0.2,
             loop: true
@@ -130,6 +130,11 @@ export default class Game extends Phaser.Scene{
     }
 
     update(){
+
+        // Endgame si fin de niveau
+        if(this.player.x > this.physics.world.bounds.width - 100 ){
+            this.endGame();
+        }
         // mouvement joueur
         this.player.update();
 
@@ -148,5 +153,11 @@ export default class Game extends Phaser.Scene{
     restart2() {
         this.score = 0;
         this.scene.restart();
+    }
+
+    endGame(){
+        this.player.kill();
+        alert("Bravo !! vous avez fini le niveau 1 avec un score de : "+this.score);
+        this.restart2();
     }
 }
