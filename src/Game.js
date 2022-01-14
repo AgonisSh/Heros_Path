@@ -75,8 +75,8 @@ export default class Game extends Phaser.Scene{
 
         this.diamants = this.physics.add.group({
             key: 'diamants',
-            repeat: 50,
-            setXY: { x: 50, y: 100, stepX: 120 }
+            repeat: 20,
+            setXY: { x: 100, y: 100, stepX: 1500 }
         });
 
         this.physics.add.collider(this.player, this.layerGround); // Collison entre layer sol et perso
