@@ -14,21 +14,17 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.hp = 1;
 
-        //this.scene.entities.forEach((e) => {this.scene.physics.add.collider(this, e); // Collison entre mob et autres mobs});
-        this.scene.physics.add.collider(this, this.scene.layerGround); // Collison entre layer sol et mob
-        this.scene.physics.add.collider(this ,this.scene.player.power, this.scene.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
+        this.damage = 30;
 
         this.health = new HealthBar(scene,x,y);
-        // follow the monster
+        this.health.value = 100;
 
         this.player = this.scene.player;
         this.jumpsAvaible;
         this.isOnAir = false;
 
-        //this.setCircle(14, 3, 6);
-        this.setScale(1.4); // Pour rétrécir le sprite il faut type sprite
+        this.setScale(1.4);
         this.setCollideWorldBounds(true);
 
         this.setBounce(0.2);
@@ -36,16 +32,15 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         this.setCollideWorldBounds(true);
 
         this.isAlive = false;
-        this.target = new Phaser.Math.Vector2();
+
         this.speed=speed;
 
         this.setScale(2);
-        // Boolean qui sera peut être utile pour toi redha
-        // this.isChasing=false;
-        // this.targer = new Phaser.Math.Vector2();
 
-        // ko modif
         this.scene.physics.add.overlap(this.player, this, this.attack, null, this.scene); // kill player if on ogre
+        this.scene.physics.add.collider(this, this.scene.layerGround); // Collison entre layer sol et mob
+        this.scene.physics.add.collider(this ,this.scene.player.power, this.scene.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
+
     }
 
     restart()
@@ -57,13 +52,39 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
 
     }
 
-    attack(){
+    attack(dmg){
+        console.log(dmg);
 
+        if(this.player.isInvicible == false){
+            this.player.takeDamage(dmg);
+
+            if(this.player.side=="right"){
+                this.player.x = this.player.x-100;
+            }else{
+                this.player.x = this.player.x+100;
+            }
+
+            this.player.isInvicible=true;
+            this.player.alpha = 0.5;
+        }
+
+        // Lorsque un mob inflige du dégat à un joueur, le joueur bénéficie de 3s d'invicibilité.
+        setTimeout( () => {
+            this.player.isInvicible = false;
+            this.player.alpha = 1;
+        }, 3000);
+
+    }
+
+    kill(){
+        this.isVivant=0;
+        this.health.destroy();
+        this.destroy();
     }
 
     update()
     {
-        this.health.follow(this.x,this.y-10);
+        this.health.follow(this.x-20,this.y-50);
         this.health.draw()
     }
 }

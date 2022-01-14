@@ -15,6 +15,7 @@ export default class Ogre extends Monster
 		this.direction = 1;		// la direction du mob. 1 = droite, -1 = gauche
 		this.idle = false;
 		this.prevX = -1;
+		this.health.value = 50;
     }
 
     update()
@@ -63,6 +64,6 @@ export default class Ogre extends Monster
 	}
 
 	attack(){
-		this.scene.player.takeDamage(10);
+		super.attack(35);
 	}
 }

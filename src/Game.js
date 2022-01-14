@@ -82,8 +82,6 @@ export default class Game extends Phaser.Scene{
         this.physics.add.collider(this.player, this.layerGround); // Collison entre layer sol et perso
         this.physics.add.collider(this.player, this.layerWater); // Collison entre player et eau
 
-        //this.physics.add.overlap(this.player, this.layerWater, this.restart2, null, this); // kill player if on water
-
         this.physics.add.collider(this.diamants, this.layerGround);
         this.physics.add.overlap(this.player, this.diamants, this.collectDiamonds, null, this);
 
@@ -92,9 +90,9 @@ export default class Game extends Phaser.Scene{
         });
 
         this.cameras.main.setBounds(0, 0, this.map1.widthInPixels, this.map1.heightInPixels);
-        // camera qui suivent le joueur
+        // camera qui suit le joueur
         this.cameras.main.startFollow(this.player);
-        // Zoom sur la caméra
+        // Zoom
         this.cameras.main.setZoom(1.3);
 
         // Set html indicator
@@ -137,7 +135,9 @@ export default class Game extends Phaser.Scene{
 
     update(){
 
-        console.log(this.player.x + " " + this.player.y);
+        if(this.player.isAlive==false){
+            this.restart2();
+        }
 
         // Endgame si fin de niveau
         if(this.player.x > this.physics.world.bounds.width - 100 ){
@@ -159,7 +159,9 @@ export default class Game extends Phaser.Scene{
             this.player.y = 778;
         }
     }
+
     restart2() {
+        this.music.stop();
         this.score = 0;
         this.scene.restart();
     }

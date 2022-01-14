@@ -60,4 +60,9 @@ export default class HealthBar {
         this.y=y;
     }
 
+    destroy(){
+        this.bar.destroy(true);
+    }
+
+
 }

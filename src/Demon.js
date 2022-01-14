@@ -16,10 +16,17 @@ export default class Demon extends Monster
         this.idle = false;
         this.prevX = -1;
         this.hp = 2;
+
+        this.health.value = 150;
+
+        this.damage = 75;
+
     }
 
     update()
     {
+        super.update();
+
         if (this.idle) {
             if (this.direction == 1) {
                 this.play("idleRDemon", true);
@@ -59,4 +66,9 @@ export default class Demon extends Monster
             }
         }
     }
+
+    attack(){
+        super.attack(45);
+    }
+
 }

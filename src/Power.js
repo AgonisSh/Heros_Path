@@ -6,7 +6,7 @@ export default class Power extends Phaser.Physics.Arcade.Sprite {
         this.enableBody=true;
         this.setScale(0.02,0.02);
 
-        this.damage = 0;
+        this.damage = 50;
         this.velocity = 700;
         this.name = powerName;
         this.lifespan = 1000 ;

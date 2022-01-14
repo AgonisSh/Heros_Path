@@ -17,6 +17,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         this.jumpsAvaible;
         this.isOnAir = false;
 
+        this.health = new HealthBar(this.scene,this.x,this.y);
+
         //this.setCircle(14, 3, 6);
         this.setScale(1.6); // Pour rétrécir le sprite il faut type sprite
         this.setCollideWorldBounds(true);
@@ -31,6 +33,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         this.side = "right";
 
         this.power = new Powers(this.scene); // représente un 'group' object.
+
+        this.isInvicible = false;
+
         this.start();
     }
 
@@ -39,7 +44,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         this.isAlive = true;
         //todo la fonction start initialise tous les attributs variable du personnage : points de vie,...
         this.jumpsAvaible = 2;
-        this.health = new HealthBar(this.scene,this.x,this.y);
 
     }
 
@@ -70,10 +74,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
 
     update()
     {
-        this.isJumping();
-
         // update health bar position
-        this.health.follow(this.x,this.y);
+        this.health.follow(this.x-45,this.y-50);
+        this.health.draw();
+
+        this.isJumping();
 
         if (this.scene.cursors.left.isDown) {
             this.setVelocityX(-400);
@@ -102,21 +107,25 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
 
     }
 
-    die ()
-    {
-        this.isAlive = false;
-        this.body.stop();
-    }
 
     sayHello(){
         console.log("Hello I'm the legendary hero !, ...");
     }
 
     takeDamage(x){
+        console.log("le joueur a subit : ",x," dmg");
+
         this.health.decrease(x);
-        if(this.health<=0){
-            this.die();
+
+        if(this.health.value<=0){
+            this.kill();
         }
+
+    }
+
+    kill()
+    {
+        this.isAlive = false;
     }
 
     updatePower(pow){
@@ -133,6 +142,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
     win()
     {
         alert("Felicitation vous avez \n"+this.scene.score+" points ")
-        this.kill();
+        this.die();
     }
 }
