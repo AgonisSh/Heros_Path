@@ -70,7 +70,7 @@ export default class Game extends Phaser.Scene{
         this.loadMusic();
         // Les touches du clavier
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.player = new Player(this,100,400,'player','knight_m_idle_anim_f0.png',280);
+        this.player = new Player(this,100,700,'player','knight_m_idle_anim_f0.png',280);
 
 
         this.diamants = this.physics.add.group({
@@ -123,11 +123,21 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.zIndex = "65532";
 
         this.entities = [];
-        this.entities.push(new Demon(this,600,400,'ogre','ogre_idle_anim_f0G.png',300));
+        this.entities.push(new Ogre(this,700,700));
+        this.entities.push(new Ogre(this,1350,700));
+        this.entities.push(new Ogre(this,3000,700));
+        this.entities.push(new Demon(this,6000,800));
+        this.entities.push(new Ogre(this,11000,800));
+        this.entities.push(new Ogre(this,11500,800));
+        this.entities.push(new Ogre(this,12000,800));
+        this.entities.push(new Ogre(this,12500,800));
+        this.entities.push(new Demon(this,14500,900));
 
     }
 
     update(){
+
+        console.log(this.player.x + " " + this.player.y);
 
         // Endgame si fin de niveau
         if(this.player.x > this.physics.world.bounds.width - 100 ){
@@ -144,8 +154,9 @@ export default class Game extends Phaser.Scene{
 
         if (this.layerWater.getTileAtWorldXY(this.player.x, this.player.y) != null) this.restart2();
         // TODO: remove after presentation
-        if (this.player.x == 10.4) {
-            this.player.x = 5000;
+        if (this.player.x == 12.8 && this.player.y == 777.6) {
+            this.player.x = 15600;
+            this.player.y = 778;
         }
     }
     restart2() {
