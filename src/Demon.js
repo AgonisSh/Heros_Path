@@ -1,10 +1,10 @@
 import Monster from "./Monster";
 
-const AGGRO_RANGE = 600;
+const AGGRO_RANGE = 1500;
 const CLOSE_RANGE = 10;
 
-const SPEED = 100;
-const JUMP_STRENGTH = 200;
+const SPEED = 200;
+const JUMP_STRENGTH = 400;
 
 export default class Demon extends Monster
 {
@@ -15,6 +15,7 @@ export default class Demon extends Monster
         this.direction = -1;		// la direction du mob. 1 = droite, -1 = gauche
         this.idle = false;
         this.prevX = -1;
+        this.hp = 2;
     }
 
     update()
