@@ -42,8 +42,8 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
 
     handlePowerMonster(monster,obj){
         obj.destroy();
-        monster.health.value-=obj.damage;
-        if (monster.health.value <= 0) monster.kill();
+
+        if (monster.health.decrease(obj.damage)) monster.kill();
     }
 
 }

@@ -18,7 +18,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         this.damage = 30;
 
         this.health = new HealthBar(scene,x,y);
-        this.health.value = 100;
+        this.health.value = 100; // default
 
         this.player = this.scene.player;
         this.jumpsAvaible;
@@ -47,13 +47,9 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
     {
         this.score = 0;
         this.scene.restart();
-
-        this.player
-
     }
 
     attack(dmg){
-        console.log(dmg);
 
         if(this.player.isInvicible == false){
             this.player.takeDamage(dmg);
@@ -72,7 +68,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         setTimeout( () => {
             this.player.isInvicible = false;
             this.player.alpha = 1;
-        }, 3000);
+        }, 1500);
 
     }
 

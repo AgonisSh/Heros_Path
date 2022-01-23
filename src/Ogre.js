@@ -10,7 +10,9 @@ export default class Ogre extends Monster
 {
 
     constructor(scene,x,y) {
-        super(scene,x,y,"ogre","ogre_idle_anim_f0G.png",1);
+
+		super(scene,x,y,"ogre","ogre_idle_anim_f0G.png",1);
+
 		this.scene = scene;
 		this.direction = 1;		// la direction du mob. 1 = droite, -1 = gauche
 		this.idle = false;

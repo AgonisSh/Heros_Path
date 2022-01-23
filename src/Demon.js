@@ -15,7 +15,6 @@ export default class Demon extends Monster
         this.direction = -1;		// la direction du mob. 1 = droite, -1 = gauche
         this.idle = false;
         this.prevX = -1;
-        this.hp = 2;
 
         this.health.value = 150;
 

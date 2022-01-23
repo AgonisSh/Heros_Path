@@ -6,7 +6,8 @@ export default class HealthBar {
 
         this.x = x;
         this.y = y;
-        this.value = 100;
+        this._value; // this._  <=> private
+        this._max=100;
         this.p = 76 / 100;
 
         this.draw();
@@ -14,34 +15,38 @@ export default class HealthBar {
         scene.add.existing(this.bar);
     }
 
-    decrease (amount)
-    {
-        this.value -= amount;
+    set value(val){
+        this._value = val;
+        this._max=val;
+        this.p = 76 / this._max;
+    }
 
-        if (this.value < 0)
+    decrease (amount){
+        this._value -= amount;
+
+        if (this._value < 0)
         {
-            this.value = 0;
+            this._value = 0;
         }
 
         this.draw();
 
-        return (this.value === 0);
+        return (this._value === 0);
     }
 
     draw ()
     {
         this.bar.clear();
 
-        //  BG
+        //  Background
         this.bar.fillStyle(0x000000);
-        this.bar.fillRect(this.x, this.y, 80, 16);
+        this.bar.fillRect(this.x, this.y, (80*this._max)/100, 16);
 
         //  Health
+        this.bar.fillStyle(0xffffff); // 76 == 100 | x == 50 -> x = 76*50/100
+        this.bar.fillRect(this.x + 2, this.y + 2, (76*this._max)/100, 12);
 
-        this.bar.fillStyle(0xffffff);
-        this.bar.fillRect(this.x + 2, this.y + 2, 76, 12);
-
-        if (this.value < 30)
+        if (this._value < 30)
         {
             this.bar.fillStyle(0xff0000);
         }
@@ -50,9 +55,9 @@ export default class HealthBar {
             this.bar.fillStyle(0x00ff00);
         }
 
-        var d = Math.floor(this.p * this.value);
+        var d = Math.floor(this.p * this._value);
 
-        this.bar.fillRect(this.x + 2, this.y + 2, d, 12);
+        this.bar.fillRect(this.x + 2, this.y + 2, (d*this._max)/100, 12);
     }
 
     follow(x,y){

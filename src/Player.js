@@ -18,8 +18,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         this.isOnAir = false;
 
         this.health = new HealthBar(this.scene,this.x,this.y);
+        this.health.value=100;
 
-        //this.setCircle(14, 3, 6);
         this.setScale(1.6); // Pour rétrécir le sprite il faut type sprite
         this.setCollideWorldBounds(true);
 
@@ -115,9 +115,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
     takeDamage(x){
         console.log("le joueur a subit : ",x," dmg");
 
-        this.health.decrease(x);
-
-        if(this.health.value<=0){
+        if(this.health.decrease(x)){
             this.kill();
         }
 
