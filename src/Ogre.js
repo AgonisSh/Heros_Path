@@ -3,19 +3,21 @@ import Monster from "./Monster";
 const AGGRO_RANGE = 600;
 const CLOSE_RANGE = 10;
 
+const SPEED = 100;
 const JUMP_STRENGTH = 200;
 
 export default class Ogre extends Monster
 {
 
     constructor(scene,x,y) {
-        super(scene,x,y,"ogre","ogre_idle_anim_f0G.png",1);
+
+		super(scene,x,y,"ogre","ogre_idle_anim_f0G.png",1);
+
 		this.scene = scene;
 		this.direction = 1;		// la direction du mob. 1 = droite, -1 = gauche
 		this.idle = false;
 		this.prevX = -1;
 		this.health.value = 50;
-		this.speed=100;
     }
 
     update()
@@ -48,7 +50,7 @@ export default class Ogre extends Monster
 			} else {
 				if (this.direction == 1) this.play("runROgre", true);
 				else this.play("runLOgre", true);
-				this.setVelocityX(this.speed * this.direction);
+				this.setVelocityX(SPEED * this.direction);
 
 				if (this.body.onFloor()) {
 					if ((this.direction == 1 && this.body.blocked.right) || (this.direction == -1 && this.body.blocked.left)) {

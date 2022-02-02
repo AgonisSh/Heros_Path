@@ -1,5 +1,4 @@
 import Power from "./Power";
-import Effect from "./Effect";
 // A group of power element.
 export default class Powers extends Phaser.Physics.Arcade.Group {
     constructor(scene) {
@@ -7,51 +6,44 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         this.scene=scene;
         this.powerName='';
         this.count=0;
+
     }
 
     addPower(pow){
-        /*this.createMultiple({
-            frameQuantity: qt, // a ajouter ... 
-            key: pow.powerName,
-            active: false,
-            visible: false,
-            classType: Power
-        });
-        */
 
         this.add(pow);
         this.count++;
     }
 
     usePower(x,y,side){
-        let pow = this.getFirst();
-        
-        if(pow){
-            console.log(`${pow.powerName} !`)
-            if(pow.spellType==0){
-                pow.effect.applyEffect(this.scene.player);
-            }else{
-                pow.usePower(x,y,side);
-            }
-            // collision avec le sol
-            setTimeout( () => { pow.destroy()}, pow.lifespan);
-        }
+        this.scene.physics.add.collider(this,this.scene.layerGround,this.handlePowerCollision);
 
+        let pow = this.getFirst();
+
+
+        if(pow){
+            console.log("pow lifespan : ",pow.lifespan);
+            console.log(pow.name);
+            pow.usePower(x,y,side);
+        }
+        console.log(this.   powerName," utilisé ... :",this.getTotalUsed());
         if(this.count>0) this.count--;
+        this.scene.PowerDiv.innerHTML = this.powerName+": " + this.count;
+
     }
 
-
-    handlePowerCollision(pow){
-        // Empty for now ...        
+    handlePowerCollision(obj){
+        // collision avec le sol
+        setTimeout( () => { obj.destroy()}, 3000);
+        //else{
+          //  obj.counter++;
+        //}
     }
 
     handlePowerMonster(monster,obj){
-        obj.destroy()
-        
-        obj.effect.applyEffect(monster);
-    
-        monster.incur(obj.damage);
-        
+        obj.destroy();
+
+        if (monster.health.decrease(obj.damage)) monster.kill();
     }
 
 }

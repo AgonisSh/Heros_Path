@@ -37,7 +37,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
 
         this.setScale(2);
 
-        this.scene.physics.add.overlap(this.player, this, this.attack, null, this.scene); // Collison entre le joueur et le mob.
+        this.scene.physics.add.overlap(this.player, this, this.attack, null, this.scene); // kill player if on ogre
         this.scene.physics.add.collider(this, this.scene.layerGround); // Collison entre layer sol et mob
         this.scene.physics.add.collider(this ,this.scene.player.power, this.scene.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
 
@@ -55,19 +55,21 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
             this.player.takeDamage(dmg);
 
             if(this.player.side=="right"){
-                this.player.setVelocityX(-100);
+                this.player.x = this.player.x-100;
             }else{
-                this.player.setVelocityX(100);
+                this.player.x = this.player.x+100;
             }
 
             this.player.isInvicible=true;
             this.player.alpha = 0.5;
-            // Lorsque un mob inflige du dégat à un joueur, le joueur bénéficie de 3s d'invicibilité.
-            setTimeout( () => {
-                this.player.isInvicible = false;
-                this.player.alpha = 1;
-            }, 1500);
         }
+
+        // Lorsque un mob inflige du dégat à un joueur, le joueur bénéficie de 3s d'invicibilité.
+        setTimeout( () => {
+            this.player.isInvicible = false;
+            this.player.alpha = 1;
+        }, 1500);
+
     }
 
     kill(){
@@ -76,12 +78,9 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
         this.destroy();
     }
 
-    incur(dmg){
-        if (this.health.decrease(dmg)) this.kill()
-    }
-
     update()
     {
         this.health.follow(this.x-20,this.y-50);
+        this.health.draw()
     }
 }

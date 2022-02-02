@@ -1,5 +1,3 @@
-import { powersList } from "./Model";
-import Effect from "./Effect";
 
 // represent one element
 export default class Power extends Phaser.Physics.Arcade.Sprite {
@@ -15,31 +13,17 @@ export default class Power extends Phaser.Physics.Arcade.Sprite {
 
         this.scene = scene;
         this.scene.add.existing(this);
-    }
 
-    static fromJSON(scene,obj){
-        let pow = new Power(scene,0,0,obj.name)
-        pow.damage = obj.damage
-        pow.velocity = obj.velocity
-        pow.lifespan = obj.lifespan
-        pow.spellType = obj.spellType
-        pow.effect = Effect.load(obj.effect);
-        return pow
+        this.counter=0; // compte le nombre de collision
     }
 
     usePower(x,y,side){
         this.body.reset(x,y);
-        this.scene.physics.add.collider(this,this.scene.layerGround,this.handlePowerCollision);
 
         this.setActive(true);
         this.setVisible(true);
 
         this.body.setBounce(1);
-        
-        if(this.spellType===1){
-            this.body.setAllowGravity(false);
-        }
-
         this.setCollideWorldBounds(true);
 
         switch (side) {
@@ -50,6 +34,15 @@ export default class Power extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityX(this.velocity);
                 break
         }
+    }
+
+    // Usefull : https://phasergames.com/how-to-get-delta-time-in-phaser-3/
+    update(pow,delta){
+        this.duration-=delta;
+        if(this.duration <= 0){
+            this.destroy();
+        }
+
     }
 }
 
