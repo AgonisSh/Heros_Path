@@ -5,7 +5,6 @@
     - Speed : S
 */
 export default class Effect {
-    
     constructor(name,level){
         this.name=name
         this.level=level
