@@ -57,36 +57,29 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         }
     }
 
-    collectPower(powerName,quantity){
-        // **** TEST **** // Le joueur obtient "FIREBALL" a partir du 3ème diamant récupérer.
-        let pow;
-        this.power.powerName = powerName;
-
-        for(let i = 0 ; i < quantity ;i++){
-            pow = new Power(this.scene,this.x,this.y,powerName);
-            pow.setActive(false);
-            pow.setVisible(false);
-            this.updatePower(pow);
-        }
-
-        // ****
+    collectPower(power,quantity){
+        power.x=this.x;
+        power.y=this.y;
+        power.scene=this.scene;            
+        power.setActive(false);
+        power.setVisible(false);
+        this.updatePower(power);
     }
 
     update()
     {
         // update health bar position
         this.health.follow(this.x-45,this.y-50);
-        this.health.draw();
 
         this.isJumping();
 
         if (this.scene.cursors.left.isDown) {
-            this.setVelocityX(-400);
+            this.setVelocityX(-this.speed);
             this.side="left";
             this.play('runLPlayer', true);
         }
         else if (this.scene.cursors.right.isDown) {
-            this.setVelocityX(400);
+            this.setVelocityX(this.speed);
             this.side="right";
             this.play('runRPlayer', true);
         }
@@ -97,7 +90,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         }
 
         if (this.scene.cursors.up.isDown && !this.isOnAir){
-            this.setVelocityY(-400);
+            this.setVelocityY(-this.speed                                                                                                                                                                                                   );
             this.isOnAir = true;
         }
 
