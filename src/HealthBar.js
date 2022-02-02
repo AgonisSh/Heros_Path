@@ -63,7 +63,6 @@ export default class HealthBar {
     follow(x,y){
         this.x=x;
         this.y=y;
-        this.draw()
     }
 
     destroy(){

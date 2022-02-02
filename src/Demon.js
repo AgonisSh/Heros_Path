@@ -3,6 +3,7 @@ import Monster from "./Monster";
 const AGGRO_RANGE = 1500;
 const CLOSE_RANGE = 10;
 
+const SPEED = 200;
 const JUMP_STRENGTH = 400;
 
 export default class Demon extends Monster
@@ -18,7 +19,6 @@ export default class Demon extends Monster
         this.health.value = 150;
 
         this.damage = 75;
-        this.speed=200;
 
     }
 
@@ -51,7 +51,7 @@ export default class Demon extends Monster
             } else {
                 if (this.direction == 1) this.play("runRDemon", true);
                 else this.play("runLDemon", true);
-                this.setVelocityX(this.speed * this.direction);
+                this.setVelocityX(SPEED * this.direction);
 
                 if (this.body.onFloor()) {
                     if ((this.direction == 1 && this.body.blocked.right) || (this.direction == -1 && this.body.blocked.left)) {
