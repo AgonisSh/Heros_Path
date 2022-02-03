@@ -46,7 +46,6 @@ export default class Effect {
                 break;
             case 'S':
                 entity.speed = entity.speed*this.level*0.7;
-
                 break;
             default:
                 console.log("Aucun effet ?!")
