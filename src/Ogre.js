@@ -27,7 +27,6 @@ export default class Ogre extends Monster
 			if (this.direction == 1) {
 				this.play("idleROgre", true);
 				if (this.x > this.player.x) this.idle = false;
-				console.log("!!!");
 			} else {
 				this.play("idleLOgre", true);
 				if (this.player.x > this.x) this.idle = false;
@@ -41,7 +40,7 @@ export default class Ogre extends Monster
 			if (this.x < this.player.x) this.direction = 1;
 			else this.direction = -1;
 
-			if (Math.abs(this.player.x - this.x) > AGGRO_RANGE || Math.abs(this.player.x - this.x) < CLOSE_RANGE) {		// If out of aggro range
+			if (Math.abs(this.player.x - this.x) > AGGRO_RANGE || Math.abs(this.player.x - this.x) < CLOSE_RANGE) { // If out of aggro range
 				if (this.direction == 1) this.play("idleROgre", true);
 				else this.play("idleLOgre", true);
 				this.setVelocityX(0);
