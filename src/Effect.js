@@ -17,19 +17,23 @@ export default class Effect {
     }
 
     burn(entity){
-        
+        // tous les 100ms faire =>
         let interval = window.setInterval(()=>{
             entity.incur(this.level*10*0.15);
         }, 100);
-
         return interval
-        
     }
 
     slow(entity){
         entity.speed *= 0.25
         let interval = window.setInterval(()=>{
             entity.incur(this.level*0.35);
+        }, 100);
+        return interval
+    }
+    heal(entity){
+        let interval = window.setInterval(()=>{
+            entity.health.increase(this.level*0.7);
         }, 100);
         return interval
     }
@@ -47,6 +51,8 @@ export default class Effect {
             case 'S':
                 entity.speed = entity.speed*this.level*0.7;
                 break;
+            case 'H':
+                interval = this.heal(entity)
             default:
                 console.log("Aucun effet ?!")
         }

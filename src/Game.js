@@ -2,26 +2,19 @@ import 'phaser';
 import Player from "./Player";
 import Ogre from "./Ogre";
 import Demon from "./Demon"
-
+// Test
+import { powersList } from './Model';
+import Power from './Power';
 
 
 export default class Game extends Phaser.Scene{
     constructor() {
         super('Game'); // game is the key of the scene
-        this.cursor;
-        this.player;
+      
         this.score=0
         this.scoreDiv = document.createElement("div");
         this.PowerDiv = document.createElement("div");
-        this.diamants;
-
-        this.map1;
-        this.tileset;
-        this.tilesBackground;
-        this.tilesBackgroundDecor;
-        this.layerBackground;
-        this.layerBackgroundDecors;
-        this.layerGround
+      
     }
 
     loadMap(){
@@ -54,13 +47,16 @@ export default class Game extends Phaser.Scene{
         diamants.disableBody(true, true);
         this.score += 10;
         /*** TEST POUVOIR ***/
+        // changer l'index pour test.
+        let pow = Power.fromJSON(this,powersList[4]);
+        console.log("Power test : ",pow);
+        this.player.collectPower(pow);
 
-        this.player.collectPower('fireball',1);
+        
         this.PowerDiv.innerHTML = this.player.power.powerName+": " + this.player.power.count;
 
         /**** ** ** */
         this.scoreDiv.innerHTML = 'Score: ' + this.score;
-
     }
 
     create ()
@@ -70,7 +66,7 @@ export default class Game extends Phaser.Scene{
         this.loadMusic();
         // Les touches du clavier
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.player = new Player(this,100,700,'player','knight_m_idle_anim_f0.png',280);
+        this.player = new Player(this,100,700,'player','knight_m_idle_anim_f0.png',400);
 
 
         this.diamants = this.physics.add.group({

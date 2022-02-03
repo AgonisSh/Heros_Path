@@ -33,6 +33,14 @@ export default class HealthBar {
 
         return (this._value === 0);
     }
+    increase (amount){
+        this._value += amount;
+        if (this._value > this._max)
+        {
+            this._value = this._max;
+        }
+        this.draw();
+    }
 
     draw ()
     {
@@ -63,6 +71,7 @@ export default class HealthBar {
     follow(x,y){
         this.x=x;
         this.y=y;
+        this.draw()
     }
 
     destroy(){
