@@ -66,8 +66,10 @@ export default class Demon extends Monster
         }
     }
 
-    attack(){
-        super.attack(45);
+    attack(player,monster){
+        // todo : lance une boule de feu
+        // tips : utiliser powers :)
+        super.attack(player,monster);
     }
 
 }

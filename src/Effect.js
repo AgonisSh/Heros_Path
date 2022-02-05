@@ -16,20 +16,17 @@ export default class Effect {
         return generatedEffect
     }
 
-    burn(entity){
+    burn(entity,dmg){
         // tous les 100ms faire =>
         let interval = window.setInterval(()=>{
-            entity.incur(this.level*10*0.15);
+            entity.incur(this.level*dmg*0.15);
         }, 100);
         return interval
     }
 
     slow(entity){
-        entity.speed *= 0.25
-        let interval = window.setInterval(()=>{
-            entity.incur(this.level*0.35);
-        }, 100);
-        return interval
+        entity.speed *= 0.25;
+        return this.burn(entity,0.1) //cheater xd
     }
     heal(entity){
         let interval = window.setInterval(()=>{
@@ -43,7 +40,7 @@ export default class Effect {
         let interval
         switch(this.name){
             case 'B':
-                interval = this.burn(entity);
+                interval = this.burn(entity,10);
                 break;
             case 'F':
                 interval = this.slow(entity);      
@@ -61,8 +58,6 @@ export default class Effect {
             entity.speed=initSpeed;
             clearInterval(interval) 
         }, 2500*this.level);
-        
-
     }
 
 }

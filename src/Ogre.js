@@ -62,8 +62,7 @@ export default class Ogre extends Monster
 			}
 		}
 	}
-
-	attack(){
-		super.attack(35);
+	attack(player,monster){
+		super.attack(player,monster);
 	}
 }

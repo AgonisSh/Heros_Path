@@ -48,10 +48,9 @@ export default class Game extends Phaser.Scene{
         this.score += 10;
         /*** TEST POUVOIR ***/
         // changer l'index pour test.
-        let pow = Power.fromJSON(this,powersList[4]);
+        let pow = Power.fromJSON(this,powersList[1]);
         console.log("Power test : ",pow);
         this.player.collectPower(pow);
-
         
         this.PowerDiv.innerHTML = this.player.power.powerName+": " + this.player.power.count;
 
@@ -67,7 +66,6 @@ export default class Game extends Phaser.Scene{
         // Les touches du clavier
         this.cursors = this.input.keyboard.createCursorKeys();
         this.player = new Player(this,100,700,'player','knight_m_idle_anim_f0.png',400);
-
 
         this.diamants = this.physics.add.group({
             key: 'diamants',
@@ -118,6 +116,9 @@ export default class Game extends Phaser.Scene{
 
         this.entities = [];
         this.entities.push(new Ogre(this,700,700));
+        // todo : faire pour chaque entity (voir git du tuto)
+        // BREF/.
+
         this.entities.push(new Ogre(this,1350,700));
         this.entities.push(new Ogre(this,3000,700));
         this.entities.push(new Demon(this,6000,800));
@@ -126,6 +127,7 @@ export default class Game extends Phaser.Scene{
         this.entities.push(new Ogre(this,12000,700));
         //this.entities.push(new Ogre(this,12500,700));
         this.entities.push(new Demon(this,14500,900));
+
 
     }
 

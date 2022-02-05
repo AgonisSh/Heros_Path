@@ -10,16 +10,18 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
     }
 
     addPower(pow){
-        /*this.createMultiple({
+        /*
+        this.createMultiple({
             frameQuantity: qt, // a ajouter ... 
             key: pow.powerName,
             active: false,
             visible: false,
             classType: Power
         });
-        */
 
+         */
         this.add(pow);
+        this.powerName=pow.name
         this.count++;
     }
 
@@ -27,7 +29,6 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         let pow = this.getFirst();
         
         if(pow){
-            console.log(`${pow.powerName} !`)
             if(pow.spellType==0){
                 pow.effect.applyEffect(this.scene.player);
             }else{
@@ -47,9 +48,7 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
 
     handlePowerMonster(monster,obj){
         obj.destroy()
-        
         obj.effect.applyEffect(monster);
-    
         monster.incur(obj.damage);
         
     }

@@ -35,8 +35,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         this.power = new Powers(this.scene); // représente un 'group' object.
 
         this.isInvicible = false;
-
+        this.onHit=false;
+        this.damageTime=0;
+        this.invincibilityTime=0;
         this.start();
+
     }
 
     start ()
@@ -71,6 +74,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         // update health bar position
         this.health.follow(this.x-45,this.y-50);
 
+        if(this.onHit){
+            return
+        }
+
         this.isJumping();
 
         if (this.scene.cursors.left.isDown) {
@@ -100,18 +107,51 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
 
     }
 
+    preUpdate(t, dt)
+    {
+        super.preUpdate(t, dt)
+
+        // Lorsque un mob inflige du dégat à un joueur, le joueur bénéficie de 3s d'invicibilité.
+        // Après 1500ms ...
+
+        if (this.onHit)
+        {
+            this.damageTime += dt
+            if(this.damageTime>=250){
+                this.setTint(0xffffff)
+                this.damageTime = 0
+                this.onHit=false;
+            }
+        }
+        if(this.isInvicible){
+            this.invincibilityTime+=dt
+
+            if(this.invincibilityTime>=1500){
+                this.isInvicible = false
+                this.invincibilityTime = 0
+                this.alpha = 1;
+            }
+        }
+    }
+
 
     sayHello(){
         console.log("Hello I'm the legendary hero !, ...");
     }
 
-    takeDamage(x){
-        console.log("le joueur a subit : ",x," dmg");
+    handleDamage(dmg,vector){
+        console.log("DEBUG : le joueur a subit : ",dmg," dmg");
+        this.setTint(0xff0000)
 
-        if(this.health.decrease(x)){
+        this.isInvicible=true;
+        this.alpha = 0.5;
+        this.onHit=true;
+
+        this.setVelocity(vector.x,vector.y);
+
+        if(this.health.decrease(dmg)){
             this.kill();
         }
-
     }
 
     kill()
@@ -127,6 +167,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         if(!this.power){
             return;
         }
+        console.log(`${this.power.powerName} !`)
         this.power.usePower(this.x,this.y,this.side);
     }
     
