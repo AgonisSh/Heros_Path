@@ -3,6 +3,7 @@
     - Burn : B
     - Freeze : F
     - Speed : S
+    - Heal : H
 */
 export default class Effect {
     constructor(name,level){
