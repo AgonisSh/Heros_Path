@@ -29,6 +29,10 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         let pow = this.getFirst();
         
         if(pow){
+            // Sound
+            this.scene.powSound = this.scene.sound.add(pow.sound,{ loop: false });
+            this.scene.powSound.play();
+
             if(pow.spellType==0){
                 pow.effect.applyEffect(this.scene.player);
             }else{

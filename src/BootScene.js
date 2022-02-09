@@ -47,12 +47,14 @@ export default class BootScene extends Phaser.Scene{
         this.load.tilemapTiledJSON('map1', 'assets/map/map1.json');
 
         this.load.audio('music1','assets/music/music1.mp3');
+        this.load.audio('victory','assets/music/victory.mp3');
+
 
         this.load.audio("pickupCoin", "assets/sounds/pickupCoin.wav");
         this.load.audio("jump","assets/sounds/jump.wav");
         this.load.audio("drown","assets/sounds/drown.wav");
         this.load.audio("player-dead", "assets/sounds/player-dead.wav");
-        this.load.audio("heal","assets/sounds/hit.wav");
+        this.load.audio("heal","assets/sounds/heal.wav");
         this.load.audio("hit","assets/sounds/hit.wav");
         this.load.audio("fireball", "assets/sounds/fireball.wav");
         this.load.audio("freezer","assets/sounds/freezer.wav");

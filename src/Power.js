@@ -7,7 +7,8 @@ export default class Power extends Phaser.Physics.Arcade.Sprite {
         super(scene,x,y,powerName);
         this.enableBody=true;
         this.setScale(0.02,0.02);
-
+        this.powerName=powerName;
+    
         this.damage = 50;
         this.velocity = 700;
         this.name = powerName;
@@ -24,10 +25,12 @@ export default class Power extends Phaser.Physics.Arcade.Sprite {
         pow.lifespan = obj.lifespan
         pow.spellType = obj.spellType
         pow.effect = Effect.load(obj.effect);
+        pow.sound = obj.sound;
         return pow
     }
 
     usePower(x,y,side){
+         
         this.body.reset(x,y);
         this.scene.physics.add.collider(this,this.scene.layerGround,this.handlePowerCollision);
 

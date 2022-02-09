@@ -35,21 +35,20 @@ export default class Game extends Phaser.Scene{
 
     loadMusic(){
         // Musique :
-        this.music = this.sound.add('music1',);
+        this.music = this.sound.add('music1');
         this.music.play({
             volume: 0.2,
             loop: true
         });
+        this.victoryMusic = this.sound.add('victory');
     }
     loadSound(){
         this.pickCoin = this.sound.add("pickupCoin",{ loop: false });
         this.jump = this.sound.add("jump",{ loop: false });
         this.drown = this.sound.add("drown",{ loop: false });
         this.death = this.sound.add("player-dead",{ loop: false });
-        this.heal = this.sound.add("heal",{ loop: false });
         this.hit = this.sound.add("hit",{ loop: false });
         this.fire = this.sound.add("fireball",{ loop: false });
-        this.freeze = this.sound.add("freezer",{ loop: false });
         this.hightHit= this.sound.add("hit-hight",{ loop: false });
         this.kill = this.sound.add("monster-dead",{ loop: false });
         this.pickPower = this.sound.add("pickPower",{ loop: false });
@@ -62,7 +61,7 @@ export default class Game extends Phaser.Scene{
         this.score += 10;
         /*** TEST POUVOIR ***/
         // changer l'index pour test.
-        let pow = Power.fromJSON(this,powersList[1]);
+        let pow = Power.fromJSON(this,powersList[4]);
         console.log("Power test : ",pow);
         this.player.collectPower(pow);
         
@@ -180,6 +179,11 @@ export default class Game extends Phaser.Scene{
     }
 
     endGame(){
+        this.music.stop()
+        this.victoryMusic.play({
+            volume:0.2,
+            loop: false
+        })
         this.player.kill();
         alert("Bravo !! vous avez fini le niveau 1 avec un score de : "+this.score);
         this.restart2();
