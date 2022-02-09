@@ -26,7 +26,7 @@ export default class Effect {
 
     slow(entity){
         entity.speed *= 0.25;
-        return this.burn(entity,0.1) //cheater xd
+        return this.burn(entity,0.1)
     }
     heal(entity){
         let interval = window.setInterval(()=>{

@@ -1,8 +1,9 @@
  // SpellType:
-// -0 : Effet sur le joueur
+// -0 : Effet sur l'entité
 // -1 : Normal
 // -2 : avec gravité + Rebond
 
+// B+5 : Brûlure niveau 5
 var powersList=[
     {id:0,name:"fireball",damage:35,velocity:700,lifespan:6000,effect:"B+1",spellType:2},
     {id:1,name:"freezer",damage:25,velocity:150,lifespan:5000,effect:"F+3",spellType:1},

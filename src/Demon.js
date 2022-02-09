@@ -17,7 +17,7 @@ export default class Demon extends Monster
 
         this.health.value = 150;
 
-        this.damage = 75;
+        this.damage = 60;
         this.speed=200;
 
     }

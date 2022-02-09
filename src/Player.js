@@ -97,8 +97,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         }
 
         if (this.scene.cursors.up.isDown && !this.isOnAir){
-            this.setVelocityY(-this.speed                                                                                                                                                                                                   );
+            this.setVelocityY(-this.speed);
             this.isOnAir = true;
+            this.scene.jump.play();
         }
 
         if(this.scene.input.keyboard.checkDown(this.scene.cursors.space, 150) ){ // delay of 150ms  | && this.power.getLength()!=0
@@ -112,8 +113,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         super.preUpdate(t, dt)
 
         // Lorsque un mob inflige du dégat à un joueur, le joueur bénéficie de 3s d'invicibilité.
-        // Après 1500ms ...
-
+        
         if (this.onHit)
         {
             this.damageTime += dt
@@ -139,13 +139,20 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         console.log("Hello I'm the legendary hero !, ...");
     }
 
-    handleDamage(dmg,vector){
+    incur(dmg,vector){
+
         console.log("DEBUG : le joueur a subit : ",dmg," dmg");
         this.setTint(0xff0000)
 
         this.isInvicible=true;
         this.alpha = 0.5;
         this.onHit=true;
+
+        if(dmg>50){
+            this.scene.hightHit.play()
+        }else{
+            this.scene.hit.play()
+        }
 
         this.setVelocity(vector.x,vector.y);
 
@@ -157,6 +164,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
     kill()
     {
         this.isAlive = false;
+        this.scene.death.play();
     }
 
     updatePower(pow){

@@ -36,6 +36,10 @@ export default class BootScene extends Phaser.Scene{
 
         this.load.image('diamants','assets/img/diamond.png');
 
+        this.load.image('coins','assets/img/coin.png');
+
+
+
         // MAP avec les tiles:
         this.load.image('tiles', 'assets/tiles/FreeCuteTileset/Tileset.png');
         //this.load.image('tilesBackground', 'assets/tiles/FreeCuteTileset/keys.svg');
@@ -44,6 +48,17 @@ export default class BootScene extends Phaser.Scene{
 
         this.load.audio('music1','assets/music/music1.mp3');
 
+        this.load.audio("pickupCoin", "assets/sounds/pickupCoin.wav");
+        this.load.audio("jump","assets/sounds/jump.wav");
+        this.load.audio("drown","assets/sounds/drown.wav");
+        this.load.audio("player-dead", "assets/sounds/player-dead.wav");
+        this.load.audio("heal","assets/sounds/hit.wav");
+        this.load.audio("hit","assets/sounds/hit.wav");
+        this.load.audio("fireball", "assets/sounds/fireball.wav");
+        this.load.audio("freezer","assets/sounds/freezer.wav");
+        this.load.audio("hit-hight","assets/sounds/hit-hight.wav");
+        this.load.audio("monster-dead", "assets/sounds/monster-dead.wav");
+        this.load.audio("pickPower","assets/sounds/pickPower.wav");
 
         // Prepare les animations et quand pret lance la scene game
         this.load.on('complete', () => {

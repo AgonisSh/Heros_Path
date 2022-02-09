@@ -35,16 +35,30 @@ export default class Game extends Phaser.Scene{
 
     loadMusic(){
         // Musique :
-        this.music = this.sound.add('music1');
+        this.music = this.sound.add('music1',);
         this.music.play({
             volume: 0.2,
             loop: true
         });
     }
+    loadSound(){
+        this.pickCoin = this.sound.add("pickupCoin",{ loop: false });
+        this.jump = this.sound.add("jump",{ loop: false });
+        this.drown = this.sound.add("drown",{ loop: false });
+        this.death = this.sound.add("player-dead",{ loop: false });
+        this.heal = this.sound.add("heal",{ loop: false });
+        this.hit = this.sound.add("hit",{ loop: false });
+        this.fire = this.sound.add("fireball",{ loop: false });
+        this.freeze = this.sound.add("freezer",{ loop: false });
+        this.hightHit= this.sound.add("hit-hight",{ loop: false });
+        this.kill = this.sound.add("monster-dead",{ loop: false });
+        this.pickPower = this.sound.add("pickPower",{ loop: false });
+    }
 
-    collectDiamonds (player, diamants)
+    collectDiamonds (player, coins)
     {
-        diamants.disableBody(true, true);
+        this.pickCoin.play();
+        coins.disableBody(true, true);
         this.score += 10;
         /*** TEST POUVOIR ***/
         // changer l'index pour test.
@@ -63,12 +77,13 @@ export default class Game extends Phaser.Scene{
 
         this.loadMap();
         this.loadMusic();
+        this.loadSound();
         // Les touches du clavier
         this.cursors = this.input.keyboard.createCursorKeys();
         this.player = new Player(this,100,700,'player','knight_m_idle_anim_f0.png',400);
 
-        this.diamants = this.physics.add.group({
-            key: 'diamants',
+        this.coins = this.physics.add.group({
+            key: 'coins',
             repeat: 20,
             setXY: { x: 100, y: 100, stepX: 1500 }
         });
@@ -76,10 +91,10 @@ export default class Game extends Phaser.Scene{
         this.physics.add.collider(this.player, this.layerGround); // Collison entre layer sol et perso
         this.physics.add.collider(this.player, this.layerWater); // Collison entre player et eau
 
-        this.physics.add.collider(this.diamants, this.layerGround);
-        this.physics.add.overlap(this.player, this.diamants, this.collectDiamonds, null, this);
+        this.physics.add.collider(this.coins, this.layerGround);
+        this.physics.add.overlap(this.player, this.coins, this.collectDiamonds, null, this);
 
-        this.diamants.children.iterate(function (child) {
+        this.coins.children.iterate(function (child) {
             child.setBounceY(Phaser.Math.FloatBetween(0.1, 0.3));
         });
 
@@ -150,7 +165,7 @@ export default class Game extends Phaser.Scene{
             if (this.layerWater.getTileAtWorldXY(e.x, e.y) != null) e.kill();
         })
 
-        if (this.layerWater.getTileAtWorldXY(this.player.x, this.player.y) != null) this.restart2();
+        if (this.layerWater.getTileAtWorldXY(this.player.x, this.player.y) != null) this.player.kill();
         // TODO: remove after presentation
         if (this.player.x == 12.8 && this.player.y == 777.6) {
             this.player.x = 15600;

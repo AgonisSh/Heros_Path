@@ -63,18 +63,21 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
             const dy = player.y - monster.y
             const vec = new Phaser.Math.Vector2(dx, dy).normalize().scale(200+monster.damage)
 
-            player.handleDamage(monster.damage,vec);
+            player.incur(monster.damage,vec);
         }
     }
 
     kill(){
-        this.isVivant=0;1
+        if(this.scene !=null)
+            this.scene.kill.play();
+        this.isVivant=0;
         this.health.destroy();
         this.destroy();
     }
 
     incur(dmg){
-
+        if(this.scene !=null)
+            this.scene.hit.play()
         this.onHit=true
         this.setTint(0xff0000)
         if (this.health.decrease(dmg)) this.kill()
