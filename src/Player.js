@@ -63,7 +63,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         power.y = this.y;
 
         this.updatePower(power);
-        this.scene.events.emit('addPower', power.name, this.power.count);
 
     }
 

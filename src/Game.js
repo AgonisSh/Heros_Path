@@ -53,20 +53,6 @@ export default class Game extends Phaser.Scene{
         this.kill = this.sound.add("monster-dead",{ loop: false });
         this.pickPower = this.sound.add("pickPower",{ loop: false });
     }
-
-    /* Load interface elements like health,score etc ....
-    todo : Séparer dans une classe ui 
-    */
-    loadInterface(){
-
-        this.container = this.add.container(100,100);
-        let pow = this.add.text(0,0,"No power",{
-            fontFamily:'Arial',
-            color:'#000000'
-          }).setFontSize(18);
-        this.container.add(pow.setSize(100,100));
-    }
-
     collectCoins (player, coins)
     {
         this.pickCoin.play();
@@ -77,10 +63,13 @@ export default class Game extends Phaser.Scene{
         /*** TEST POUVOIR + INTERFACE ***/
         // TODO : Crée une méthode pour collecter les pouvoirs
         // changer l'index pour test.
-        let power = Power.fromJSON(this,powersList[1]);
+        let power = Power.fromJSON(this,powersList[3]);
+
         console.log("Power test : ",power.name);
 
         this.player.collectPower(power,quantity);
+
+        this.events.emit('addPower', power.name, this.player.power.count);
 
         this.PowerDiv.innerHTML = this.player.power.powerName+": " + this.player.power.count;
 
@@ -93,7 +82,6 @@ export default class Game extends Phaser.Scene{
         this.loadMap();
         this.loadMusic();
         this.loadSound();
-        this.loadInterface();
 
         // bonus ;)
         this.input.setDefaultCursor('url(https://cur.cursors-4u.net/games/gam-14/gam1340.cur),pointer');

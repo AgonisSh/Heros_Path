@@ -31,8 +31,12 @@ export default class BootScene extends Phaser.Scene{
         this.load.atlas('demon', 'assets/img/animations/demon.png', 'assets/img/animations/demon.json')
 
 
-        this.load.image('fireball','assets/img/fireball.png',10,10); // todo animation fireball ?
-        this.load.image('freezer','assets/img/freezer.png',10,10); // todo animation freezer ?
+        this.load.image('fireball','assets/img/fireball.png',10,10);
+        this.load.image('freezer','assets/img/freezer.png',10,10);
+        this.load.image('astralInfusion','assets/img/astralInfusion.png',10,10);
+        this.load.image('ghost','assets/img/ghost.png',10,10);
+
+
         this.load.image('diamants','assets/img/diamond.png');
         this.load.image('getsugaTensho','assets/img/getsugaTensho.png');
         this.load.image('coins','assets/img/coin.png');
