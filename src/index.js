@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Game from "./Game";
+import GameUI from "./GameUI";
 import BootScene from "./BootScene";
 
 const config =  {
@@ -19,7 +20,8 @@ const config =  {
     },
     scene: [
         BootScene,
-        Game
+        Game,
+        GameUI
     ]
 };
 

@@ -12,13 +12,12 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
     addPower(pow){
         /*
         this.createMultiple({
-            frameQuantity: qt, // a ajouter ... 
+            frameQuantity: 1, // a ajouter ...
             key: pow.powerName,
             active: false,
             visible: false,
             classType: Power
         });
-
          */
         this.add(pow);
         this.powerName=pow.name
@@ -27,7 +26,7 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
 
     usePower(x,y,side){
         let pow = this.getFirst();
-        
+
         if(pow){
             // Sound
             this.scene.powSound = this.scene.sound.add(pow.sound,{ loop: false });
@@ -40,11 +39,12 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
             }
             // collision avec le sol
             setTimeout( () => { pow.destroy()}, pow.lifespan);
+        
+        
+            if(this.count>0) this.count--;
+
         }
-
-        if(this.count>0) this.count--;
     }
-
 
     handlePowerCollision(pow){
         // Empty for now ...        

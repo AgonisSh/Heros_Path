@@ -54,17 +54,34 @@ export default class Game extends Phaser.Scene{
         this.pickPower = this.sound.add("pickPower",{ loop: false });
     }
 
-    collectDiamonds (player, coins)
+    /* Load interface elements like health,score etc ....
+    todo : Séparer dans une classe ui 
+    */
+    loadInterface(){
+
+        this.container = this.add.container(100,100);
+        let pow = this.add.text(0,0,"No power",{
+            fontFamily:'Arial',
+            color:'#000000'
+          }).setFontSize(18);
+        this.container.add(pow.setSize(100,100));
+    }
+
+    collectCoins (player, coins)
     {
         this.pickCoin.play();
         coins.disableBody(true, true);
         this.score += 10;
-        /*** TEST POUVOIR ***/
+        let quantity = 1 // for now ...
+        // index correspondant au pouvoir (voir model)
+        /*** TEST POUVOIR + INTERFACE ***/
+        // TODO : Crée une méthode pour collecter les pouvoirs
         // changer l'index pour test.
-        let pow = Power.fromJSON(this,powersList[4]);
-        console.log("Power test : ",pow);
-        this.player.collectPower(pow);
-        
+        let power = Power.fromJSON(this,powersList[1]);
+        console.log("Power test : ",power.name);
+
+        this.player.collectPower(power,quantity);
+
         this.PowerDiv.innerHTML = this.player.power.powerName+": " + this.player.power.count;
 
         /**** ** ** */
@@ -73,10 +90,14 @@ export default class Game extends Phaser.Scene{
 
     create ()
     {
-
         this.loadMap();
         this.loadMusic();
         this.loadSound();
+        this.loadInterface();
+
+        // bonus ;)
+        this.input.setDefaultCursor('url(https://cur.cursors-4u.net/games/gam-14/gam1340.cur),pointer');
+
         // Les touches du clavier
         this.cursors = this.input.keyboard.createCursorKeys();
         this.player = new Player(this,100,700,'player','knight_m_idle_anim_f0.png',400);
@@ -91,7 +112,7 @@ export default class Game extends Phaser.Scene{
         this.physics.add.collider(this.player, this.layerWater); // Collison entre player et eau
 
         this.physics.add.collider(this.coins, this.layerGround);
-        this.physics.add.overlap(this.player, this.coins, this.collectDiamonds, null, this);
+        this.physics.add.overlap(this.player, this.coins, this.collectCoins, null, this);
 
         this.coins.children.iterate(function (child) {
             child.setBounceY(Phaser.Math.FloatBetween(0.1, 0.3));
@@ -128,11 +149,9 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.top = "100px";
         this.scoreDiv.style.zIndex = "65532";
 
+        // todo : Utiliser un group pour les entités.
         this.entities = [];
         this.entities.push(new Ogre(this,700,700));
-        // todo : faire pour chaque entity (voir git du tuto)
-        // BREF/.
-
         this.entities.push(new Ogre(this,1350,700));
         this.entities.push(new Ogre(this,3000,700));
         this.entities.push(new Demon(this,6000,800));
@@ -176,6 +195,8 @@ export default class Game extends Phaser.Scene{
         this.music.stop();
         this.score = 0;
         this.scene.restart();
+        this.events.emit('restart');
+
     }
 
     endGame(){
