@@ -8,12 +8,13 @@ export default class GameUI extends Phaser.Scene {
 
     create ()
     {
+        let { width, height } = this.sys.game.canvas;
 
-        this.powerImage = this.add.image(110, 25, '').setInteractive();
+        this.powerImage = this.add.image(width*0.12-25, height*0.11-25, '').setInteractive();
 
         // Display power
-        let powerInfo = this.add.text(10, 10, 'Power:',{ fontFamily: 'Arial', fontSize: 24, color: '#00ff00' })
-        this.powerQuantity= this.add.text(110,10,this.countPowers,{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' })
+        let powerInfo = this.add.text(width*0.015, height*0.10-25, 'Power:',{ fontFamily: 'Arial', fontSize: 24, color: '#00ff00' })
+        this.powerQuantity= this.add.text(width*0.10-25, height*0.10-25,this.countPowers,{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' })
 
         this.game = this.scene.get('Game')
 

@@ -96,7 +96,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.scene.jump.play();
         }
 
-        if (this.scene.input.keyboard.checkDown(this.scene.cursors.space, 150)) { // delay of 150ms  | && this.power.getLength()!=0
+        if (this.scene.input.keyboard.checkDown(this.scene.cursors.shift, 150)) { // delay of 150ms  | && this.power.getLength()!=0
             this.usePower();
         }
 
@@ -124,6 +124,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.alpha = 1;
             }
         }
+    }
+
+    attack(){
+        // todo 
     }
 
 

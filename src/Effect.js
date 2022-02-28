@@ -55,7 +55,6 @@ export default class Effect {
                 console.log("Aucun effet ?!")
         }
         setTimeout(()=>{
-            // reset :l
             entity.speed=initSpeed;
             clearInterval(interval) 
         }, 2500*this.level);
