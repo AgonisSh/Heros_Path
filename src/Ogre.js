@@ -23,6 +23,11 @@ export default class Ogre extends Monster
 
 		super.update();
 
+
+		if (this.onHit) {
+			return
+		}
+
 		if (this.idle) {
 			if (this.direction == 1) {
 				this.play("idleROgre", true);

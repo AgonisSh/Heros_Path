@@ -26,6 +26,10 @@ export default class Demon extends Monster
     {
         super.update();
 
+
+        if (this.onHit) {
+            return
+        }
         if (this.idle) {
             if (this.direction == 1) {
                 this.play("idleRDemon", true);
@@ -67,8 +71,6 @@ export default class Demon extends Monster
     }
 
     attack(player,monster){
-        // todo : lance une boule de feu
-        // tips : utiliser powers :)
         super.attack(player,monster);
     }
 

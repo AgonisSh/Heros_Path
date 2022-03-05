@@ -1,5 +1,4 @@
-import Power from "./Power"
-import Powers from "./Powers"
+import Powers from "./Powers";
 import HealthBar from "./HealthBar";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -26,16 +25,28 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
 
         this.isAlive;
-        this.target = new Phaser.Math.Vector2();
+        this.target = new Phaser.Math.Vector2(); // ???
         this.speed = speed;
         this.side = "right";
 
-        this.power = new Powers(this.scene); // représente un 'group' object.
+        this.power = new Powers(this.scene);
 
         this.isInvicible = false;
         this.onHit = false;
         this.damageTime = 0;
         this.invincibilityTime = 0;
+
+        // Coup d'épee
+        // Crée une hitbox 'dynamic', qui afflige des dégats aux monstres lorsque la touche 'espace' est appuyé
+        this.swordHitBox = this.scene.add.rectangle(0,0,this.width*2,this.height*2,0xffffff,0.4) // Dynamic body
+        this.swordDamage = 10
+
+        this.scene.physics.add.existing(this.swordHitBox)
+        this.swordHitBox.body.enable = true
+        this.scene.physics.world.remove(this.swordHitBox.body)
+
+        this.swordHitBox.body.setAllowGravity(false)
+
         this.start();
 
     }
@@ -100,6 +111,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.usePower();
         }
 
+        if (this.scene.input.keyboard.checkDown(this.scene.cursors.space, 2000)) {
+            this.attack();
+        }
+
     }
 
     preUpdate(t, dt) {
@@ -127,7 +142,26 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     attack(){
-        // todo 
+        // Joue une animation
+        this.setVelocityX(0)
+
+        this.swordHitBox.x = this.side == "left" ? this.x - this.width * 1.10 : this.x + this.width *  1.10
+        this.swordHitBox.y = this.y + this.height * 0.5
+
+        this.swordHitBox.body.enable = true
+        this.scene.physics.world.add(this.swordHitBox.body)
+        this.swordHitBox.setAlpha(0.5)
+
+
+
+        // todo Nulle à changer plus tard ...
+        setTimeout(()=>{
+            this.swordHitBox.body.enable = false
+            this.scene.physics.world.remove(this.swordHitBox.body)
+            this.swordHitBox.setAlpha(0)
+        }, 50);
+
+
     }
 
 

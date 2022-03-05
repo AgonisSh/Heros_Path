@@ -4,7 +4,7 @@ import Ogre from "./Ogre";
 import Demon from "./Demon"
 // Test
 import { powersList } from './Model';
-import Power from './Power';
+import {Power} from './Powers';
 
 
 export default class Game extends Phaser.Scene{
@@ -13,8 +13,7 @@ export default class Game extends Phaser.Scene{
       
         this.score=0
         this.scoreDiv = document.createElement("div");
-        this.PowerDiv = document.createElement("div");
-      
+
     }
 
     loadMap(){
@@ -59,19 +58,13 @@ export default class Game extends Phaser.Scene{
         coins.disableBody(true, true);
         this.score += 10;
         let quantity = 1 // for now ...
-        // index correspondant au pouvoir (voir model)
-        /*** TEST POUVOIR + INTERFACE ***/
-        // TODO : Crée une méthode pour collecter les pouvoirs
-        // changer l'index pour test.
-        let power = Power.fromJSON(this,powersList[3]);
 
+        let power = Power.fromJSON(this,powersList[0]);
         console.log("Power test : ",power.name);
-
         this.player.collectPower(power,quantity);
 
-        this.events.emit('addPower', power.name, this.player.power.count);
 
-        this.PowerDiv.innerHTML = this.player.power.powerName+": " + this.player.power.count;
+        this.events.emit('addPower', power.name, this.player.power.count);
 
         /**** ** ** */
         this.scoreDiv.innerHTML = 'Score: ' + this.score;
@@ -111,19 +104,6 @@ export default class Game extends Phaser.Scene{
         this.cameras.main.startFollow(this.player);
         // Zoom
         this.cameras.main.setZoom(1.3);
-
-        // Set html indicator
-        document.getElementsByTagName("body")[0].appendChild(this.PowerDiv);
-        this.PowerDiv.innerHTML = this.player.power.powerName + "  " + this.player.power.count;
-        this.PowerDiv.style.align = "top";
-        this.PowerDiv.style.color = "white";
-        this.PowerDiv.style.fill = "#000";
-        this.PowerDiv.style.fontFamily = "fantasy";
-        this.PowerDiv.style.fontSize = '32px';
-        this.PowerDiv.style.position = "absolute";
-        this.PowerDiv.style.right = "100px";
-        this.PowerDiv.style.top = "70px";
-        this.PowerDiv.style.zIndex = "65532";
 
         document.getElementsByTagName("body")[0].appendChild(this.scoreDiv);
         this.scoreDiv.innerHTML = "Score: " + this.score;
@@ -194,6 +174,7 @@ export default class Game extends Phaser.Scene{
             loop: false
         })
         this.player.kill();
+
         alert("Bravo !! vous avez fini le niveau 1 avec un score de : "+this.score);
         this.restart2();
     }

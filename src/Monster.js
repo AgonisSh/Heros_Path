@@ -3,15 +3,11 @@
  */
 import HealthBar from "./HealthBar";
 
-export default class Monster extends Phaser.Physics.Arcade.Sprite
-{
-    constructor (scene, x, y,texture,animation,speed)
-    {
-        super(scene, x, y, 'assets');
+export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
-        this.cordX=x
-        this.cordY=y
-        console.log(`DEBUG : CREATE Monster (${this.cordX};${this.cordY})`)
+
+    constructor(scene, x, y, texture, animation, speed) {
+        super(scene, x, y, 'assets');
 
         this.isVivant = 1;
         this.setTexture(texture);
@@ -22,7 +18,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
 
         this.damage = 30;
 
-        this.health = new HealthBar(scene,x,y);
+        this.health = new HealthBar(scene, x, y);
         this.health.value = 100; // default
 
         this.player = this.scene.player;
@@ -38,69 +34,93 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite
 
         this.isAlive = false;
 
-        this.speed=speed;
+        this.speed = speed;
 
         this.setScale(2);
 
-        this.scene.physics.add.overlap(this.player,this,this.attack,null,this.scene); // Collison entre le joueur et le mob.
+        // Collisions avec les autres entités
+        this.scene.physics.add.overlap(this.player, this, this.attack, null, this.scene); // Collison entre le joueur et le mob.
         this.scene.physics.add.collider(this, this.scene.layerGround); // Collison entre layer sol et mob
-        this.scene.physics.add.collider(this ,this.scene.player.power, this.scene.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
+        this.scene.physics.add.collider(this, this.scene.player.power, this.scene.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
 
-        this.onHit=false
-        this.damageTime=0
+        // Todo Sa ne marche pas !!! ???*
+        console.log("Debug 2 : ", this.player.swordHitBox)
+        this.scene.physics.add.overlap(this, this.player.swordHitBox, this.incur, null, this.scene) // Collision entre l'attack du joueur et le monstre
+
+
+        this.onHit = false
+        this.damageTime = 0
     }
 
-    restart()
-    {
-        this.score = 0;
-        this.scene.restart();
-    }
 
-    attack(player,monster){
-        if(!player.isInvicible){
-            // Push the player in the opposite direction of the monster
-            const dx = player.x - monster.x
-            const dy = player.y - monster.y
-            const vec = new Phaser.Math.Vector2(dx, dy).normalize().scale(200+monster.damage)
-
-            player.incur(monster.damage,vec);
-        }
-    }
-
-    kill(){
-        if(this.scene !=null)
-            this.scene.kill.play();
-        this.isVivant=0;
-        this.health.destroy();
-        this.destroy();
-    }
-
-    incur(dmg){
-        if(this.scene !=null)
-            this.scene.hit.play()
-        this.onHit=true
-        this.setTint(0xff0000)
-        if (this.health.decrease(dmg)) this.kill()
-    }
-
-    preUpdate(t, dt)
-    {
+    preUpdate(t, dt) {
         super.preUpdate(t, dt)
 
-        if (this.onHit)
-        {
+        if (this.onHit) {
             this.damageTime += dt
 
-            if(this.damageTime>=250){
+            if (this.damageTime >= 250) {
                 this.setTint(0xffffff)
                 this.damageTime = 0
-                this.onHit=false;
+                this.onHit = false;
             }
         }
     }
 
-    update()
-    {
-        this.health.follow(this.x-20,this.y-50);
+    update(t, dt) {
+
+        this.health.follow(this.x - 20, this.y - 50);
     }
+
+    restart() {
+        this.score = 0;
+        this.scene.restart();
+    }
+
+    attack(player, monster) {
+        if (!player.isInvicible) {
+            // Push the player in the opposite direction of the monster
+            const dx = player.x - monster.x
+            const dy = player.y - monster.y
+            const vec = new Phaser.Math.Vector2(dx, dy).normalize().scale(200 + monster.damage)
+
+            player.incur(monster.damage, vec);
+        }
+    }
+
+    kill() {
+        if (this.scene != null)
+            this.scene.kill.play();
+        this.isVivant = 0;
+        this.health.destroy();
+        this.destroy();
+    }
+
+    incur(obj1, obj2, vector) {
+        console.log(obj1, ",", obj2)
+
+        let dmg = obj2
+
+        obj1.onHit = true
+        obj1.setTint(0xff0000)
+
+        if (obj2 == this.player.swordHitBox) {
+            console.log("Le monstre a recu un coup d'épée")
+            dmg = this.player.swordDamage
+        }
+
+        const dx = obj1.x - this.player.x
+        const dy = obj1.y - this.player.y
+        const vec = new Phaser.Math.Vector2(dx, dy).normalize().scale(400+dmg)
+
+        obj1.setVelocity(vec.x, vec.y);
+
+        console.log("Le monstre a reçu :", dmg, " degats")
+
+        if (this.scene != null && this.scene.hit != null)
+            this.scene.hit.play()
+        if (obj1.health.decrease(dmg)) obj1.kill()
+    }
+
+
 }
