@@ -97,29 +97,31 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     }
 
     incur(obj1, obj2, vector) {
-        console.log(obj1, ",", obj2)
-
+        let vec = vector
         let dmg = obj2
-
-        obj1.onHit = true
-        obj1.setTint(0xff0000)
 
         if (obj2 == this.player.swordHitBox) {
             console.log("Le monstre a recu un coup d'épée")
             dmg = this.player.swordDamage
+            vec = new Phaser.Math.Vector2(obj1.x - this.player.x, obj1.y - this.player.y).normalize().scale(400+dmg)
         }
 
-        const dx = obj1.x - this.player.x
-        const dy = obj1.y - this.player.y
-        const vec = new Phaser.Math.Vector2(dx, dy).normalize().scale(400+dmg)
+        if(isNaN(obj1)){
+            obj1.onHit = true
+            obj1.setTint(0xff0000)
 
-        obj1.setVelocity(vec.x, vec.y);
+            if(vec!=null){
+                obj1.setVelocity(vec.x, vec.y);
+            }
 
-        console.log("Le monstre a reçu :", dmg, " degats")
+            console.log("Le monstre a reçu :", dmg, " degats")
 
-        if (this.scene != null && this.scene.hit != null)
-            this.scene.hit.play()
-        if (obj1.health.decrease(dmg)) obj1.kill()
+            if (this.scene != null && this.scene.hit != null)
+                this.scene.hit.play()
+            if (obj1.health.decrease(dmg)) obj1.kill()
+        }
+
+
     }
 
 

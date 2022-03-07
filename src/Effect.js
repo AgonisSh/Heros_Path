@@ -20,7 +20,7 @@ export default class Effect {
     burn(entity,dmg){
         // tous les 100ms faire =>
         let interval = window.setInterval(()=>{
-            entity.incur(this.level*dmg*0.15);
+            entity.incur(entity,this.level*dmg*0.15);
         }, 100);
         return interval
     }
@@ -37,6 +37,9 @@ export default class Effect {
     }
 
     applyEffect(entity){
+
+        console.log("DEBUG applyEffect",entity)
+
         let initSpeed = entity.speed;
         let interval
         switch(this.name){

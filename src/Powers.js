@@ -51,17 +51,15 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         // Empty for now ...        
     }
 
-    handlePowerMonster(entity,obj){
-        obj.destroy()
-        obj.effect.applyEffect(entity)
+    handlePowerMonster(obj,obj2){
+        obj2.destroy()
+        obj2.effect.applyEffect(obj)
+        // todo crée une fonction qui retourne un vecteur dans un fichier tools.js
 
-        // Todo Ajout un vecteur
-        /*const dx = player.x - monster.x
-        const dy = player.y - monster.y
-        const vec = new Phaser.Math.Vector2(dx, dy).normalize().scale(200 + obj.damage)*/
-        console.log(entity)
-        console.log(obj)
-        entity.incur(entity, obj.damage)
+        let vec = new Phaser.Math.Vector2(200, 200).normalize().scale(400+obj2.damage)
+        console.log("DEBUG handlePowerMonster:",obj2)
+        console.log("DEBUG handlePowerMonster:",obj)
+        obj.incur(obj, obj2.damage,vec)
     }
 
 }

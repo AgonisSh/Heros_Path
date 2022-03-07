@@ -152,8 +152,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.world.add(this.swordHitBox.body)
         this.swordHitBox.setAlpha(0.5)
 
-
-
         // todo Nulle à changer plus tard ...
         setTimeout(()=>{
             this.swordHitBox.body.enable = false
