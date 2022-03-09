@@ -59,7 +59,7 @@ export default class Game extends Phaser.Scene{
         this.score += 10;
         let quantity = 1 // for now ...
 
-        let power = Power.fromJSON(this,powersList[0]);
+        let power = Power.fromJSON(this,powersList[1]);
         console.log("Power test : ",power.name);
         this.player.collectPower(power,quantity);
 
@@ -118,16 +118,17 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.zIndex = "65532";
 
         // todo : Utiliser un group pour les entités.
-        this.entities = [];
-        this.entities.push(new Ogre(this,700,700));
-        this.entities.push(new Ogre(this,1350,700));
-        this.entities.push(new Ogre(this,3000,700));
-        this.entities.push(new Demon(this,6000,800));
-        this.entities.push(new Ogre(this,11000,700));
-        this.entities.push(new Ogre(this,11500,700));
-        this.entities.push(new Ogre(this,12000,700));
+        this.monsters = this.add.group();
+        this.monsters.enableBody = true;
+        this.monsters.add(new Ogre(this,700,700));
+        this.monsters.add(new Ogre(this,3000,700));
+        this.monsters.add(new Ogre(this,1350,700));
+        this.monsters.add(new Demon(this,6000,800));
+        this.monsters.add(new Ogre(this,11000,700));
+        this.monsters.add(new Ogre(this,11500,700));
+        this.monsters.add(new Ogre(this,12000,700));
         //this.entities.push(new Ogre(this,12500,700));
-        this.entities.push(new Demon(this,14500,900));
+        this.monsters.add(new Demon(this,14500,900));
 
 
     }
@@ -145,11 +146,10 @@ export default class Game extends Phaser.Scene{
         // mouvement joueur
         this.player.update();
 
-        // Les déplacements de l'ogre
-        this.entities.forEach((e) => {
-            if (e.isVivant == 1) e.update();
-            if (this.layerWater.getTileAtWorldXY(e.x, e.y) != null) e.kill();
-        })
+        this.monsters.getChildren().forEach(function(monster){
+            if(monster.isVivant == 1) monster.update();
+            if(this.layerWater.getTileAtWorldXY(monster.x,monster.y) != null) monster.kill()
+        },this)
 
         if (this.layerWater.getTileAtWorldXY(this.player.x, this.player.y) != null) this.player.kill();
         // TODO: remove after presentation
@@ -164,7 +164,6 @@ export default class Game extends Phaser.Scene{
         this.score = 0;
         this.scene.restart();
         this.events.emit('restart');
-
     }
 
     endGame(){

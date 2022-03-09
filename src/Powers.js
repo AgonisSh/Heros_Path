@@ -21,14 +21,18 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         });
          */
         this.add(pow);
+
+
         this.powerName=pow.name
         this.count++;
     }
 
     usePower(x,y,side){
-        let pow = this.getFirst();
+        let pow = this.getFirstDead();
 
         if(pow){
+            this.activeIt(pow);
+
             // Sound
             this.scene.powSound = this.scene.sound.add(pow.sound,{ loop: false });
             this.scene.powSound.play();
@@ -47,20 +51,34 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         }
     }
 
-    handlePowerCollision(pow){
-        // Empty for now ...        
+    /**
+     * Active les collisions du sprite
+     * @param pow sprite power
+     */
+    activeIt(pow) {
+        this.scene.add.existing(pow);
+        this.scene.physics.add.collider(pow, this.scene.layerGround, this.handlePowerCollisionWall);
+        this.scene.physics.add.collider(pow, this.scene.monsters, this.handlePowerCollision);
+        this.scene.physics.add.collider(pow, this.scene.player, this.handlePowerCollision);
     }
 
-    handlePowerMonster(obj,obj2){
-        obj2.destroy()
-        obj2.effect.applyEffect(obj)
+    handlePowerCollisionWall(pow){
+        // Empty for now ...
+    }
+    handlePowerCollision(obj,obj2){
+        console.log(obj)
+        console.log(obj2)
+        obj.effect.applyEffect(obj2)
         // todo crée une fonction qui retourne un vecteur dans un fichier tools.js
 
-        let vec = new Phaser.Math.Vector2(200, 200).normalize().scale(400+obj2.damage)
-        console.log("DEBUG handlePowerMonster:",obj2)
-        console.log("DEBUG handlePowerMonster:",obj)
-        obj.incur(obj, obj2.damage,vec)
+        let vec = new Phaser.Math.Vector2(200, 200).normalize().scale(400+obj.damage)
+
+        obj2.incur(obj2, obj.damage,vec)
+
+        obj.destroy()
+
     }
+    
 
 }
 
@@ -73,13 +91,13 @@ export class Power extends Phaser.Physics.Arcade.Sprite {
         this.setActive(false);
         this.setVisible(false);
 
+
         this.setScale(0.02,0.02);
         this.powerName=powerName; // powerName <=> Image
         this.setTexture(powerName);
 
         //this.checkWorldBounds = true;
         //this.exists = false;
-
 
         //this.tracking = false; // direction dirigé
         //this.scaleSpeed = 0; // Change la taille par rapport à la distance parcourut
@@ -90,7 +108,8 @@ export class Power extends Phaser.Physics.Arcade.Sprite {
         this.lifespan = 1000;
 
         this.scene = scene;
-        this.scene.add.existing(this);
+
+
     }
 
     static fromJSON(scene,obj){
@@ -107,7 +126,6 @@ export class Power extends Phaser.Physics.Arcade.Sprite {
     usePower(x,y,side){
 
         this.body.reset(x,y);
-        this.scene.physics.add.collider(this,this.scene.layerGround,this.handlePowerCollision);
 
         this.setActive(true);
         this.setVisible(true);
@@ -132,4 +150,12 @@ export class Power extends Phaser.Physics.Arcade.Sprite {
                 break
         }
     }
+
+    preUpdate(time,delta){
+        super.preUpdate(time,delta)
+        
+    }
+
+
+    
 }

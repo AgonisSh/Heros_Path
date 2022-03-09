@@ -49,6 +49,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.start();
 
+       this.scene.physics.add.collider(this, this.power.children, this.power.handlePowerCollision);
+
+
     }
 
     start() {
@@ -84,6 +87,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (this.onHit) {
             return
         }
+
+        // rare
+        if(this.health.value <= 0) this.kill()
 
         this.isJumping();
 
@@ -167,25 +173,31 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         console.log("Hello I'm the legendary hero !, ...");
     }
 
-    incur(dmg, vector) {
+    incur(player,dmg, vector) {
+        console.log("DEBUG : incur Player : ",player)
+        console.log("DEBUG : incur Player : ",dmg)
+        console.log("DEBUG : incur Player : ",vector)
 
-        console.log("DEBUG : le joueur a subit : ", dmg, " dmg");
-        this.setTint(0xff0000)
+        player.setTint(0xff0000)
 
-        this.isInvicible = true;
-        this.alpha = 0.5;
-        this.onHit = true;
+        player.isInvicible = true;
+        player.alpha = 0.5;
+        player.onHit = true;
 
         if (dmg > 50) {
-            this.scene.hightHit.play()
+            console.log("Ouch")
+            player.scene.hightHit.play()
         } else {
-            this.scene.hit.play()
+            console.log("Bbruh")
+            player.scene.hit.play()
         }
 
-        this.setVelocity(vector.x, vector.y);
+        if(vector){
+            player.setVelocity(vector.x, vector.y);
+        }
 
-        if (this.health.decrease(dmg)) {
-            this.kill();
+        if (player.health.decrease(dmg)) {
+            player.kill();
         }
     }
 
@@ -205,7 +217,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
         console.log(`${this.power.powerName} !`)
 
-        this.power.usePower(this.x, this.y, this.side);
+        this.power.usePower(this.side == "right" ? this.x+25 : this.x-25 , this.y, this.side);
 
         // Update the UI (power part)
         this.scene.events.emit('usePower', this.power.count);
@@ -214,6 +226,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     win() {
         alert("Felicitation vous avez \n" + this.scene.score + " points ")
-        this.die();
+        this.kill();
     }
 }

@@ -41,12 +41,10 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         // Collisions avec les autres entités
         this.scene.physics.add.overlap(this.player, this, this.attack, null, this.scene); // Collison entre le joueur et le mob.
         this.scene.physics.add.collider(this, this.scene.layerGround); // Collison entre layer sol et mob
-        this.scene.physics.add.collider(this, this.scene.player.power, this.scene.player.power.handlePowerMonster); // Collision entre les projectiles du joueur et les monstres.
+        this.scene.physics.add.collider(this, this.scene.player.power.children, this.scene.player.power.handlePowerCollision); // Collision entre les projectiles du joueur et les monstres.
+        this.scene.physics.add.collider(this, this.scene.player.power.children, this.scene.player.power.handlePowerCollision); // Collision entre les projectiles du joueur et les monstres.
 
-        // Todo Sa ne marche pas !!! ???*
-        console.log("Debug 2 : ", this.player.swordHitBox)
         this.scene.physics.add.overlap(this, this.player.swordHitBox, this.incur, null, this.scene) // Collision entre l'attack du joueur et le monstre
-
 
         this.onHit = false
         this.damageTime = 0
@@ -84,7 +82,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
             const dy = player.y - monster.y
             const vec = new Phaser.Math.Vector2(dx, dy).normalize().scale(200 + monster.damage)
 
-            player.incur(monster.damage, vec);
+            player.incur(player,monster.damage, vec);
         }
     }
 
@@ -99,7 +97,8 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
     incur(obj1, obj2, vector) {
         let vec = vector
         let dmg = obj2
-
+        // If obj2 is the sword that mean we take the damage associete to it
+        // else we pass that and we continue with the default damage that correspond to the power (threw by the player)
         if (obj2 == this.player.swordHitBox) {
             console.log("Le monstre a recu un coup d'épée")
             dmg = this.player.swordDamage
