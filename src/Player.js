@@ -71,19 +71,27 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    /**
+     * Après avoir ramasser un pouvoir, selon la quantité celui ci est chargé dans 'pouvoirs' (groupe).
+     * @param power
+     * @param quantity
+     */
     collectPower(power, quantity) {
 
         power.x = this.x;
         power.y = this.y;
 
+        // todo add loop
         this.updatePower(power);
 
     }
 
     update() {
         // update health bar position
+        // todo : check follow concept phaser 3 => instead of manually update the coordinate
         this.health.follow(this.x - 45, this.y - 50);
 
+        // Condition used for the vector's effect -> see : incur method.
         if (this.onHit) {
             return
         }
@@ -126,8 +134,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     preUpdate(t, dt) {
         super.preUpdate(t, dt)
 
-        // Lorsque un mob inflige du dégat à un joueur, le joueur bénéficie de 3s d'invicibilité.
-
+        // When the monster deal damage to the player then the player gain 3s of invincibility
         if (this.onHit) {
             this.damageTime += dt
             if (this.damageTime >= 250) {
@@ -147,6 +154,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    /**
+     * this action active the swordHitbox to deal damage to monster
+     */
     attack(){
         // Joue une animation
         this.setVelocityX(0)
@@ -158,7 +168,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.world.add(this.swordHitBox.body)
         this.swordHitBox.setAlpha(0.5)
 
-        // todo Nulle à changer plus tard ...
+        // todo use something else
         setTimeout(()=>{
             this.swordHitBox.body.enable = false
             this.scene.physics.world.remove(this.swordHitBox.body)
@@ -168,16 +178,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     }
 
-
-    sayHello() {
-        console.log("Hello I'm the legendary hero !, ...");
-    }
-
+    /**
+     * When the player get hit by something
+     * @param player
+     * @param dmg
+     * @param vector used to simulate a "push"
+     */
     incur(player,dmg, vector) {
-        console.log("DEBUG : incur Player : ",player)
-        console.log("DEBUG : incur Player : ",dmg)
-        console.log("DEBUG : incur Player : ",vector)
-
+        // opacity
         player.setTint(0xff0000)
 
         player.isInvicible = true;

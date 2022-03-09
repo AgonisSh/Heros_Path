@@ -11,18 +11,7 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
     }
 
     addPower(pow){
-        /*
-        this.createMultiple({
-            frameQuantity: 1,
-            key: pow.powerName,
-            active: false,
-            visible: false,
-            classType: Power
-        });
-         */
         this.add(pow);
-
-
         this.powerName=pow.name
         this.count++;
     }
@@ -65,6 +54,12 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
     handlePowerCollisionWall(pow){
         // Empty for now ...
     }
+
+    /**
+     * Gère la collision avec les entités
+     * @param obj le projectile
+     * @param obj2 l'entité
+     */
     handlePowerCollision(obj,obj2){
         console.log(obj)
         console.log(obj2)
@@ -150,12 +145,4 @@ export class Power extends Phaser.Physics.Arcade.Sprite {
                 break
         }
     }
-
-    preUpdate(time,delta){
-        super.preUpdate(time,delta)
-        
-    }
-
-
-    
 }

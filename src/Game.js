@@ -16,6 +16,10 @@ export default class Game extends Phaser.Scene{
 
     }
 
+    /**
+     * Charge la map
+     * La map mesure 32x32 bloc
+     */
     loadMap(){
         // Pour créer la map mettre tjrs la taille des tiles avec les différents layer permet de différencier un décor d'un mur par exemple
         this.map1 = this.make.tilemap({ key: 'map1', tileWidth: 32, tileHeight: 32 });
@@ -31,7 +35,6 @@ export default class Game extends Phaser.Scene{
         this.physics.world.bounds.width = this.layerBackground.width;
         this.physics.world.bounds.height = this.layerBackground.height;
     }
-
     loadMusic(){
         // Musique :
         this.music = this.sound.add('music1');
@@ -52,6 +55,12 @@ export default class Game extends Phaser.Scene{
         this.kill = this.sound.add("monster-dead",{ loop: false });
         this.pickPower = this.sound.add("pickPower",{ loop: false });
     }
+
+    /**
+     * Gère la collision entre les pièces et le joueur
+     * @param player
+     * @param coins
+     */
     collectCoins (player, coins)
     {
         this.pickCoin.play();
