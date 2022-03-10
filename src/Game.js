@@ -68,7 +68,7 @@ export default class Game extends Phaser.Scene{
         this.score += 10;
         let quantity = 1 // for now ...
 
-        let power = Power.fromJSON(this,powersList[1]);
+        let power = Power.fromJSON(this,powersList[3]);
         console.log("Power test : ",power.name);
         this.player.collectPower(power,quantity);
 
