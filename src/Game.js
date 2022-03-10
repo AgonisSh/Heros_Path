@@ -45,15 +45,15 @@ export default class Game extends Phaser.Scene{
         this.victoryMusic = this.sound.add('victory');
     }
     loadSound(){
-        this.pickCoin = this.sound.add("pickupCoin",{ loop: false });
-        this.jump = this.sound.add("jump",{ loop: false });
-        this.drown = this.sound.add("drown",{ loop: false });
-        this.death = this.sound.add("player-dead",{ loop: false });
-        this.hit = this.sound.add("hit",{ loop: false });
-        this.fire = this.sound.add("fireball",{ loop: false });
-        this.hightHit= this.sound.add("hit-hight",{ loop: false });
-        this.kill = this.sound.add("monster-dead",{ loop: false });
-        this.pickPower = this.sound.add("pickPower",{ loop: false });
+        this.pickCoin = this.sound.add("pickupCoin",{ loop: false,volume: 0.3 });
+        this.jump = this.sound.add("jump",{ loop: false, volume: 0.3 });
+        this.drown = this.sound.add("drown",{ loop: false, volume: 0.3 });
+        this.death = this.sound.add("player-dead",{ loop: false, volume: 0.3 });
+        this.hit = this.sound.add("hit",{ loop: false, volume: 0.3 });
+        this.fire = this.sound.add("fireball",{ loop: false, volume: 0.3 });
+        this.hightHit= this.sound.add("hit-hight",{ loop: false, volume: 0.3 });
+        this.kill = this.sound.add("monster-dead",{ loop: false, volume: 0.3 });
+        this.pickPower = this.sound.add("pickPower",{ loop: false, volume: 0.3 });
     }
 
     /**
