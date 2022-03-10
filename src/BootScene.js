@@ -45,8 +45,6 @@ export default class BootScene extends Phaser.Scene{
 
         // MAP avec les tiles:
         this.load.image('tiles', 'assets/tiles/FreeCuteTileset/Tileset.png');
-        //this.load.image('tilesBackground', 'assets/tiles/FreeCuteTileset/keys.svg');
-        //this.load.image('tilesBackground2', 'assets/tiles/FreeCuteTileset/BG3.png');
         this.load.tilemapTiledJSON('map1', 'assets/map/map1.json');
 
         this.load.audio('music1','assets/music/music1.mp3');
