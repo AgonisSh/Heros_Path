@@ -92,8 +92,6 @@ export class Power extends Phaser.Physics.Arcade.Sprite {
         this.setActive(false);
         this.setVisible(false);
 
-
-        this.setScale(0.02,0.02);
         this.powerName=powerName; // powerName <=> Image
         this.setTexture(powerName);
 
@@ -121,6 +119,8 @@ export class Power extends Phaser.Physics.Arcade.Sprite {
         pow.spellType = obj.spellType
         pow.effect = Effect.load(obj.effect);
         pow.sound = obj.sound;
+        pow.setScale(obj.scale);
+
         return pow
     }
 

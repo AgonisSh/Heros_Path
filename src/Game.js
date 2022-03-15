@@ -24,6 +24,7 @@ export default class Game extends Phaser.Scene{
         this.map1 = this.make.tilemap({ key: 'map1', tileWidth: 32, tileHeight: 32 });
         this.tileset = this.map1.addTilesetImage('generic_platformer_tiles', 'tiles');  // Faut mettre nom de la tile dans Tiled
 
+
         //layers :
         this.layerBackground = this.map1.createLayer("Background",this.tileset, 0, 0);
         this.layerBackgroundDecors = this.map1.createLayer("BackgroundDecor",this.tileset, 0, 0);
@@ -33,7 +34,23 @@ export default class Game extends Phaser.Scene{
         // Le limite du monde :
         this.physics.world.bounds.width = this.layerBackground.width;
         this.physics.world.bounds.height = this.layerBackground.height;
+
     }
+    loadMap2(){
+        // MAP 2:
+        this.map2 = this.make.tilemap({ key: 'map2', tileWidth: 32, tileHeight: 32 });
+        this.tileset2 = this.map2.addTilesetImage('Castlevania', 'tiles2');
+
+        // MAP 2
+        this.layerBackground2 = this.map2.createLayer("Background",this.tileset2, 0, 0);
+        this.layerGround2 = this.map2.createLayer("Ground",this.tileset2, 0, 0);
+        this.layerGround2.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
+        // Le limite du monde :
+        this.physics.world.bounds.width = this.layerBackground2.width;
+        this.physics.world.bounds.height = this.layerBackground2.height;
+    }
+
+
     loadMusic(){
         // Musique :
         this.music = this.sound.add('music1');
@@ -44,15 +61,15 @@ export default class Game extends Phaser.Scene{
         this.victoryMusic = this.sound.add('victory');
     }
     loadSound(){
-        this.pickCoin = this.sound.add("pickupCoin",{ loop: false });
-        this.jump = this.sound.add("jump",{ loop: false });
-        this.drown = this.sound.add("drown",{ loop: false });
-        this.death = this.sound.add("player-dead",{ loop: false });
-        this.hit = this.sound.add("hit",{ loop: false });
-        this.fire = this.sound.add("fireball",{ loop: false });
-        this.hightHit= this.sound.add("hit-hight",{ loop: false });
-        this.kill = this.sound.add("monster-dead",{ loop: false });
-        this.pickPower = this.sound.add("pickPower",{ loop: false });
+        this.pickCoin = this.sound.add("pickupCoin",{ loop: false,volume: 0.3 });
+        this.jump = this.sound.add("jump",{ loop: false, volume: 0.3 });
+        this.drown = this.sound.add("drown",{ loop: false, volume: 0.3 });
+        this.death = this.sound.add("player-dead",{ loop: false, volume: 0.3 });
+        this.hit = this.sound.add("hit",{ loop: false, volume: 0.3 });
+        this.fire = this.sound.add("fireball",{ loop: false, volume: 0.3 });
+        this.hightHit= this.sound.add("hit-hight",{ loop: false, volume: 0.3 });
+        this.kill = this.sound.add("monster-dead",{ loop: false, volume: 0.3 });
+        this.pickPower = this.sound.add("pickPower",{ loop: false, volume: 0.3 });
     }
 
     /**
@@ -67,7 +84,7 @@ export default class Game extends Phaser.Scene{
         this.score += 10;
         let quantity = 1 // for now ...
 
-        let power = Power.fromJSON(this,powersList[1]);
+        let power = Power.fromJSON(this,powersList[3]);
         console.log("Power test : ",power.name);
         this.player.collectPower(power,quantity);
 
