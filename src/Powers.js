@@ -1,5 +1,6 @@
 import { powersList } from "./Model";
 import Effect from "./Effect";
+import Demon from "./Demon";
 
 // A group of power element.
 export default class Powers extends Phaser.Physics.Arcade.Group {
@@ -8,6 +9,8 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         this.scene=scene;
         this.powerName='';
         this.count=0;
+        this.tracking = true;
+
     }
 
     addPower(pow){
@@ -16,7 +19,7 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         this.count++;
     }
 
-    usePower(x,y,side){
+    usePower(x,y,side,angle){
         let pow = this.getFirstDead();
 
         if(pow){
@@ -29,7 +32,7 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
             if(pow.spellType==0){
                 pow.effect.applyEffect(this.scene.player);
             }else{
-                pow.usePower(x,y,side);
+                pow.usePower(x,y,side,angle);
             }
             // collision avec le sol
             setTimeout( () => { pow.destroy()}, pow.lifespan);
@@ -61,8 +64,12 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
      * @param obj2 l'entité
      */
     handlePowerCollision(obj,obj2){
-        console.log(obj)
-        console.log(obj2)
+        // Case when its a demon
+        if(obj2 instanceof Demon && obj.name == "fireball"){
+            obj.destroy()
+            return
+        }
+
         obj.effect.applyEffect(obj2)
         // todo crée une fonction qui retourne un vecteur dans un fichier tools.js
 
@@ -71,7 +78,6 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         obj2.incur(obj2, obj.damage,vec)
 
         obj.destroy()
-
     }
     
 
@@ -118,7 +124,7 @@ export class Power extends Phaser.Physics.Arcade.Sprite {
         return pow
     }
 
-    usePower(x,y,side){
+    usePower(x,y,side,angle){
 
         this.body.reset(x,y);
 
@@ -133,16 +139,22 @@ export class Power extends Phaser.Physics.Arcade.Sprite {
 
         this.setCollideWorldBounds(true);
 
-        //todo utiliser un vecteur pour la direction
-        switch (side) {
-            case 'left':
-                this.setVelocityX(-this.velocity);
-                this.angle = 180
-                break
-            case 'right':
-                this.setVelocityX(this.velocity);
-                this.angle = 0
-                break
+        if(angle != null){
+            this.scene.physics.velocityFromRotation(angle, this.velocity, this.body.velocity);
+        }else{
+                //todo utiliser un vecteur pour la direction
+            switch (side) {
+                case 'left':
+                    this.setVelocityX(-this.velocity);
+                    this.angle = 180
+                    break
+                case 'right':
+                    this.setVelocityX(this.velocity);
+                    this.angle = 0
+                    break
+            }
         }
+
+        
     }
 }

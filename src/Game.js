@@ -4,13 +4,12 @@ import Ogre from "./Ogre";
 import Demon from "./Demon"
 // Test
 import { powersList } from './Model';
-import {Power} from './Powers';
+import { Power } from './Powers';
 
 
 export default class Game extends Phaser.Scene{
     constructor() {
         super('Game'); // game is the key of the scene
-      
         this.score=0
         this.scoreDiv = document.createElement("div");
 
