@@ -29,7 +29,7 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
         this.setBounce(0.2);
         this.body.setGravityY(800);
-        this.setCollideWorldBounds(true);
+        //this.setCollideWorldBounds(true);
 
         this.isAlive = false;
 

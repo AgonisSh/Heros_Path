@@ -20,7 +20,7 @@ export default class Game extends Phaser.Scene{
      * Charge la map
      * La map mesure 32x32 bloc
      */
-    loadMap(){
+    loadMap1(){
         // Pour créer la map mettre tjrs la taille des tiles avec les différents layer permet de différencier un décor d'un mur par exemple
         this.map1 = this.make.tilemap({ key: 'map1', tileWidth: 32, tileHeight: 32 });
         this.tileset = this.map1.addTilesetImage('generic_platformer_tiles', 'tiles');  // Faut mettre nom de la tile dans Tiled
@@ -43,12 +43,14 @@ export default class Game extends Phaser.Scene{
         this.tileset2 = this.map2.addTilesetImage('Castlevania', 'tiles2');
 
         // MAP 2
-        this.layerBackground2 = this.map2.createLayer("Background",this.tileset2, 0, 0);
-        this.layerGround2 = this.map2.createLayer("Ground",this.tileset2, 0, 0);
-        this.layerGround2.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
+        this.layerBackground = this.map2.createLayer("Background",this.tileset2, 0, 0);
+        this.layerBackgroundDecors = this.map2.createLayer("BackgroundDecor",this.tileset2, 0, 0);
+        this.layerWater = this.map2.createLayer("Water",this.tileset2, 0, 0);
+        this.layerGround = this.map2.createLayer("Ground",this.tileset2, 0, 0);
+        this.layerGround.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
         // Le limite du monde :
-        this.physics.world.bounds.width = this.layerBackground2.width;
-        this.physics.world.bounds.height = this.layerBackground2.height;
+        this.physics.world.bounds.width = this.layerBackground.width;
+        this.physics.world.bounds.height = this.layerBackground.height;
     }
 
 
@@ -85,7 +87,7 @@ export default class Game extends Phaser.Scene{
         this.score += 10;
         let quantity = 1 // for now ...
 
-        let power = Power.fromJSON(this,powersList[3]);
+        let power = Power.fromJSON(this,powersList[1]);
         console.log("Power test : ",power.name);
         this.player.collectPower(power,quantity);
 
@@ -98,7 +100,7 @@ export default class Game extends Phaser.Scene{
 
     create ()
     {
-        this.loadMap();
+        this.loadMap1();
         this.loadMusic();
         this.loadSound();
 
@@ -149,14 +151,35 @@ export default class Game extends Phaser.Scene{
         this.monsters.add(new Ogre(this,700,700));
         this.monsters.add(new Ogre(this,3000,700));
         this.monsters.add(new Ogre(this,1350,700));
-        this.monsters.add(new Demon(this,6000,800));
-        this.monsters.add(new Ogre(this,11000,700));
+        this.monsters.add(new Demon(this,6000,700));
+        this.monsters.add(new Ogre(this,17000,700));
         this.monsters.add(new Ogre(this,11500,700));
         this.monsters.add(new Ogre(this,12000,700));
         //this.entities.push(new Ogre(this,12500,700));
-        this.monsters.add(new Demon(this,14500,900));
+        this.monsters.add(new Demon(this,14500,700));
 
     }
+
+
+    restart2() {
+        this.music.stop();
+        this.score = 0;
+        this.scene.restart();
+        this.events.emit('restart');
+    }
+
+    endGame(){
+        this.music.stop()
+        this.victoryMusic.play({
+            volume:0.2,
+            loop: false
+        })
+        this.player.kill();
+
+        alert("Bravo !! vous avez fini le niveau 1 avec un score de : "+this.score);
+        this.restart2();
+    }
+
 
     update(){
 
@@ -182,24 +205,5 @@ export default class Game extends Phaser.Scene{
             this.player.x = 15600;
             this.player.y = 778;
         }
-    }
-
-    restart2() {
-        this.music.stop();
-        this.score = 0;
-        this.scene.restart();
-        this.events.emit('restart');
-    }
-
-    endGame(){
-        this.music.stop()
-        this.victoryMusic.play({
-            volume:0.2,
-            loop: false
-        })
-        this.player.kill();
-
-        alert("Bravo !! vous avez fini le niveau 1 avec un score de : "+this.score);
-        this.restart2();
     }
 }
