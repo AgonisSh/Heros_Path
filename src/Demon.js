@@ -24,7 +24,7 @@ export default class Demon extends Monster
         this.power = new Powers(this.scene);
 
         this.damage = 60;
-        this.speed=200;
+        this.speed=90;
 
     }
 
@@ -87,21 +87,18 @@ export default class Demon extends Monster
         //var angleRadians = Math.atan2(entity.y - this.y, entity.x - this.x)
         var angleRadians = Phaser.Math.Angle.BetweenPoints(this,this.player);
 
-
-        var line = new Phaser.Geom.Line();
-        Phaser.Geom.Line.SetToAngle(line, this.x, this.y, angleRadians, 128);
-
-        console.log("angle calculé : ", angleRadians)
-
-        if(this.power.getLength()==0){
+        if(this.power.getLength()<=1){
             this.chargePower()
-
         }
-        this.power.usePower(this.direction == -1 ? this.x-25 : this.x+25 , this.y+5, this.direction==1 ? "left":"right",angleRadians)
+
+        this.power.usePower(this.direction == -1 ? this.x-25 : this.x+25 , this.y+5, this.direction==1 ? "left":"right",angleRadians+100)
     }
 
     chargePower() {
         let pow = Power.fromJSON(this.scene,powersList[0]);
+        pow.damage = 10;
+        pow.velocity=300;
+        pow.lifespan=2000;
         this.power.addPower(pow)
     }
 
