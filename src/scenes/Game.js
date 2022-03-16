@@ -1,10 +1,9 @@
 import 'phaser';
-import Player from "./Player";
-import Ogre from "./Ogre";
-import Demon from "./Demon"
-// Test
-import { powersList } from './Model';
-import { Power } from './Powers';
+import Player from "../characters/Player";
+import Ogre from "../enemies/Ogre";
+import Demon from "../enemies/Demon"
+import { powersList } from '../utils/Model';
+import { Power } from '../items/Powers';
 
 
 export default class Game extends Phaser.Scene{

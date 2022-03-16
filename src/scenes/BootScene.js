@@ -1,5 +1,5 @@
 import 'phaser';
-import lesAnimations from './animations/animations';
+import lesAnimations from '../animations/animations';
 
 export default class BootScene extends Phaser.Scene{
     constructor() {

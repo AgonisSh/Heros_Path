@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import Game from "./Game";
-import GameUI from "./GameUI";
-import BootScene from "./BootScene";
+import Game from "./scenes/Game";
+import GameUI from "./scenes/GameUI";
+import BootScene from "./scenes/BootScene";
 
 const config =  {
     type: Phaser.AUTO,

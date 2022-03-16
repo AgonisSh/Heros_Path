@@ -1,5 +1,5 @@
-import Powers from "./Powers";
-import HealthBar from "./HealthBar";
+import Powers from "../items/Powers";
+import HealthBar from "../utils/HealthBar"
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, animation, speed) {

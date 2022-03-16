@@ -1,8 +1,6 @@
 import Monster from "./Monster";
-import Powers from "./Powers";
-import {Power} from "./Powers";
-
-import { powersList } from './Model';
+import Powers from "../items/Powers";
+import {Power} from "../items/Powers";
 
 const AGGRO_RANGE = 1500;
 const CLOSE_RANGE = 10;
@@ -20,7 +18,7 @@ export default class Demon extends Monster
         this.prevX = -1;
 
         this.health.value = 150;
-
+        this.scene = scene
         this.power = new Powers(this.scene);
 
         this.damage = 60;
@@ -63,7 +61,6 @@ export default class Demon extends Monster
                 if (this.direction == 1) this.play("runRDemon", true);
                 else this.play("runLDemon", true);
                 this.setVelocityX(this.speed * this.direction);
-                console.log("Joueur proche")
                 this.throwBall(this.player);
 
                 if (this.body.onFloor()) {
@@ -95,10 +92,8 @@ export default class Demon extends Monster
     }
 
     chargePower() {
-        let pow = Power.fromJSON(this.scene,powersList[0]);
-        pow.damage = 10;
-        pow.velocity=300;
-        pow.lifespan=2000;
+        let spe = {damage:10,velocity:300,lifespan:2000};
+        let pow = Powers.giveToMe(this.scene,0,spe);
         this.power.addPower(pow)
     }
 

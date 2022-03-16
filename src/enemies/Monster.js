@@ -1,7 +1,10 @@
+import Powers from "../items/Powers";
+import {Power} from "../items/Powers";
+
 /**
  * Classe ascendent des monstres.
  */
-import HealthBar from "./HealthBar";
+import HealthBar from "../utils/HealthBar";
 
 export default class Monster extends Phaser.Physics.Arcade.Sprite {
 
