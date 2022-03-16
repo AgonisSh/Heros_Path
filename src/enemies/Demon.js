@@ -1,4 +1,5 @@
 import Monster from "./Monster";
+import Powers from "../items/Powers";
 
 const AGGRO_RANGE = 1500;
 const CLOSE_RANGE = 10;
@@ -16,9 +17,11 @@ export default class Demon extends Monster
         this.prevX = -1;
 
         this.health.value = 150;
+        this.scene = scene
+        this.power = new Powers(this.scene);
 
         this.damage = 60;
-        this.speed=200;
+        this.speed=90;
 
     }
 
@@ -30,6 +33,7 @@ export default class Demon extends Monster
         if (this.onHit) {
             return
         }
+
         if (this.idle) {
             if (this.direction == 1) {
                 this.play("idleRDemon", true);
@@ -56,6 +60,7 @@ export default class Demon extends Monster
                 if (this.direction == 1) this.play("runRDemon", true);
                 else this.play("runLDemon", true);
                 this.setVelocityX(this.speed * this.direction);
+                this.throwBall(this.player);
 
                 if (this.body.onFloor()) {
                     if ((this.direction == 1 && this.body.blocked.right) || (this.direction == -1 && this.body.blocked.left)) {
@@ -70,8 +75,34 @@ export default class Demon extends Monster
         }
     }
 
+    throwBall(entity){
+
+        // Get the angle between the player and the monster
+        // https://phasergames.com/get-the-angle-between-2-objects-in-phaser/
+        // ou https://phaser.io/examples/v3/view/physics/arcade/velocity-from-angle
+        //var angleRadians = Math.atan2(entity.y - this.y, entity.x - this.x)
+        var angleRadians = Phaser.Math.Angle.BetweenPoints(this,this.player);
+
+        if(this.power.getLength()<=1){
+            this.chargePower()
+        }
+
+        this.power.usePower(this.direction == -1 ? this.x-25 : this.x+25 , this.y+5, this.direction==1 ? "left":"right",angleRadians+100)
+    }
+
+    chargePower() {
+        let spe = {damage:10,velocity:300,lifespan:2000};
+        this.pow = Powers.giveToMe(this.scene,0,spe);
+        this.power.addPower(this.pow)
+    }
+
     attack(player,monster){
         super.attack(player,monster);
+    }
+
+
+    incur(obj1, obj2, vector) {
+        super.incur(obj1,obj2,vector);
     }
 
 }

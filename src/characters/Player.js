@@ -1,5 +1,5 @@
-import Powers from "./Powers";
-import HealthBar from "./HealthBar";
+import Powers from "../items/Powers";
+import HealthBar from "../utils/HealthBar"
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, animation, speed) {
@@ -25,7 +25,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
 
         this.isAlive;
-        this.target = new Phaser.Math.Vector2(); // ???
+        //this.target = new Phaser.Math.Vector2();
         this.speed = speed;
         this.side = "right";
 
@@ -49,7 +49,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.start();
 
-       this.scene.physics.add.collider(this, this.power.children, this.power.handlePowerCollision);
+        this.scene.physics.add.collider(this, this.power.children, this.power.handlePowerCollision);
 
 
     }
@@ -121,7 +121,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.scene.jump.play();
         }
 
-        if (this.scene.input.keyboard.checkDown(this.scene.cursors.shift, 150)) { // delay of 150ms  | && this.power.getLength()!=0
+        if (this.scene.input.keyboard.checkDown(this.scene.cursors.shift, 150)) { // delay of 150ms
             this.usePower();
         }
 
@@ -161,12 +161,28 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Joue une animation
         this.setVelocityX(0)
 
-        this.swordHitBox.x = this.side == "left" ? this.x - this.width * 1.10 : this.x + this.width *  1.10
-        this.swordHitBox.y = this.y + this.height * 0.5
+        let x = this.side == "left" ? this.x - this.width * 1.10 : this.x + this.width *  1.10
+        let y = this.y + this.height * 0.5
+
+        this.swordHitBox.x = x
+        this.swordHitBox.y = y
 
         this.swordHitBox.body.enable = true
         this.scene.physics.world.add(this.swordHitBox.body)
         this.swordHitBox.setAlpha(0.5)
+
+        // Rotate the sword
+        /*this.anims.create({
+            key: "slash",
+            frames: this.anims.generateFrameNumbers("slash", {
+                start: 0,
+                end: 4
+            }),
+            frameRate: 2,
+            repeat: 0
+        });*/
+
+
 
         // todo use something else
         setTimeout(()=>{
@@ -174,8 +190,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.scene.physics.world.remove(this.swordHitBox.body)
             this.swordHitBox.setAlpha(0)
         }, 50);
-
-
     }
 
     /**
@@ -193,10 +207,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         player.onHit = true;
 
         if (dmg > 50) {
-            console.log("Ouch")
             player.scene.hightHit.play()
         } else {
-            console.log("Bbruh")
             player.scene.hit.play()
         }
 
@@ -229,7 +241,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         // Update the UI (power part)
         this.scene.events.emit('usePower', this.power.count);
-
     }
 
     win() {
