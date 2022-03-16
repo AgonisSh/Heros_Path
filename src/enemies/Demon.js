@@ -1,6 +1,5 @@
 import Monster from "./Monster";
 import Powers from "../items/Powers";
-import {Power} from "../items/Powers";
 
 const AGGRO_RANGE = 1500;
 const CLOSE_RANGE = 10;
@@ -93,8 +92,8 @@ export default class Demon extends Monster
 
     chargePower() {
         let spe = {damage:10,velocity:300,lifespan:2000};
-        let pow = Powers.giveToMe(this.scene,0,spe);
-        this.power.addPower(pow)
+        this.pow = Powers.giveToMe(this.scene,0,spe);
+        this.power.addPower(this.pow)
     }
 
     attack(player,monster){

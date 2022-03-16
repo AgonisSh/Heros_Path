@@ -2,8 +2,8 @@ import 'phaser';
 import Player from "../characters/Player";
 import Ogre from "../enemies/Ogre";
 import Demon from "../enemies/Demon"
-import { powersList } from '../utils/Model';
-import { Power } from '../items/Powers';
+import Powers from "../items/Powers";
+
 
 
 export default class Game extends Phaser.Scene{
@@ -83,7 +83,7 @@ export default class Game extends Phaser.Scene{
         this.score += 10;
         let quantity = 1 // for now ...
 
-        let power = Power.fromJSON(this,powersList[3]);
+        let power = Powers.giveToMe(this,0,null);
         console.log("Power test : ",power.name);
         this.player.collectPower(power,quantity);
 
