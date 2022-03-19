@@ -13,4 +13,26 @@ var powersList=[
     {id:4,name:"astralInfusion",sound:"heal",damage:0,velocity:0,lifespan:1500,effect:"H+1",spellType:0, scale: 0.25}
 ]
 
+ // Position of the monsters for the first map
+ var monstersMap1 = [
+     {id: 0, type: "ogre", x: 700, y: 700},
+     {id: 1, type: "ogre", x: 1350, y: 700},
+     {id: 2, type: "ogre", x: 3000, y: 700},
+     {id: 3, type: "demon", x: 6000, y: 800},
+     {id: 4, type: "ogre", x: 11000, y: 700},
+     {id: 5, type: "ogre", x: 11500, y: 700},
+     {id: 6, type: "ogre", x: 12000, y: 700},
+     {id: 7, type: "demon", x: 14500, y: 900}
+ ]
+
+ var monstersMap2 = [
+     {id: 0, type: "ogre", x: 700, y: 700},
+     {id: 1, type: "ogre", x: 1350, y: 700},
+     {id: 2, type: "ogre", x: 3000, y: 700},
+     {id: 3, type: "demon", x: 4000, y: 800},
+ ]
+
+
 export {powersList};
+export {monstersMap1};
+export {monstersMap2};
