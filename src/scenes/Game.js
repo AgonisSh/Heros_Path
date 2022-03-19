@@ -39,12 +39,12 @@ export default class Game extends Phaser.Scene {
 
     loadMap2() {
         // MAP 2:
-        this.map2 = this.make.tilemap({key: 'map2', tileWidth: 32, tileHeight: 32});
-        this.tileset2 = this.map2.addTilesetImage('Castlevania', 'tiles2');
+        this.map1 = this.make.tilemap({key: 'map2', tileWidth: 32, tileHeight: 32});
+        this.tileset = this.map1.addTilesetImage('Castlevania', 'tiles2');
 
         // MAP 2
-        this.layerBackground = this.map2.createLayer("Background", this.tileset2, 0, 0);
-        this.layerGround = this.map2.createLayer("Ground", this.tileset2, 0, 0);
+        this.layerBackground = this.map1.createLayer("Background", this.tileset, 0, 0);
+        this.layerGround = this.map1.createLayer("Ground", this.tileset, 0, 0);
         this.layerGround.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
         // Le limite du monde :
         this.physics.world.bounds.width = this.layerBackground.width;
