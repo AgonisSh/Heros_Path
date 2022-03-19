@@ -199,6 +199,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
      * @param vector used to simulate a "push"
      */
     incur(player,dmg, vector) {
+
+        if(this.isInvicible){
+            return
+        }
+
         // opacity
         player.setTint(0xff0000)
 

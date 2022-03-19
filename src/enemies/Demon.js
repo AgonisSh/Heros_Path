@@ -83,15 +83,15 @@ export default class Demon extends Monster
         //var angleRadians = Math.atan2(entity.y - this.y, entity.x - this.x)
         var angleRadians = Phaser.Math.Angle.BetweenPoints(this,this.player);
 
-        if(this.power.getLength()<=1){
+        if(this.power.getLength()<=0){
             this.chargePower()
         }
 
-        this.power.usePower(this.direction == -1 ? this.x-25 : this.x+25 , this.y+5, this.direction==1 ? "left":"right",angleRadians+100)
+        this.power.usePower(this.direction == -1 ? this.x-25 : this.x+25 , this.y+5, this.direction==1 ? "left":"right",angleRadians)
     }
 
     chargePower() {
-        let spe = {damage:10,velocity:300,lifespan:2000};
+        let spe = {damage:25,velocity:300,lifespan:2000,spellType:1};
         this.pow = Powers.giveToMe(this.scene,0,spe);
         this.power.addPower(this.pow)
     }

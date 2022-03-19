@@ -88,7 +88,6 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         this.scene = scene;
         this.powerName = '';
         this.count = 0;
-        this.tracking = true;
     }
 
     static giveToMe(scene, index, specificity) {
@@ -163,7 +162,6 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
 
         obj.effect.applyEffect(obj2)
         // todo crée une fonction qui retourne un vecteur dans un fichier tools.js
-
         let vec = new Phaser.Math.Vector2(200, 200).normalize().scale(400 + obj.damage)
 
         obj2.incur(obj2, obj.damage, vec)
