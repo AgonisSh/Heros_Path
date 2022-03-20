@@ -12,6 +12,7 @@ export default class Game extends Phaser.Scene{
         this.score=0
         this.scoreDiv = document.createElement("div");
 
+
     }
 
     /**
@@ -94,9 +95,11 @@ export default class Game extends Phaser.Scene{
 
     create ()
     {
+
         this.loadMap();
         this.loadMusic();
         this.loadSound();
+
 
         // bonus ;)
         this.input.setDefaultCursor('url(https://cur.cursors-4u.net/games/gam-14/gam1340.cur),pointer');

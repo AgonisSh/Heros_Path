@@ -2,7 +2,7 @@ export default class GameUI extends Phaser.Scene {
 
     constructor ()
     {
-        super({ key: 'UIScene', active: true });
+        super('GameUI');
         this.countPowers=0;
     }
 

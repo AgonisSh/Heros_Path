@@ -1,5 +1,7 @@
 import 'phaser';
 import lesAnimations from '../animations/animations';
+import Menu from "./Menu";
+
 
 export default class BootScene extends Phaser.Scene{
     constructor() {
@@ -28,7 +30,7 @@ export default class BootScene extends Phaser.Scene{
         // Prepare les animations et quand pret lance la scene game
         this.load.on('complete', () => {
             lesAnimations(this);
-            this.scene.start('Game');
+            this.scene.start('Menu');
         });
 
     }
@@ -41,7 +43,10 @@ export default class BootScene extends Phaser.Scene{
         // le sprite pour l'animation du démon
         this.load.atlas('demon', 'assets/img/animations/demon.png', 'assets/img/animations/demon.json')
 
-
+        this.load.image('title','assets/img/title.png',100,100);
+        this.load.image('start-button','assets/img/start-button.png',20,20);
+        
+        
         this.load.image('fireball', 'assets/img/fireball.png', 10, 10);
         this.load.image('freezer', 'assets/img/freezer.png', 10, 10);
         this.load.image('astralInfusion', 'assets/img/astralInfusion.png', 10, 10);
