@@ -12,7 +12,6 @@ export default class Game extends Phaser.Scene{
       
         this.score=0
         this.scoreDiv = document.createElement("div");
-
     }
 
     loadMap(){
@@ -127,53 +126,10 @@ export default class Game extends Phaser.Scene{
         this.entities.push(new Ogre(this,12000,700));
         //this.entities.push(new Ogre(this,12500,700));
         this.entities.push(new Demon(this,14500,900));
-
-        this.createMenu();
-    }
-
-    createMenu()
-    {
-        this.menuBackground = this.add.rectangle(0, 0, this.width, this.height, 0xbbbbbb, 0.5);
-        this.menuTitle = this.add.text("Pause");
-        this.menuQuit = this.add.text("Continue");
-        this.children.bringToTop(this.menuBackground);
-        this.children.bringToTop(this.menuTitle);
-        this.children.bringToTop(this.menuQuit);
-        this.menuQuit.setInteractive();
-        this.menuQuit.on("pointerup", () => {
-            this.hideMenu();
-        });
-        this.keyEsc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        this.hideMenu();
-    }
-
-    showMenu()
-    {
-        console.log("showMenu");
-        this.scene.pause();
-        this.menuBackground.visible = true;
-        this.menuTitle.visible = true;
-        this.menuQuit.visible = true;
-        this.scene.bringToTop(this.menuBackground);
-        this.scene.bringToTop(this.menuTitle);
-        this.scene.bringToTop(this.menuQuit);
-    }
-
-    hideMenu()
-    {
-        console.log("hideMenu");
-        this.scene.run();
-        this.menuBackground.visible = false;
-        this.menuTitle.visible = false;
-        this.menuQuit.visible = false;
     }
 
     update()
     {
-        if (this.keyEsc.isDown) {
-            this.showMenu();
-        }
-
         if(this.player.isAlive==false){
             this.restart2();
         }
