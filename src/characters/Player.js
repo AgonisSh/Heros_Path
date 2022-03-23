@@ -1,5 +1,5 @@
-import Powers from "./Powers";
-import HealthBar from "./HealthBar";
+import Powers from "../items/Powers";
+import HealthBar from "../utils/HealthBar"
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, animation, speed) {
@@ -25,7 +25,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
 
         this.isAlive;
-        this.target = new Phaser.Math.Vector2(); // ???
+        //this.target = new Phaser.Math.Vector2();
         this.speed = speed;
         this.side = "right";
 
@@ -49,6 +49,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.start();
 
+        this.scene.physics.add.collider(this, this.power.children, this.power.handlePowerCollision);
+
+
     }
 
     start() {
@@ -68,22 +71,33 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    /**
+     * Après avoir ramasser un pouvoir, selon la quantité celui ci est chargé dans 'pouvoirs' (groupe).
+     * @param power
+     * @param quantity
+     */
     collectPower(power, quantity) {
 
         power.x = this.x;
         power.y = this.y;
 
+        // todo add loop
         this.updatePower(power);
 
     }
 
     update() {
         // update health bar position
+        // todo : check follow concept phaser 3 => instead of manually update the coordinate
         this.health.follow(this.x - 45, this.y - 50);
 
+        // Condition used for the vector's effect -> see : incur method.
         if (this.onHit) {
             return
         }
+
+        // rare
+        if(this.health.value <= 0) this.kill()
 
         this.isJumping();
 
@@ -107,7 +121,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.scene.jump.play();
         }
 
-        if (this.scene.input.keyboard.checkDown(this.scene.cursors.shift, 150)) { // delay of 150ms  | && this.power.getLength()!=0
+        if (this.scene.input.keyboard.checkDown(this.scene.cursors.shift, 150)) { // delay of 150ms
             this.usePower();
         }
 
@@ -120,8 +134,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     preUpdate(t, dt) {
         super.preUpdate(t, dt)
 
-        // Lorsque un mob inflige du dégat à un joueur, le joueur bénéficie de 3s d'invicibilité.
-
+        // When the monster deal damage to the player then the player gain 3s of invincibility
         if (this.onHit) {
             this.damageTime += dt
             if (this.damageTime >= 250) {
@@ -141,51 +154,75 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+    /**
+     * this action active the swordHitbox to deal damage to monster
+     */
     attack(){
         // Joue une animation
         this.setVelocityX(0)
 
-        this.swordHitBox.x = this.side == "left" ? this.x - this.width * 1.10 : this.x + this.width *  1.10
-        this.swordHitBox.y = this.y + this.height * 0.5
+        let x = this.side == "left" ? this.x - this.width * 1.10 : this.x + this.width *  1.10
+        let y = this.y + this.height * 0.5
+
+        this.swordHitBox.x = x
+        this.swordHitBox.y = y
 
         this.swordHitBox.body.enable = true
         this.scene.physics.world.add(this.swordHitBox.body)
         this.swordHitBox.setAlpha(0.5)
 
-        // todo Nulle à changer plus tard ...
+        // Rotate the sword
+        /*this.anims.create({
+            key: "slash",
+            frames: this.anims.generateFrameNumbers("slash", {
+                start: 0,
+                end: 4
+            }),
+            frameRate: 2,
+            repeat: 0
+        });*/
+
+
+
+        // todo use something else
         setTimeout(()=>{
             this.swordHitBox.body.enable = false
             this.scene.physics.world.remove(this.swordHitBox.body)
             this.swordHitBox.setAlpha(0)
         }, 50);
-
-
     }
 
+    /**
+     * When the player get hit by something
+     * @param player
+     * @param dmg
+     * @param vector used to simulate a "push"
+     */
+    incur(player,dmg, vector) {
 
-    sayHello() {
-        console.log("Hello I'm the legendary hero !, ...");
-    }
-
-    incur(dmg, vector) {
-
-        console.log("DEBUG : le joueur a subit : ", dmg, " dmg");
-        this.setTint(0xff0000)
-
-        this.isInvicible = true;
-        this.alpha = 0.5;
-        this.onHit = true;
-
-        if (dmg > 50) {
-            this.scene.hightHit.play()
-        } else {
-            this.scene.hit.play()
+        if(this.isInvicible){
+            return
         }
 
-        this.setVelocity(vector.x, vector.y);
+        // opacity
+        player.setTint(0xff0000)
 
-        if (this.health.decrease(dmg)) {
-            this.kill();
+        player.isInvicible = true;
+        player.alpha = 0.5;
+        player.onHit = true;
+
+        if (dmg > 50) {
+            player.scene.hightHit.play()
+        } else {
+            player.scene.hit.play()
+        }
+
+        if(vector){
+            player.setVelocity(vector.x, vector.y);
+        }
+
+        if (player.health.decrease(dmg)) {
+            player.kill();
         }
     }
 
@@ -205,15 +242,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
         console.log(`${this.power.powerName} !`)
 
-        this.power.usePower(this.x, this.y, this.side);
+        this.power.usePower(this.side == "right" ? this.x+25 : this.x-25 , this.y, this.side);
 
         // Update the UI (power part)
         this.scene.events.emit('usePower', this.power.count);
-
     }
 
     win() {
         alert("Felicitation vous avez \n" + this.scene.score + " points ")
-        this.die();
+        this.kill();
     }
 }

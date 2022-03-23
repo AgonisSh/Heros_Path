@@ -21,6 +21,10 @@ export default class HealthBar {
         this.p = 76 / this._max;
     }
 
+    get value(){
+        return this._value;
+    }
+
     decrease (amount){
         this._value -= amount;
 
