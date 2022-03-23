@@ -65,10 +65,10 @@ export default class GameUI extends Phaser.Scene {
         this.menuOptions.setTexture("menu_options");
         this.menuQuit = this.add.image(width / 2, height / 2 + height / 10 * 1.5, "");
         this.menuQuit.setTexture("menu_quit");
-        this.menuTitle.setScale(1.5, 1.5);
-        this.menuResume.setScale(1, 1);
-        this.menuOptions.setScale(1, 1);
-        this.menuQuit.setScale(1, 1);
+        this.menuTitle.setScale(0.8, 0.8);
+        this.menuResume.setScale(0.3, 0.3);
+        this.menuOptions.setScale(0.3, 0.3);
+        this.menuQuit.setScale(0.3, 0.3);
 
         this.children.bringToTop(this.menuBackground);
         this.children.bringToTop(this.menuTitle);
@@ -79,13 +79,31 @@ export default class GameUI extends Phaser.Scene {
         this.menuResume.on("pointerup", () => {
             this.hideMenu();
         });
+        this.menuResume.on("pointerover", (pointer) => {
+            this.menuResume.setTexture("menu_resume_hover");
+        });
+        this.menuResume.on("pointerout", (pointer) => {
+            this.menuResume.setTexture("menu_resume");
+        });
         this.menuOptions.setInteractive();
         this.menuOptions.on("pointerup", () => {
             this.hideMenu();
         });
+        this.menuOptions.on("pointerover", (pointer) => {
+            this.menuOptions.setTexture("menu_options_hover");
+        });
+        this.menuOptions.on("pointerout", (pointer) => {
+            this.menuOptions.setTexture("menu_options");
+        });
         this.menuQuit.setInteractive();
         this.menuQuit.on("pointerup", () => {
             this.hideMenu();
+        });
+        this.menuQuit.on("pointerover", (pointer) => {
+            this.menuQuit.setTexture("menu_quit_hover");
+        });
+        this.menuQuit.on("pointerout", (pointer) => {
+            this.menuQuit.setTexture("menu_quit");
         });
         this.keyEsc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         this.hideMenu();
