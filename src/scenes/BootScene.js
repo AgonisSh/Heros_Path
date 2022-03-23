@@ -59,6 +59,12 @@ export default class BootScene extends Phaser.Scene{
         this.load.image('getsugaTensho', 'assets/img/getsugaTensho.png');
         this.load.image('coins', 'assets/img/coin.png');
 
+
+        this.load.image("menu_title", "assets/img/pause_title.png");
+        this.load.image("menu_resume", "assets/img/resume_button.png");
+        this.load.image("menu_options", "assets/img/options_button.png");
+        this.load.image("menu_quit", "assets/img/quit_button.png");
+
         // MAP1 avec les tiles:
         this.load.image('tiles', 'assets/tiles/FreeCuteTileset/Tileset.png');
         this.load.tilemapTiledJSON('map1', 'assets/map/map1.json');
