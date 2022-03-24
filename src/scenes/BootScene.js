@@ -40,8 +40,10 @@ export default class BootScene extends Phaser.Scene{
         this.load.atlas('player', 'assets/img/animations/player.png', 'assets/img/animations/player.json');
         // Le sprite pour l'animation de l'ogre
         this.load.atlas('ogre', 'assets/img/animations/ogre.png', 'assets/img/animations/ogre.json');
-        // le sprite pour l'animation du démon
+        // Le sprite pour l'animation du démon
         this.load.atlas('demon', 'assets/img/animations/demon.png', 'assets/img/animations/demon.json')
+        // Le sprite pour l'animation du lizard
+        this.load.atlas('lizard', 'assets/img/animations/lizard.png', 'assets/img/animations/lizard.json')
 
         this.load.image('title','assets/img/title.png',100,100);
         this.load.image('start-button','assets/img/start-button.png',20,20);

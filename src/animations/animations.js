@@ -100,7 +100,8 @@ export default function lesAnimations(scene) {
         repeat: -1
     });
 
-    //-----
+    //  -----------------------
+    // DEMON ANIMATION
 
     scene.anims.create({
         key: 'idleRDemon',
@@ -146,6 +147,59 @@ export default function lesAnimations(scene) {
             { key: 'demon', frame:"demon_run_anim_f1G.png" },
             { key: 'demon', frame:"demon_run_anim_f2G.png" },
             { key: 'demon', frame:"demon_run_anim_f3G.png" },
+        ],
+        frameRate: 16,
+        repeat: -1
+    });
+
+
+        // ------------------------
+        // LIZARD ANIMATION
+
+    scene.anims.create({
+        key: 'idleRlizard',
+        frames: [
+            { key: 'lizard', frame:"lizard_f_idle_anim_f0.png" },
+            { key: 'lizard', frame:"lizard_f_idle_anim_f1.png" },
+            { key: 'lizard', frame:"lizard_f_idle_anim_f2.png" },
+            { key: 'lizard', frame:"lizard_f_idle_anim_f3.png" },
+        ],
+        frameRate: 6,
+        repeat: -1
+    });
+
+
+    scene.anims.create({
+        key: 'idleLlizard',
+        frames: [
+            { key: 'lizard', frame:"lizard_f_idle_anim_f0G.png" },
+            { key: 'lizard', frame:"lizard_f_idle_anim_f1G.png" },
+            { key: 'lizard', frame:"lizard_f_idle_anim_f2G.png" },
+            { key: 'lizard', frame:"lizard_f_idle_anim_f3G.png" },
+        ],
+        frameRate: 6,
+        repeat: -1
+    });
+
+    scene.anims.create({
+        key: 'runRlizard',
+        frames: [
+            { key: 'lizard', frame:"lizard_f_run_anim_f0.png" },
+            { key: 'lizard', frame:"lizard_f_run_anim_f1.png" },
+            { key: 'lizard', frame:"lizard_f_run_anim_f2.png" },
+            { key: 'lizard', frame:"lizard_f_run_anim_f3.png" },
+        ],
+        frameRate: 16,
+        repeat: -1
+    });
+
+    scene.anims.create({
+        key: 'runLlizard',
+        frames: [
+            { key: 'lizard', frame:"lizard_f_run_anim_f0G.png" },
+            { key: 'lizard', frame:"lizard_f_run_anim_f1G.png" },
+            { key: 'lizard', frame:"lizard_f_run_anim_f2G.png" },
+            { key: 'lizard', frame:"lizard_f_run_anim_f3G.png" },
         ],
         frameRate: 16,
         repeat: -1

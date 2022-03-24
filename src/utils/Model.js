@@ -15,7 +15,7 @@ var powersList=[
 
  // Position of the monsters for the first map
  var monstersMap1 = [
-     {id: 0, type: "ogre", x: 700, y: 700},
+     {id: 0, type: "lizard", x: 700, y: 700},
      {id: 1, type: "ogre", x: 1350, y: 700},
      {id: 2, type: "ogre", x: 3000, y: 700},
      {id: 3, type: "demon", x: 6000, y: 800},
