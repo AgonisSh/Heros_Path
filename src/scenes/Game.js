@@ -2,7 +2,9 @@ import 'phaser';
 import Player from "../characters/Player";
 import Ogre from "../enemies/Ogre";
 import Demon from "../enemies/Demon"
+import Lizard from "../enemies/Lizard"
 import Powers from "../items/Powers";
+import {monstersMap1} from "../utils/Model";
 
 
 
@@ -142,7 +144,7 @@ export default class Game extends Phaser.Scene{
         // todo : Utiliser un group pour les entités.
         this.monsters = this.add.group();
         this.monsters.enableBody = true;
-        this.monsters.add(new Ogre(this,700,700));
+        this.monsters.add(new Lizard(this,700,700));
         this.monsters.add(new Ogre(this,3000,700));
         this.monsters.add(new Ogre(this,1350,700));
         this.monsters.add(new Demon(this,6000,800));
@@ -151,6 +153,10 @@ export default class Game extends Phaser.Scene{
         this.monsters.add(new Ogre(this,12000,700));
         //this.entities.push(new Ogre(this,12500,700));
         this.monsters.add(new Demon(this,14500,900));
+
+
+
+
     }
 
     update()
