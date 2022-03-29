@@ -17,10 +17,10 @@ export default class GameUI extends Phaser.Scene {
         let powerInfo = this.add.text(width*0.015, height*0.10-25, 'Power:',{ fontFamily: 'Arial', fontSize: 24, color: '#00ff00' })
         this.powerQuantity= this.add.text(width*0.10-25, height*0.10-25,this.countPowers,{ fontFamily: 'Arial', fontSize: 64, color: '#00ff00' })
 
-        this.game = this.scene.get('Game')
+        this.gameScene = this.scene.get('Game')
 
         // Event to capture the new power
-        this.game.events.on('addPower', function (imageName,qt) {
+        this.gameScene.events.on('addPower', function (imageName,qt) {
             this.powerImage.setTexture(imageName)            
             // Dimension de l'image.
             this.powerImage.setScale(0.10,0.10)
@@ -28,7 +28,7 @@ export default class GameUI extends Phaser.Scene {
             this.powerQuantity.setText(this.countPowers)
         }, this);
 
-        this.game.events.on('usePower', function (qt) {
+        this.gameScene.events.on('usePower', function (qt) {
 
             this.countPowers=qt
 
@@ -40,7 +40,7 @@ export default class GameUI extends Phaser.Scene {
             this.powerImage.setScale(0.10,0.10)
         }, this);
 
-        this.game.events.on('restart',()=>{
+        this.gameScene.events.on('restart',()=>{
             this.countPowers=0
             this.scene.restart()
         }, this);
@@ -97,7 +97,8 @@ export default class GameUI extends Phaser.Scene {
         });
         this.menuQuit.setInteractive();
         this.menuQuit.on("pointerup", () => {
-            this.hideMenu();
+            //this.hideMenu();
+            this.scene.start('Menu');
         });
         this.menuQuit.on("pointerover", (pointer) => {
             this.menuQuit.setTexture("menu_quit_hover");
@@ -113,7 +114,7 @@ export default class GameUI extends Phaser.Scene {
     showMenu()
     {
         console.log("showMenu");
-        this.game.scene.pause();
+        this.gameScene.scene.pause();
         this.menuShown = true;
         this.menuBackground.visible = true;
         this.menuTitle.visible = true;
@@ -130,7 +131,7 @@ export default class GameUI extends Phaser.Scene {
     hideMenu()
     {
         console.log("hideMenu");
-        this.game.scene.resume('Game');
+        this.gameScene.scene.resume('Game');
         this.menuShown = false;
         this.menuBackground.visible = false;
         this.menuTitle.visible = false;

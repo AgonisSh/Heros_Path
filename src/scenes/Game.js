@@ -5,6 +5,7 @@ import Demon from "../enemies/Demon"
 import Lizard from "../enemies/Lizard"
 import Powers from "../items/Powers";
 import {monstersMap1} from "../utils/Model";
+import Chest from '../items/Chest';
 
 
 
@@ -81,15 +82,7 @@ export default class Game extends Phaser.Scene{
         this.pickCoin.play();
         coins.disableBody(true, true);
         this.score += 10;
-        let quantity = 1 // for now ...
-
-        let power = Powers.giveToMe(this,0,null);
-        console.log("Power test : ",power.name);
-        this.player.collectPower(power,quantity);
-
-
-        this.events.emit('addPower', power.name, this.player.power.count);
-
+        
         /**** ** ** */
         this.scoreDiv.innerHTML = 'Score: ' + this.score;
     }
@@ -99,9 +92,6 @@ export default class Game extends Phaser.Scene{
         this.loadMap();
         this.loadMusic();
         this.loadSound();
-
-        // bonus ;)
-        this.input.setDefaultCursor('url(https://cur.cursors-4u.net/games/gam-14/gam1340.cur),pointer');
 
         // Les touches du clavier
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -153,10 +143,31 @@ export default class Game extends Phaser.Scene{
         this.monsters.add(new Ogre(this,12000,700));
         //this.entities.push(new Ogre(this,12500,700));
         this.monsters.add(new Demon(this,14500,900));
+        
+        this.chests = this.physics.add.group({
+            classType: Chest,
+            key: 'chest',
+            repeat: 14,
+            setXY: { x: 640, y: 100, stepX: 2000 }
+        });
 
+        this.physics.add.overlap(this.chests, this.player,this.openChest, null, this); // Collison entre le joueur et le mob.
 
+    }
 
+    /**
+     * 
+     * @param {*} obj player
+     * @param {*} obj2 chest
+     */
+     openChest(obj, obj2) {
+        let pow = Powers.giveToMe(this,Powers.getRandomPower(),null)
 
+        obj.collectPower(pow,1)
+
+        this.events.emit('addPower', pow.name, obj.power.count);
+
+        obj2.destroy()
     }
 
     update()
@@ -190,7 +201,6 @@ export default class Game extends Phaser.Scene{
         this.score = 0;
         this.scene.restart();
         this.events.emit('restart');
-
     }
 
     endGame() {

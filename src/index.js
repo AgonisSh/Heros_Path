@@ -8,6 +8,7 @@ import Menu from "./scenes/Menu";
 const config =  {
     type: Phaser.AUTO,
     pixelArt: true,
+    backgroundColor: '#000000',
     physics: {
         default: 'arcade',
         arcade: {

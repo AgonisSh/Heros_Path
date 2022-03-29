@@ -101,6 +101,35 @@ export default class Powers extends Phaser.Physics.Arcade.Group {
         return pow
     }
 
+    //https://www.geeksforgeeks.org/random-number-generator-in-arbitrary-probability-distribution-fashion/
+    static getRandomPower() {
+
+        var total = 0.0
+
+        var probas = []
+
+        for (let i = 0; i < powersList.length; i++) {
+            total += powersList[i].probability
+            probas[i] = {prob: total, index: i}
+            console.log("prob ${i}", probas[i])
+        }
+
+        console.log("total")
+        probas.forEach(el => console.log(el.prob))
+
+        const rand = Phaser.Math.FloatBetween(0, 1);
+
+        console.log("rand", rand)
+
+        var closest = probas.reduce(function (prev, curr) {
+            return (Math.abs(curr.prob - rand) < Math.abs(prev.prob - rand) ? curr : prev);
+        });
+
+
+        return closest.index
+
+    }
+
     addPower(pow) {
         this.add(pow);
         this.powerName = pow.name

@@ -10,7 +10,6 @@ export default class BootScene extends Phaser.Scene{
 
     preload ()
     {
-
         this.loadRessources();
 
         // Barre de chargement
@@ -33,9 +32,12 @@ export default class BootScene extends Phaser.Scene{
             this.scene.start('Menu');
         });
 
+
     }
 
     loadRessources() {
+        this.input.setDefaultCursor('url(https://cur.cursors-4u.net/games/gam-14/gam1340.cur),pointer');
+
         // Le sprite pour l'animation du player
         this.load.atlas('player', 'assets/img/animations/player.png', 'assets/img/animations/player.json');
         // Le sprite pour l'animation de l'ogre
@@ -44,18 +46,14 @@ export default class BootScene extends Phaser.Scene{
         this.load.atlas('demon', 'assets/img/animations/demon.png', 'assets/img/animations/demon.json')
         // Le sprite pour l'animation du lizard
         this.load.atlas('lizard', 'assets/img/animations/lizard.png', 'assets/img/animations/lizard.json')
-
-        this.load.image('title','assets/img/title.png',100,100);
-        this.load.image('start-button','assets/img/start-button.png',20,20);
         
-        
+        this.load.image('chest', 'assets/img/diamond.png', 10, 10);
         this.load.image('fireball', 'assets/img/fireball.png', 10, 10);
         this.load.image('freezer', 'assets/img/freezer.png', 10, 10);
         this.load.image('astralInfusion', 'assets/img/astralInfusion.png', 10, 10);
         this.load.image('ghost', 'assets/img/ghost.png', 10, 10);
 
         this.load.image('sword', 'assets/img/sword.png', 10, 10);
-
 
         this.load.image('diamants', 'assets/img/diamond.png');
         this.load.image('getsugaTensho', 'assets/img/getsugaTensho.png');

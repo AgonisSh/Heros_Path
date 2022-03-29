@@ -17,7 +17,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.health = new HealthBar(this.scene, this.x, this.y);
         this.health.value = 100;
 
-        this.setScale(1.6); // Pour rétrécir le sprite il faut type sprite
+        this.setScale(1.6); 
         this.setCollideWorldBounds(true);
 
         this.setBounce(0.2);
@@ -25,7 +25,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
 
         this.isAlive;
-        //this.target = new Phaser.Math.Vector2();
         this.speed = speed;
         this.side = "right";
 
@@ -36,6 +35,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.damageTime = 0;
         this.invincibilityTime = 0;
 
+        this.enableSword();
+
+        this.start();
+
+        this.scene.physics.add.collider(this, this.power.children, this.power.handlePowerCollision);
+
+    }
+
+    
+
+    enableSword(){
         // Coup d'épee
         // Crée une hitbox 'dynamic', qui afflige des dégats aux monstres lorsque la touche 'espace' est appuyé
         this.swordHitBox = this.scene.add.rectangle(0,0,this.width*2,this.height*2,0xffffff,0.4) // Dynamic body
@@ -46,12 +56,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.world.remove(this.swordHitBox.body)
 
         this.swordHitBox.body.setAllowGravity(false)
-
-        this.start();
-
-        this.scene.physics.add.collider(this, this.power.children, this.power.handlePowerCollision);
-
-
     }
 
     start() {

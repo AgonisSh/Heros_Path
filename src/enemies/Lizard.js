@@ -14,8 +14,8 @@ export default class Lizard extends Monster
         this.direction = 1;		// la direction du mob. 1 = droite, -1 = gauche
         this.idle = false;
         this.prevX = -1;
-        this.health.value = 50;
-        this.speed=100;
+        this.health.value = 25;
+        this.speed=400;
     }
 
     update()
