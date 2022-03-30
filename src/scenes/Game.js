@@ -23,14 +23,14 @@ export default class Game extends Phaser.Scene{
      */
     loadMap(){
         // Pour créer la map mettre tjrs la taille des tiles avec les différents layer permet de différencier un décor d'un mur par exemple
-        this.map1 = this.make.tilemap({ key: 'map1', tileWidth: 32, tileHeight: 32 });
-        this.tileset = this.map1.addTilesetImage('generic_platformer_tiles', 'tiles');  // Faut mettre nom de la tile dans Tiled
+        this.map = this.make.tilemap({ key: 'map1', tileWidth: 32, tileHeight: 32 });
+        this.tileset = this.map.addTilesetImage('generic_platformer_tiles', 'tiles');  // Faut mettre nom de la tile dans Tiled
 
         //layers :
-        this.layerBackground = this.map1.createLayer("Background",this.tileset, 0, 0);
-        this.layerBackgroundDecors = this.map1.createLayer("BackgroundDecor",this.tileset, 0, 0);
-        this.layerWater = this.map1.createLayer("Water",this.tileset, 0, 0);
-        this.layerGround = this.map1.createLayer("Ground",this.tileset, 0, 0);
+        this.layerBackground = this.map.createLayer("Background",this.tileset, 0, 0);
+        this.layerBackgroundDecors = this.map.createLayer("BackgroundDecor",this.tileset, 0, 0);
+        this.layerWater = this.map.createLayer("Water",this.tileset, 0, 0);
+        this.layerGround = this.map.createLayer("Ground",this.tileset, 0, 0);
         this.layerGround.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
         // Le limite du monde :
         this.physics.world.bounds.width = this.layerBackground.width;
@@ -39,16 +39,17 @@ export default class Game extends Phaser.Scene{
 
     loadMap2(){
         // MAP 2:
-        this.map2 = this.make.tilemap({ key: 'map2', tileWidth: 32, tileHeight: 32 });
-        this.tileset2 = this.map2.addTilesetImage('Castlevania', 'tiles2');
+        this.map = this.make.tilemap({ key: 'map2', tileWidth: 32, tileHeight: 32 });
+        this.tileset = this.map.addTilesetImage('Castlevania', 'tiles2');
 
         // MAP 2
-        this.layerBackground2 = this.map2.createLayer("Background",this.tileset2, 0, 0);
-        this.layerGround2 = this.map2.createLayer("Ground",this.tileset2, 0, 0);
-        this.layerGround2.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
+        this.layerBackground = this.map.createLayer("Background",this.tileset, 0, 0);
+        this.layerGround = this.map.createLayer("Ground",this.tileset, 0, 0);
+        this.layerWater = this.map.createLayer("Water",this.tileset, 0, 0);
+        this.layerGround.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
         // Le limite du monde :
-        this.physics.world.bounds.width = this.layerBackground2.width;
-        this.physics.world.bounds.height = this.layerBackground2.height;
+        this.physics.world.bounds.width = this.layerBackground.width;
+        this.physics.world.bounds.height = this.layerBackground.height;
     }
 
     loadMusic(){
@@ -89,7 +90,7 @@ export default class Game extends Phaser.Scene{
 
     create ()
     {
-        this.loadMap();
+        this.loadMap2();
         this.loadMusic();
         this.loadSound();
 
@@ -116,7 +117,7 @@ export default class Game extends Phaser.Scene{
             child.setBounceY(Phaser.Math.FloatBetween(0.1, 0.3));
         });
 
-        this.cameras.main.setBounds(0, 0, this.map1.widthInPixels, this.map1.heightInPixels);
+        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         // camera qui suit le joueur
         this.cameras.main.startFollow(this.player);
         // Zoom
@@ -235,5 +236,14 @@ export default class Game extends Phaser.Scene{
 
         alert("Bravo !! vous avez fini le niveau 1 avec un score de : "+this.score);
         this.restart2();
+        this.quit();
+    }
+
+    quit()
+    {
+        this.scene.stop('Game');
+        this.scene.start('Menu');
+        this.scene.stop('GameUI');
+        this.game.sound.stopAll();
     }
 }
