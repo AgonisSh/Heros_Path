@@ -249,7 +249,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.power.usePower(this.side == "right" ? this.x+25 : this.x-25 , this.y, this.side);
 
         // Update the UI (power part)
-        this.scene.events.emit('usePower', this.power.count);
+        this.scene.events.emit('updatePowerUI', this.power.count);
     }
 
     win() {
