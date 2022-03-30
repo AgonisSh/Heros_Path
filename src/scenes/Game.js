@@ -1,12 +1,12 @@
 import 'phaser';
 import Player from "../characters/Player";
-import Ogre from "../enemies/Ogre";
-import Demon from "../enemies/Demon"
-import Lizard from "../enemies/Lizard"
 import Powers from "../items/Powers";
 import {monstersMap1} from "../utils/Model";
 import Chest from '../items/Chest';
-
+import Monster from '../enemies/Monster';
+import Ogre from "../enemies/Ogre";
+import Demon from "../enemies/Demon"
+import Lizard from "../enemies/Lizard"
 
 
 export default class Game extends Phaser.Scene{
@@ -135,8 +135,10 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.zIndex = "65532";
 
         // todo : Utiliser un group pour les entités.
+        
         this.monsters = this.add.group();
         this.monsters.enableBody = true;
+        /*
         this.monsters.add(new Lizard(this,700,700));
         this.monsters.add(new Ogre(this,3000,700));
         this.monsters.add(new Ogre(this,1350,700));
@@ -146,7 +148,24 @@ export default class Game extends Phaser.Scene{
         this.monsters.add(new Ogre(this,12000,700));
         //this.entities.push(new Ogre(this,12500,700));
         this.monsters.add(new Demon(this,14500,900));
-        
+        */
+
+        monstersMap1.forEach(function(e){
+            let monster;
+            switch (e.type){
+                case "lizard" :
+                    monster = new Lizard(this,e.x,e.y)
+                    break
+                case "ogre" :
+                    monster = new Ogre(this,e.x,e.y)
+                    break
+                case "demon" :
+                    monster = new Demon(this,e.x,e.y)
+            }
+            this.monsters.add(monster)
+        },this)
+
+
         this.chests = this.physics.add.group({
             classType: Chest,
             key: 'chest',

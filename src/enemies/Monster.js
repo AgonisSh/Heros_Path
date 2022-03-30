@@ -50,7 +50,6 @@ export default class Monster extends Phaser.Physics.Arcade.Sprite {
         this.damageTime = 0
     }
 
-
     preUpdate(t, dt) {
         super.preUpdate(t, dt)
 

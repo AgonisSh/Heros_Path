@@ -26,23 +26,15 @@ export default class GameUI extends Phaser.Scene {
 
         // Event to capture the new power
         this.gameScene.events.on('updatePowerUI', function (imageName,qt) {
-            /*
-            this.powerImage.setTexture(imageName)            
-            // Dimension de l'image.
-            this.powerImage.setScale(0.10,0.10)
-            this.countPowers=qt
-            this.powerQuantity.setText(this.countPowers)
-            */
-            console.log("ok",this.powersController.children.length)
-
             this.powerImage.setTexture(this.powersController.getFirst() == null ? "" : this.powersController.getFirst().powerName)
-            
             this.powerImage.setScale(0.10,0.10)
             this.powerQuantity.setText(this.powersController.count)
-            
-
         }, this);
 
+        this.gameScene.events.on('restart',function(){
+            this.powerQuantity.setText(0)
+            this.powerImage.setTexture("")
+        },this)
 
         // Menu
         this.createMenu();
