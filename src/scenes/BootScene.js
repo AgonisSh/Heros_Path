@@ -64,9 +64,15 @@ export default class BootScene extends Phaser.Scene{
         this.load.image("menu_resume", "assets/img/resume_button.png");
         this.load.image("menu_options", "assets/img/options_button.png");
         this.load.image("menu_quit", "assets/img/quit_button.png");
+        this.load.image("menu_back", "assets/img/back_button.png");
+        this.load.image("menu_music_on", "assets/img/music_on_button.png");
+        this.load.image("menu_music_off", "assets/img/music_off_button.png");
         this.load.image("menu_resume_hover", "assets/img/resume_button_hover.png");
         this.load.image("menu_options_hover", "assets/img/options_button_hover.png");
         this.load.image("menu_quit_hover", "assets/img/quit_button_hover.png");
+        this.load.image("menu_back_hover", "assets/img/back_button_hover.png");
+        this.load.image("menu_music_on_hover", "assets/img/music_on_button_hover.png");
+        this.load.image("menu_music_off_hover", "assets/img/music_off_button_hover.png");
 
         // MAP1 avec les tiles:
         this.load.image('tiles', 'assets/tiles/FreeCuteTileset/Tileset.png');

@@ -213,5 +213,14 @@ export default class Game extends Phaser.Scene{
 
         alert("Bravo !! vous avez fini le niveau 1 avec un score de : "+this.score);
         this.restart2();
+        this.quit();
+    }
+
+    quit()
+    {
+        this.scene.stop('Game');
+        this.scene.start('Menu');
+        this.scene.stop('GameUI');
+        this.game.sound.stopAll();
     }
 }
