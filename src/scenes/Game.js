@@ -97,6 +97,9 @@ export default class Game extends Phaser.Scene{
         this.cursors = this.input.keyboard.createCursorKeys();
         this.player = new Player(this,100,700,'player','knight_m_idle_anim_f0.png',400);
 
+        this.events.emit('setPowerUI');
+
+
         this.coins = this.physics.add.group({
             key: 'coins',
             repeat: 20,
@@ -165,7 +168,7 @@ export default class Game extends Phaser.Scene{
 
         obj.collectPower(pow,1)
 
-        this.events.emit('addPower', pow.name, obj.power.count);
+        this.events.emit('updatePowerUI', pow.name, obj.power.count);
 
         obj2.destroy()
     }
