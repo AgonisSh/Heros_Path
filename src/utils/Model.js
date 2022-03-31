@@ -20,10 +20,11 @@ var powersList=[
      {id: 1, type: "ogre", x: 1350, y: 700},
      {id: 2, type: "ogre", x: 3000, y: 700},
      {id: 3, type: "demon", x: 6000, y: 800},
-     {id: 4, type: "ogre", x: 11000, y: 700},
-     {id: 5, type: "ogre", x: 11500, y: 700},
-     {id: 6, type: "ogre", x: 12000, y: 700},
-     {id: 7, type: "demon", x: 14500, y: 900}
+     {id: 4, type: "lizard", x: 7000, y: 1100},
+     {id: 5, type: "ogre", x: 11000, y: 700},
+     {id: 6, type: "ogre", x: 11500, y: 700},
+     {id: 7, type: "ogre", x: 12000, y: 700},
+     {id: 8, type: "demon", x: 14500, y: 900}
  ]
 
 

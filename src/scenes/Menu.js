@@ -12,6 +12,9 @@ export class Button extends Phaser.GameObjects.Container
 
         this.text = scene.add.text(x,y,text)
 
+        this.text.setFontSize(30);
+        this.text.setOrigin(0.5);
+
         this.setSize(this.image.width,this.image.height)
         
         
