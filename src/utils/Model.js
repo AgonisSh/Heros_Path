@@ -14,7 +14,8 @@ var powersList=[
 ]
 
  // Position of the monsters for the first map
- var monstersMap1 = [
+ var map1Data = [
+     {mapName: 'map1',tileSetImage: 'generic_platformer_tiles',tiles:'tiles'},
      {id: 0, type: "lizard", x: 700, y: 700},
      {id: 1, type: "ogre", x: 1350, y: 700},
      {id: 2, type: "ogre", x: 3000, y: 700},
@@ -26,8 +27,9 @@ var powersList=[
  ]
 
 
- var monstersMap2 = [
-     {id: 0, type: "ogre", x: 700, y: 700},
+ var map2Data = [
+     {mapName: 'map2',tileSetImage: 'Castlevania',tiles:'tiles2'},
+     {id: 0, type: "ogre", x: 700, y: 600},
      {id: 1, type: "ogre", x: 1350, y: 700},
      {id: 2, type: "ogre", x: 3000, y: 700},
      {id: 3, type: "demon", x: 4000, y: 800},
@@ -35,4 +37,4 @@ var powersList=[
 
 
 export {powersList};
-export {monstersMap1,monstersMap2};
+export {map1Data,map2Data};

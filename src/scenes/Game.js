@@ -1,7 +1,7 @@
 import 'phaser';
 import Player from "../characters/Player";
 import Powers from "../items/Powers";
-import {monstersMap1} from "../utils/Model";
+import {map1Data,map2Data} from "../utils/Model";
 import Chest from '../items/Chest';
 import Monster from '../enemies/Monster';
 import Ogre from "../enemies/Ogre";
@@ -15,37 +15,22 @@ export default class Game extends Phaser.Scene{
       
         this.score=0
         this.scoreDiv = document.createElement("div");
+        this.nextLevel = false;
     }
 
     /**
      * Charge la map
      * La map mesure 32x32 bloc
      */
-    loadMap(){
-        // Pour créer la map mettre tjrs la taille des tiles avec les différents layer permet de différencier un décor d'un mur par exemple
-        this.map = this.make.tilemap({ key: 'map1', tileWidth: 32, tileHeight: 32 });
-        this.tileset = this.map.addTilesetImage('generic_platformer_tiles', 'tiles');  // Faut mettre nom de la tile dans Tiled
-
+    loadMap(data){
+        console.log(data)
+        this.map = this.make.tilemap({ key: data.mapName, tileWidth: 32, tileHeight: 32 });
+        this.tileset = this.map.addTilesetImage(data.tileSetImage,data.tiles);  // Faut mettre nom de la tile dans Tiled
         //layers :
         this.layerBackground = this.map.createLayer("Background",this.tileset, 0, 0);
         this.layerBackgroundDecors = this.map.createLayer("BackgroundDecor",this.tileset, 0, 0);
         this.layerWater = this.map.createLayer("Water",this.tileset, 0, 0);
         this.layerGround = this.map.createLayer("Ground",this.tileset, 0, 0);
-        this.layerGround.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
-        // Le limite du monde :
-        this.physics.world.bounds.width = this.layerBackground.width;
-        this.physics.world.bounds.height = this.layerBackground.height;
-    }
-
-    loadMap2(){
-        // MAP 2:
-        this.map = this.make.tilemap({ key: 'map2', tileWidth: 32, tileHeight: 32 });
-        this.tileset = this.map.addTilesetImage('Castlevania', 'tiles2');
-
-        // MAP 2
-        this.layerBackground = this.map.createLayer("Background",this.tileset, 0, 0);
-        this.layerGround = this.map.createLayer("Ground",this.tileset, 0, 0);
-        this.layerWater = this.map.createLayer("Water",this.tileset, 0, 0);
         this.layerGround.setCollisionByExclusion([-1]);  // on ajoute les collisions au layerGround qui est le sol ici
         // Le limite du monde :
         this.physics.world.bounds.width = this.layerBackground.width;
@@ -90,13 +75,13 @@ export default class Game extends Phaser.Scene{
 
     create ()
     {
-        this.loadMap2();
+        this.loadMap(this.nextLevel ? map2Data[0] : map1Data[0]);
         this.loadMusic();
         this.loadSound();
 
         // Les touches du clavier
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.player = new Player(this,100,700,'player','knight_m_idle_anim_f0.png',400);
+        this.player = new Player(this,100,600,'player','knight_m_idle_anim_f0.png',400);
 
         this.events.emit('setPowerUI');
 
@@ -135,23 +120,11 @@ export default class Game extends Phaser.Scene{
         this.scoreDiv.style.top = "100px";
         this.scoreDiv.style.zIndex = "65532";
 
-        // todo : Utiliser un group pour les entités.
         
         this.monsters = this.add.group();
         this.monsters.enableBody = true;
-        /*
-        this.monsters.add(new Lizard(this,700,700));
-        this.monsters.add(new Ogre(this,3000,700));
-        this.monsters.add(new Ogre(this,1350,700));
-        this.monsters.add(new Demon(this,6000,800));
-        this.monsters.add(new Ogre(this,11000,700));
-        this.monsters.add(new Ogre(this,11500,700));
-        this.monsters.add(new Ogre(this,12000,700));
-        //this.entities.push(new Ogre(this,12500,700));
-        this.monsters.add(new Demon(this,14500,900));
-        */
-
-        monstersMap1.forEach(function(e){
+        let monstersData = this.nextLevel ? map2Data : map1Data
+        monstersData.forEach(function(e){
             let monster;
             switch (e.type){
                 case "lizard" :
@@ -162,8 +135,9 @@ export default class Game extends Phaser.Scene{
                     break
                 case "demon" :
                     monster = new Demon(this,e.x,e.y)
+                    break
             }
-            this.monsters.add(monster)
+            if(monster) this.monsters.add(monster)
         },this)
 
 
@@ -233,10 +207,10 @@ export default class Game extends Phaser.Scene{
             loop: false
         })
         this.player.kill();
-
         alert("Bravo !! vous avez fini le niveau 1 avec un score de : "+this.score);
+        this.nextLevel = this.nextLevel ? false : true;
         this.restart2();
-        this.quit();
+        if(!(this.nextLevel)) this.quit();
     }
 
     quit()
